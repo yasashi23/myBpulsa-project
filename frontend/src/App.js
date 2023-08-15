@@ -1,58 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
-import {useState,useEffect} from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import Cookies from 'js-cookie';
 
 
 
 
-function App() {
-  const [cookieValue, setCookieValue] = useState('');
 
-  useEffect(() => {
-    // Membaca nilai cookie saat komponen dimuat
-    const storedCookieValue = Cookies.get('myCookie');
-    if (storedCookieValue) {
-      setCookieValue(storedCookieValue);
-    }
-  }, []);
-  const handleSetCookie = () => {
-    // Mengatur cookie dengan nilai baru
-    Cookies.set('myCookie', cookieValue, { expires: 7 }); // Cookie berlaku selama 7 hari
+
+export default function App() {
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+
+  const [nama,setNama]= useState('')
+  const [num,setNum] = useState('')
+
+  const handleChangeNama = (e) => {
+    let dat = e.target.value
+    setNama(dat)
+
+  };
+const handleChangeNum = (e) =>{
+  let dat = e.target.value
+  setNum(dat)
+}
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+      axios.post('/api/submit-data/', {
+        nama,num
+      }, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error('ini error',error)
+      });
+
   };
 
 
 
-  const handlePost = async () =>{
-    Cookies.set('myCookie', cookieValue, { expires: 7 });
-    try{
-      const headers = {
-        'Content-Type': 'application/json',
-        'X-CSRFToken':cookieValue
-      }
-      const res = await axios.post(
-        'http://localhost:8000/test/',
-        {judul:'udin'},{headers}
-      )
-      console.log(res.data)
-    }catch(err){
-      console.error(err)
-    }
-  }
 
   return (
     <div>
-      <h1>Contoh Pengaturan Cookie dengan React</h1>
-      <input
-        type="text"
-        value={cookieValue}
-        onChange={(e) => setCookieValue(e.target.value)}
-      />
-      <button onClick={handlePost}>Set Cookie</button>
-      {/* <p>Nilai Cookie: {cookieValue}</p> */}
-    </div>
-  );
-}
+    <center>
 
-export default App;
+      <h1>HELLO WORDL</h1>
+
+      <form onSubmit={handleSubmit}>
+
+
+          <label htmlFor="nama">Namamu</label>
+         <input type="text" name="nama" value={nama} onChange={handleChangeNama} />
+              
+          <label htmlFor="nomor">No.Hpmu</label>
+         <input type="number" name="nomor" value={num} onChange={handleChangeNum} />
+
+          <button type="submit">kirimkan</button>
+
+      </form>
+      </center>
+    </div>
+  )
+}
