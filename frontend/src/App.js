@@ -26,11 +26,12 @@ const handleChangeNum = (e) =>{
   const handleSubmit = (event) => {
     event.preventDefault();
 
-      axios.post('/api/submit-data/', {
-        nama,num
+      axios.post('http://localhost:8000', {
+        employee:nama,
+        department:num
       }, {
         headers: {
-          'X-CSRFToken': csrfToken,
+          'Content-Type':'application/json'
         }
       })
       .then(response => {
@@ -58,7 +59,7 @@ const handleChangeNum = (e) =>{
          <input type="text" name="nama" value={nama} onChange={handleChangeNama} />
               
           <label htmlFor="nomor">No.Hpmu</label>
-         <input type="number" name="nomor" value={num} onChange={handleChangeNum} />
+         <input type="text" name="nomor" value={num} onChange={handleChangeNum} />
 
           <button type="submit">kirimkan</button>
 
