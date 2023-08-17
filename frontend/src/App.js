@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
-
+import InputPulsa from './component/InputPulsa';
+import './App.css'
+import CarouselQuota from './component/QuotaSelect/CarouselQuota';
 
 
 
@@ -20,6 +21,10 @@ export default function App() {
 const handleChangeNum = (e) =>{
   let dat = e.target.value
   setNum(dat)
+}
+
+const styleAll={
+  width:"800px"
 }
 
 
@@ -47,24 +52,16 @@ const handleChangeNum = (e) =>{
 
 
   return (
-    <div>
     <center>
+      <div style={styleAll} className='container'>
+        <h1>bPulsa</h1>
+        <form onSubmit={handleSubmit}>
 
-      <h1>HELLO WORDL</h1>
+        <InputPulsa/>
+        <CarouselQuota/>
 
-      <form onSubmit={handleSubmit}>
-
-
-          <label htmlFor="nama">Namamu</label>
-         <input type="text" name="nama" value={nama} onChange={handleChangeNama} />
-              
-          <label htmlFor="nomor">No.Hpmu</label>
-         <input type="text" name="nomor" value={num} onChange={handleChangeNum} />
-
-          <button type="submit">kirimkan</button>
-
-      </form>
-      </center>
-    </div>
+        </form>
+      </div>
+    </center>
   )
 }

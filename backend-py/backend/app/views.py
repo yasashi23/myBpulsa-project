@@ -49,3 +49,22 @@ class ReactView(APIView):
             nium.gas(driver,nomor,name,pulsa,pembayaran,total)
             return Response({"pesan":"berhasil"})
         
+
+class ReactToken(APIView):
+    def get(self, request):
+        data_pulsa = [
+            {
+                "pulsa":"10000",
+                "harga":10500
+            },
+            {
+                "pulsa":"15000",
+                "harga":15500
+            },
+            {
+                "pulsa":"20000",
+                "harga":20500
+            }
+        ]
+
+        return Response(data_pulsa)
