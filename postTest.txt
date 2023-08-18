@@ -1,1 +1,39 @@
 curl -X POST -H "Content-Type:application/json" -d '{"nama":"bp","nomorHp":"6285212454896","pulsa":"500.000","harga":"Rp.520.000","pembayaran":"Bank Muamalat"}' http://localhost:8000
+
+#agenlite-app > div:nth-child(2) > div:nth-child(3) > div.c-tab-content > div:nth-child(3) > div > div > div > div:nth-child(1) > div.c-transaction-item__right > div > span
+
+
+.c-panel .u-no-border--all .c-ellipsis //nama kartu
+
+
+.c-transaction-item .c-transaction-item__left span //pulsanya
+
+.c-transaction-item .c-transaction-item__right span //harganya
+
+
+[
+    {
+        "kartu":"Tri",
+        "isiPulsa":[]
+    },
+    {
+        "kartu":"Indosat",
+        "isiPulsa":[]
+    },
+    {
+        "kartu":"Telkomsel",
+        "isiPulsa":[]
+    },
+    {
+        "kartu":"Smartfren",
+        "isiPulsa":[]
+    },
+    {
+        "kartu":"XL",
+        "isiPulsa":[]
+    },
+    {
+        "kartu":"Axis",
+        "isiPulsa":[]
+    }    
+]
