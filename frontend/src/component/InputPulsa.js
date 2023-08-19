@@ -29,7 +29,7 @@ export default function InputPulsa({prefix, dataKartu}) {
     <div>
         <input type="number" name="" id="" placeholder='08XXXXXXXXXX' onChange={(e)=>setCariNo(e.target.value)}/> 
         <br />
-        {iniKartunya}
+        <h1>{iniKartunya}</h1>
     </div>
   )
 }

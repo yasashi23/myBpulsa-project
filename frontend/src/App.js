@@ -17,8 +17,14 @@ export default function App() {
   const [lengthIsiPulsa, setLengthIsiPulsa] = useState([])
   const [dataIsiPulsa, setDataIsiPulsa] = useState([])
 
-  // untuk inputPulsa, dataKartu
+  // untuk inputPulsa
   const [kartuApa, setKartuApa] = useState("kosong")
+
+  //untuk Modalnya
+  const [yangDiPilih,setYangDipilih] = useState({})
+  const [nomorAndKartu, setNomorAndKartu] = useState({})
+
+  // function dataModel()
 
   const linkPulsa = 'http://localhost:8000/dataPulsa/'
   const linkPrefix = 'http://localhost:8000/dataPrefix/'
@@ -34,6 +40,7 @@ export default function App() {
       setDataPulsa(resPulsa.data);
       const resPrefix = await axios.get(linkPrefix);
       setDataPrefix(resPrefix.data);
+      console.log(resPrefix)
       setIsLoading(false)
     } 
     
@@ -92,8 +99,9 @@ const styleAll={
         <form>
         {/* {isLoading ?'' : dataPrefix[0].kartu} */}
         <InputPulsa prefix={dataPrefix} dataKartu={setKartuApa}/>
-        <CarouselQuota pulsa={dataPulsa} kartu={kartuApa}/>
+        <CarouselQuota pulsa={dataPulsa} kartu={kartuApa} pilih={setYangDipilih}/>
         {/* {console.log(kartuApa)} */}
+        {console.log(yangDiPilih)}
         </form>
       </div>
     </center>

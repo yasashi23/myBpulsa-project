@@ -7,8 +7,14 @@ from seleniumnya.Selen import Selen
 from rest_framework.response import Response
 import json
 
-jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
-jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
+
+# pc
+# jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
+# jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
+
+# laptop
+jsonPrefix = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsa = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
 
 with open(jsonPrefix,'r') as file:
     dataPrefix=json.load(file)
@@ -24,8 +30,8 @@ from selenium.webdriver.common.keys import Keys
 
 options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
-service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-# service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
+# service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
+service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
 driver = webdriver.Chrome(service=service,options=options)
 

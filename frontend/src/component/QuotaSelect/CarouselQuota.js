@@ -2,26 +2,43 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import React, { useEffect, useState } from 'react';
 import QuotaSelect from './QuotaSelect';
+import "react-multi-carousel/lib/styles.css";
 
-export default function CarouselQuota({ pulsa, kartu }) {
+export default function CarouselQuota({ pulsa, kartu, pilih }) {
   const [dataPulsanya, setDataPulsanya] = useState([]);
   const [foundIndex, setFoundIndex] = useState(-1);
 
-  // ada ga?
-  const [cekDulu, setCekDulu] =useState(true)
+  
 
   useEffect(() => {
-    setDataPulsanya(pulsa); // Mengupdate dataPulsanya saat pulsa berubah
+    setDataPulsanya(pulsa); 
     const ind = pulsa.findIndex(item => item.kartu.toLowerCase() === kartu.toLowerCase());
     setFoundIndex(ind);
   }, [pulsa, kartu]);
 
-  const responsive = {
-    // ... pengaturan responsif lainnya
-  };
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 3 // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2 // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
+  }
+}
 
   const coba = {
-    border : "solid 1px"
+    // border : "solid 1px",
+    display:"flex",
+    "flexDirection":"column",
+    gap:'30px'
   }
 
   const groupDiv = () =>{
@@ -38,7 +55,7 @@ export default function CarouselQuota({ pulsa, kartu }) {
         group.push(
           <div key={i} style={coba}>
             {(iniIsipulsa).slice(i,i+3).map((item,index) => (
-              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru}/>
+              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} />
               
             ))}
 
@@ -46,8 +63,9 @@ export default function CarouselQuota({ pulsa, kartu }) {
         )
       }
       console.log(group)
+      
+      return group
     }
-    return group
 
   }
 
@@ -63,11 +81,9 @@ export default function CarouselQuota({ pulsa, kartu }) {
         responsive={responsive}
         style={crs}
         swipeable={true}
-        itemClass={'listSlide'}
         showDots={true}
-        sliderClass={"ulStyle"}
       > 
-        udin
+        
       {/* {groupDiv().map((item,index)=>(
         <div>udin</div>
       ))} */}
