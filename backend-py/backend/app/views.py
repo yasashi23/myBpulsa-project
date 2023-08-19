@@ -5,6 +5,16 @@ from . serializer import *
 from seleniumnya.Selen import Selen
 # from seleniumnya.Selen import RunServer
 from rest_framework.response import Response
+import json
+
+jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
+
+with open(jsonPrefix,'r') as file:
+    dataPrefix=json.load(file)
+
+with open(jsonHargaPulsa,'r') as file:
+    dataPulsa=json.load(file)
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -14,8 +24,8 @@ from selenium.webdriver.common.keys import Keys
 
 options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
-# service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
+service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
+# service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
 driver = webdriver.Chrome(service=service,options=options)
 
@@ -54,19 +64,8 @@ class ReactView(APIView):
 
 class ReactToken(APIView):
     def get(self, request):
-        data_pulsa = [
-            {
-                "pulsa":"10000",
-                "harga":10500
-            },
-            {
-                "pulsa":"15000",
-                "harga":15500
-            },
-            {
-                "pulsa":"20000",
-                "harga":20500
-            }
-        ]
-
-        return Response(data_pulsa)
+        return Response(dataPulsa)
+    
+class ReactPrefix(APIView):
+    def get(self, request):
+        return Response(dataPrefix)

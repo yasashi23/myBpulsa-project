@@ -10,11 +10,14 @@
   /* .sliderQuota div{
     width: 120px !important;
   } */
-  .listSlide{
-    /* width: 100% !important; */
-    /* border: 1px solid; */
-  }
-  .ulStyle{
-    margin-bottom: 30px !important;
-  }
+  /* .listSlide{ */
+  /* padding: 20px; */
+    /* text-align: center; */
+    /* flex: 0 0 calc(33.33% - 10px); */
+    /* 3 kotak per baris */
+  /* } */
+  /* .ulStyle{ */
+  /* display: grid !important; */
+    /* grid-template-columns: repeat(3, 1fr) !important; */
+  /* } */
 }

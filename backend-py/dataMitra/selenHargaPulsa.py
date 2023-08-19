@@ -13,8 +13,8 @@ with open(jsonP,'r') as file:
 
 options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
-# service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
+service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
+# service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
 driver = webdriver.Chrome(service=service,options=options)
 # driver.get('https://mitra.bukalapak.com/pulsa/pricelist')
@@ -69,7 +69,6 @@ for jj in elements:
         newDat = {"pulsa":pulsanya,"harga":harganya,"hargaBaru":newPrice}
         print(newDat)
         isiPulsa.append(newDat)
-        data.append(data[ind])
         print(newDat)
         with open(jsonP,'w') as files:
             json.dump(data,files,indent=4)

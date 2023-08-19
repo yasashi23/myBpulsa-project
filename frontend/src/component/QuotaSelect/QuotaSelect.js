@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function QuotaSelect({pulsa,harga}) {
+export default function QuotaSelect({key,pulsak,harga}) {
     const [data,setData] = useState([])
     const kotak = {
         border:"1px solid red",
@@ -18,30 +18,14 @@ export default function QuotaSelect({pulsa,harga}) {
     const ktk = {
         width:'200px'
     }
-
-    useEffect(()=>{
-        axios.get('http://localhost:8000/data/')
-        .then((res)=>setData(res.data))
-        .catch(err=>console.log(err))
-    },[])
-
-
   return (
     <div>
-        <div className="sliderQuota" style={ktk}> 
+
             <div style={kotak}>
-                    <h3>{pulsa}</h3>
-                    <p>Rp.5.000</p>
+                    <h3>{pulsak}</h3>
+                    <p>{harga}</p>
             </div>
-            <div style={kotakCenter}>
-                    <h3>{pulsa}</h3>
-                    <p>Rp.5.000</p>
-            </div>
-            <div style={kotak}>
-                    <h3>{pulsa}</h3>
-                    <p>Rp.5.000</p>
-            </div>
-        </div>
+
 
     </div>
   )
