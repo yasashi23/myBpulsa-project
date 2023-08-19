@@ -4,4 +4,4 @@ from .models import *
 class ReactSerializer(serializers.ModelSerializer):
     class Meta:
         model = React
-        fields = ['nama','nomorHp','pulsa','harga','pembayaran']
+        fields = ['nama','nomor','kartu','nomorWa','pulsa','harga','jam']

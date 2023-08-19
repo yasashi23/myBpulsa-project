@@ -3,6 +3,7 @@ import axios from 'axios'
 import InputPulsa from './component/InputPulsa';
 import './App.css'
 import CarouselQuota from './component/QuotaSelect/CarouselQuota';
+import Modal from './component/Modal';
 
 
 
@@ -12,22 +13,17 @@ export default function App() {
   const [dataPrefix, setDataPrefix] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   
+  const [nomorAndKartu, setNomorAndKartu] = useState({kartu:"kosong",nomor:"kosong",pulsa:"kosong",harga:"kosong",
+  modals:false})
 
-  // untuk carauselnya
-  const [lengthIsiPulsa, setLengthIsiPulsa] = useState([])
-  const [dataIsiPulsa, setDataIsiPulsa] = useState([])
+  
 
-  // untuk inputPulsa
-  const [kartuApa, setKartuApa] = useState("kosong")
-
-  //untuk Modalnya
-  const [yangDiPilih,setYangDipilih] = useState({})
-  const [nomorAndKartu, setNomorAndKartu] = useState({})
+  const [konfirmasi,setKonfirmasi] = useState({nama:"fulan/fulanah", nomorWa:"08XXXXXX"})
 
   // function dataModel()
 
-  const linkPulsa = 'http://localhost:8000/dataPulsa/'
-  const linkPrefix = 'http://localhost:8000/dataPrefix/'
+  const linkPulsa = 'http://192.168.100.17:8000/dataPulsa/'
+  const linkPrefix = 'http://192.168.100.17:8000/dataPrefix/'
 
   useEffect(() => {
     fetchData()
@@ -36,6 +32,7 @@ export default function App() {
 
     const fetchData = async () => {
     try {
+      alert("aman")
       const resPulsa = await axios.get(linkPulsa);
       setDataPulsa(resPulsa.data);
       const resPrefix = await axios.get(linkPrefix);
@@ -45,24 +42,11 @@ export default function App() {
     } 
     
     catch (error) {
-      alert("di catch")
+      alert(`di catch${error}`)
       console.error('Error fetching data:', error);
     }
   };
 
-
-  const [nama,setNama]= useState('')
-  const [num,setNum] = useState('')
-
-  const handleChangeNama = (e) => {
-    let dat = e.target.value
-    setNama(dat)
-
-  };
-const handleChangeNum = (e) =>{
-  let dat = e.target.value
-  setNum(dat)
-}
 
 const styleAll={
   width:"800px"
@@ -89,19 +73,36 @@ const styleAll={
 
   // };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
+    try {
+      const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
+      console.log('Server response:', response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
 
 
   return (
     <center>
       <div style={styleAll} className='container'>
         <h1>bPulsa</h1>
-        <form>
+        <table>
+          <tr>
+            <td>akses disini :  </td>
+            <td>http://192.168.100.17:3000</td>
+          </tr>
+        </table>
+        <form onSubmit={handleSubmit}>
         {/* {isLoading ?'' : dataPrefix[0].kartu} */}
-        <InputPulsa prefix={dataPrefix} dataKartu={setKartuApa}/>
-        <CarouselQuota pulsa={dataPulsa} kartu={kartuApa} pilih={setYangDipilih}/>
+      <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
+        <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
         {/* {console.log(kartuApa)} */}
-        {console.log(yangDiPilih)}
+        {console.log("nomor_kartu",nomorAndKartu)}
+        {console.log("konfirmasi",konfirmasi)}
+        <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi}/>
         </form>
       </div>
     </center>

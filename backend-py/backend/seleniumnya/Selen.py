@@ -19,10 +19,10 @@ milidetik = waktu_sekarang.microsecond // 1000
 
 
 class Selen:
-    def gas(self,drivernya,nomor,name,pulsa,pembayaran,tot):
+    def gas(self,drivernya,nama,nomor,kartu,nomorWa,pulsa,harga,jam):
 
             # cari = drivernya.find_element(By.CSS_SELECTOR,'div[data-testid="chat-list-search"]')
-        link = "https://web.whatsapp.com/send/?phone=%2B"+nomor+"&amp;text&amp;type=phone_number&amp;app_absent=0"
+        link = "https://web.whatsapp.com/send/?phone=%2B"+nomorWa+"&amp;text&amp;type=phone_number&amp;app_absent=0"
 
         try:
             cek = drivernya.find_element(By.CSS_SELECTOR,'a#udinB')
@@ -54,7 +54,7 @@ class Selen:
         chat.click()
         # time.sleep(3)
         # chat.send_keys("*Invoice Pembayaran Bpulsa*")
-        pesan(chat,nomor,name,pulsa,pembayaran,tot)
+        pesan(chat,nama,nomor,kartu,pulsa,harga,jam)
         print(f"Waktu saat ini: {detik} detik {milidetik} mil sukses")
 
 
@@ -67,21 +67,20 @@ class Selen:
         return "berhasil"
 
 
-def pesan(chat,no,name,pulsa,pembayaran,tot):
+def pesan(chat,nama,nomor,kartu,pulsa,harga,jam):
     # chat.click()
-    chat.send_keys("*Invoice Pembayaran Bpulsa*")
+    chat.send_keys(f"Hi *{nama}*, Konfirmasi Pembayaran Dari bPulsa pada Jam {jam}")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
-    chat.send_keys(f"Untuk No {no}")
+    chat.send_keys(f"Nomor: {nomor}")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
-    chat.send_keys(f"A.N: {name}")
+    chat.send_keys(f"Kartu: {kartu}")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
     chat.send_keys(f"Pulsa: {pulsa}")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
-    chat.send_keys(f"Pembayaran: {pembayaran}")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
-    chat.send_keys(f"Total: {tot}")
+    chat.send_keys(f"Jadi, Total yang harus di bayarkan *{harga}*, bayar sebelum ....")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
+    chat.send_keys("Terima kasih")
     chat.send_keys(Keys.SHIFT + Keys.ENTER)
-    chat.send_keys("*bayar sebelum 17 agustus*")
     chat.send_keys(Keys.ENTER)

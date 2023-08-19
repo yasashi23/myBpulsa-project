@@ -9,12 +9,12 @@ import json
 
 
 # pc
-# jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
-# jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
+jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
 
 # laptop
-jsonPrefix = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
-jsonHargaPulsa = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
+# jsonPrefix = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
+# jsonHargaPulsa = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
 
 with open(jsonPrefix,'r') as file:
     dataPrefix=json.load(file)
@@ -30,8 +30,8 @@ from selenium.webdriver.common.keys import Keys
 
 options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
-# service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
+service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
+# service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
 driver = webdriver.Chrome(service=service,options=options)
 
@@ -40,12 +40,7 @@ driver = webdriver.Chrome(service=service,options=options)
 
 class ReactView(APIView):
     def get(self, request):
-        output = [{"nama":output.nama, 
-                    "nomorHp":output.nomorHp,
-                    "pulsa":output.pulsa,
-                    "harga":output.harga,
-                    "pembayaran":output.pembayaran
-                    }
+        output = [{"nama":output.nama,"nomor":output.nomor,"kartu":output.kartu,"nomorWa":output.nomorWa,"pulsa":output.pulsa,"harga":output.harga,"jam":output.jam}
                     for output in React.objects.all()]
         print(output)
         return Response(output)
@@ -58,13 +53,15 @@ class ReactView(APIView):
         
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            nomor=serializer.data['nomorHp']
-            name=serializer.data['nama']
+            kartu=serializer.data['kartu']
+            nomorWa=serializer.data['nomorWa']
+            nomor=serializer.data['nomor']
+            nama=serializer.data['nama']
             pulsa=serializer.data['pulsa']
-            pembayaran=serializer.data['pembayaran']
-            total=serializer.data['harga']
-            # print(serializer.data['department'])
-            nium.gas(driver,nomor,name,pulsa,pembayaran,total)
+            harga=serializer.data['harga']
+            jam=serializer.data['jam']
+            nium.gas(driver,nama,nomor,kartu,nomorWa,pulsa,harga,jam)
+            print(serializer.data)
             return Response({"pesan":"berhasil"})
         
 

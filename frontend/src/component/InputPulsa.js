@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 
-export default function InputPulsa({prefix, dataKartu}) {
+export default function InputPulsa({prefix,noKaSet}) {
   const [cariNo,setCariNo] = useState("")
   const [iniKartunya,setIniKartunya] = useState("")
 
@@ -13,17 +13,17 @@ export default function InputPulsa({prefix, dataKartu}) {
     prefix.forEach(card => {
       if (card.prefixnya.includes(cariNo) || (card.prefixnya.includes(kk) && cariNo.length > 3)) {
         foundCard = card.kartu;
-        dataKartu(`${foundCard}`)
-        setIniKartunya(foundCard);
+        setIniKartunya(foundCard)
+        noKaSet({kartu:`${foundCard}`,nomor:`${cariNo}`,pulsa:"kosong",harga:"kosong",modals:false})
       }else if(cariNo.length < 4){
-        dataKartu("kosong")
+        noKaSet({kartu:"kosong",nomor:`${cariNo}`,pulsa:"kosong",harga:"kosong",modals:false})
         setIniKartunya('')
       }
     });
 
 
 
-  }, [cariNo, prefix]);
+  }, [cariNo, prefix,noKaSet]);
 
   return (
     <div>

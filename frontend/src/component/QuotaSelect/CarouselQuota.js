@@ -12,7 +12,7 @@ export default function CarouselQuota({ pulsa, kartu, pilih }) {
 
   useEffect(() => {
     setDataPulsanya(pulsa); 
-    const ind = pulsa.findIndex(item => item.kartu.toLowerCase() === kartu.toLowerCase());
+    const ind = pulsa.findIndex(item => item.kartu.toLowerCase() === kartu.kartu);
     setFoundIndex(ind);
   }, [pulsa, kartu]);
 
@@ -55,7 +55,7 @@ const responsive = {
         group.push(
           <div key={i} style={coba}>
             {(iniIsipulsa).slice(i,i+3).map((item,index) => (
-              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} />
+              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} kartu={kartu}/>
               
             ))}
 
