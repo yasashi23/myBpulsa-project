@@ -1,16 +1,21 @@
 import React,{useState} from 'react'
 
-import { useNavigate } from 'react-router-dom'
-import Checkout from './Checkout'
+import { Navigate } from "react-router-dom";
+
+
+
 export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,loading}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
-    // const navigate = useNavigate()
+//   const navigate = useNavigate();
 
+    // const handleClick = () => {
+    //     // window.location.href = "/checkout"
+    //     konfirmasiPage(true)
+    //     return <>hahaha</>
+    // }
 
-    
-    // const [konfirmasi,setKonfirmasi] = useState({nama:"kosong",nomorWa:"08"})
     const clickBayar = () =>{
         const date = new Date()
         const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
@@ -138,8 +143,6 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
                 <br />
 
-                {/* {console.log("ini-diMOdals",data)} */}
-
                 {
                 
                 <div style={containerBtn}>
@@ -157,30 +160,10 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
             </div>)
             :
-(<div class="modal-content">
-
-                <div class="modal-header">
-                <h5>Silhkan Cek Whatsapp</h5>
-                </div>
-
-                <div>
-                <h3>{konfirmasi.nama}</h3>
-
-                </div>
-
-
-                <br />
-
-                <div class="modal-body">
-                <h5>Terima kasih</h5>
-                </div>
-
-
-            </div>)
-            
+            <Navigate to="/checkout"/>
             }
 
-
+            {console.log(`kelar = ${!kelar}, loading = ${loading}`)}
             </div>
         </div>
 
