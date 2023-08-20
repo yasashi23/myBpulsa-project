@@ -12,6 +12,8 @@ export default function App() {
   const [dataPulsa, setDataPulsa] = useState([])
   const [dataPrefix, setDataPrefix] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+
+      const [kelar,setKelar] = useState(false)
   
   const [nomorAndKartu, setNomorAndKartu] = useState({kartu:"kosong",nomor:"kosong",pulsa:"kosong",harga:"kosong",
   modals:false})
@@ -32,7 +34,7 @@ export default function App() {
 
     const fetchData = async () => {
     try {
-      alert("aman")
+      // alert("aman")
       const resPulsa = await axios.get(linkPulsa);
       setDataPulsa(resPulsa.data);
       const resPrefix = await axios.get(linkPrefix);
@@ -42,7 +44,7 @@ export default function App() {
     } 
     
     catch (error) {
-      alert(`di catch${error}`)
+      // alert(`di catch${error}`)
       console.error('Error fetching data:', error);
     }
   };
@@ -52,36 +54,18 @@ const styleAll={
   width:"800px"
 }
 
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //     axios.post('http://localhost:8000', {
-  //       employee:nama,
-  //       department:num
-  //     }, {
-  //       headers: {
-  //         'Content-Type':'application/json'
-  //       }
-  //     })
-  //     .then(response => {
-  //       console.log(response)
-  //     })
-  //     .catch(error => {
-  //       console.error('ini error',error)
-  //     });
-
-  // };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+        setKelar(true)
     try {
       const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
+      alert("berhasil")
       console.log('Server response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert("gagal")
     }
+
   };
 
 
@@ -102,7 +86,7 @@ const styleAll={
         {/* {console.log(kartuApa)} */}
         {console.log("nomor_kartu",nomorAndKartu)}
         {console.log("konfirmasi",konfirmasi)}
-        <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi}/>
+        <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar}/>
         </form>
       </div>
     </center>

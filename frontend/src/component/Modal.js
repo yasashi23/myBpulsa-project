@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 
-export default function ({data, setData, konfirmasi, setKonfirmasi}) {
+export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKelar}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
+
+
     
     // const [konfirmasi,setKonfirmasi] = useState({nama:"kosong",nomorWa:"08"})
     const clickBayar = () =>{
@@ -10,6 +12,8 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
         const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
         const noWa = (konfirmasi.nomorWa).slice(1,(konfirmasi.nomorWa).length)
         setKonfirmasi({...konfirmasi,jam:time,nomorWa:`62${noWa}`})
+
+        alert('sudah di klik')
     }
 
     const onOffModals = data.modals
@@ -67,12 +71,17 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
 
   return (
     <div style={fullCont}>
+
+        
         <div class="modal-overlay" style={containerStyle}>
             <div class="modal">
-            <div class="modal-content">
+            
+            
+           {!kelar ?
+            ( <div class="modal-content">
 
                 <div class="modal-header">
-                <h5>{sudah ?"Konfirmasi Pembelian(Via Whatsapp)" :"Sudah Benar?"}</h5>
+                <h5>{sudah ?  "Konfirmasi Pembelian(Via Whatsapp)" :"Sudah Benar?"}</h5>
                 </div>
 
                 {!sudah ?
@@ -81,18 +90,18 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
                 <p>{data.nomor}</p>
                 </div>)
                 :
-                (<table>
+               (<table>
                     <tr>
                         <td>Nama</td>
                         <td><input type="text" placeholder='masukkan nama anda' onChange={(e) => setKonfirmasi({...konfirmasi,nama:e.target.value,...newN})}/></td>
                     </tr>
-                </table>)
+                </table>) 
                 }
 
                 <br />
 
                 <div class="modal-body">
-                <h5>{!sudah ? "Dengan Pilihan":"Masukkan No Whatsapp "}</h5>
+                <h5>{!sudah ? "Dengan Pilihan": "Masukkan No Whatsapp"}</h5>
                 
                 {!sudah ?
                  (<table>
@@ -105,13 +114,12 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
                         <td>{data.harga}</td>
                     </tr>
                 </table>)
-                :
-                 (<table>
+                :(<table>
                     <tr>
                         <td>No. Wa</td>
                         <td><input type="number" placeholder='087XXXXX' onChange={(e) => setKonfirmasi({...konfirmasi,nomorWa:e.target.value,...newN})}/></td>
                     </tr>
-                </table>)
+                </table>) 
 
                 }
                 </div>
@@ -120,6 +128,8 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
 
                 {/* {console.log("ini-diMOdals",data)} */}
 
+                {
+                
                 <div style={containerBtn}>
                 {sudah ? (<button type='submit' style={btnYesStyle} onClick={clickBayar}>Bayar</button>)
                 :(<div style={btnYesStyle} onClick={()=> setSudah(true)}>sudah</div>)
@@ -129,10 +139,41 @@ export default function ({data, setData, konfirmasi, setKonfirmasi}) {
                 (<div style={btnNoStyle} onClick={() => setData({...data,modals:false})}>belum</div>)}
                 
                 </div>
+                }
+
+
+
+            </div>)
+            :
+            ( <div class="modal-content">
+
+                <div class="modal-header">
+                <h5>Silhkan Cek Whatsapp</h5>
+                </div>
+
+                <div>
+                <h3>{konfirmasi.nama}</h3>
+
+                </div>
+
+
+                <br />
+
+                <div class="modal-body">
+                <h5>Terima kasih</h5>
+                </div>
+
+
+            </div>)
+            
+            
+            }
+
 
             </div>
-            </div>
         </div>
+
+
     </div>
   )
 }

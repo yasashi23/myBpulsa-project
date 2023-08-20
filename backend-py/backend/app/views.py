@@ -42,7 +42,6 @@ class ReactView(APIView):
     def get(self, request):
         output = [{"nama":output.nama,"nomor":output.nomor,"kartu":output.kartu,"nomorWa":output.nomorWa,"pulsa":output.pulsa,"harga":output.harga,"jam":output.jam}
                     for output in React.objects.all()]
-        print(output)
         return Response(output)
 
     
@@ -60,7 +59,12 @@ class ReactView(APIView):
             pulsa=serializer.data['pulsa']
             harga=serializer.data['harga']
             jam=serializer.data['jam']
-            nium.gas(driver,nama,nomor,kartu,nomorWa,pulsa,harga,jam)
+            try:
+                nium.gas(driver,nama,nomor,kartu,nomorWa,pulsa,harga,jam)
+                print("Nium gas Berhasil")
+            except:
+                print("NIUM GAGAL")
+
             print(serializer.data)
             return Response({"pesan":"berhasil"})
         
