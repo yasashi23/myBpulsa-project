@@ -1,10 +1,16 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,forwardRef, useImperativeHandle} from 'react'
+import { PatternFormat } from 'react-number-format';
+import { TextField } from '@mui/material';
+
+
+
 
 export default function InputPulsa({prefix,noKaSet}) {
+
   const [cariNo,setCariNo] = useState("")
   const [iniKartunya,setIniKartunya] = useState("")
 
-  const [nyoba,setNyoba] = useState("")
+  
 
   useEffect(() => {
     let foundCard = null;
@@ -24,12 +30,46 @@ export default function InputPulsa({prefix,noKaSet}) {
 
 
   }, [cariNo, prefix,noKaSet]);
+  const [cekNomor,setCekNomor] = useState(`${iniKartunya == "Universal"}`)
+
+  const inputProps = {
+  format:"#### #### ####",
+  allowEmptyFormatting:false,
+  mask:" ",
+}
 
   return (
     <div>
-        <input type="number" name="" id="" placeholder='08XXXXXXXXXX' onChange={(e)=>setCariNo(e.target.value)}/> 
-        <br />
-        <h1>{iniKartunya}</h1>
+        <TextField
+        
+              placeholder="08XXXXX"
+          multiline
+    InputProps={{
+    inputComponent: MyInputComponent,
+    inputProps:inputProps,}}
+    id="filled-basic"
+    label="Masukkan Nomor"
+    variant="filled"
+    onChange={(e)=>setCariNo(e.target.value)}
+    value={cariNo}
+    required
+
+/>
+        <h1>{iniKartunya}{cekNomor}</h1>
     </div>
   )
 }
+
+
+
+const MyInputComponent = forwardRef((props, ref) => {
+  const { component: Component, ...other } = props;
+
+
+  // `Component` will be your `SomeThirdPartyComponent` from below
+  return <PatternFormat {...other} />;
+});
+
+// usage
+
+
