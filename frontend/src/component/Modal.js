@@ -1,8 +1,12 @@
 import React,{useState} from 'react'
 
-export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKelar}) {
+import { useNavigate } from 'react-router-dom'
+import Checkout from './Checkout'
+export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,loading}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
+
+    // const navigate = useNavigate()
 
 
     
@@ -12,8 +16,6 @@ export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKel
         const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
         const noWa = (konfirmasi.nomorWa).slice(1,(konfirmasi.nomorWa).length)
         setKonfirmasi({...konfirmasi,jam:time,nomorWa:`62${noWa}`})
-
-        alert('sudah di klik')
     }
 
     const onOffModals = data.modals
@@ -69,6 +71,8 @@ export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKel
         backgroundColor:"#f44336"
     }
 
+
+
   return (
     <div style={fullCont}>
 
@@ -77,7 +81,15 @@ export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKel
             <div class="modal">
             
             
-           {!kelar ?
+           {loading ?
+           
+            ( <div class="modal-content">
+
+                <div class="modal-header">
+                <h5>Tunggu Sebentar ya boss</h5>
+                </div>
+            </div>)
+            : !kelar ?
             ( <div class="modal-content">
 
                 <div class="modal-header">
@@ -145,7 +157,7 @@ export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKel
 
             </div>)
             :
-            ( <div class="modal-content">
+(<div class="modal-content">
 
                 <div class="modal-header">
                 <h5>Silhkan Cek Whatsapp</h5>
@@ -165,7 +177,6 @@ export default function ({data, setData, konfirmasi, setKonfirmasi, kelar,setKel
 
 
             </div>)
-            
             
             }
 

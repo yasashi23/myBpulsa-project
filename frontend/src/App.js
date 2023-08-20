@@ -4,6 +4,8 @@ import InputPulsa from './component/InputPulsa';
 import './App.css'
 import CarouselQuota from './component/QuotaSelect/CarouselQuota';
 import Modal from './component/Modal';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Checkout from './component/Checkout';
 
 
 
@@ -11,7 +13,7 @@ import Modal from './component/Modal';
 export default function App() {
   const [dataPulsa, setDataPulsa] = useState([])
   const [dataPrefix, setDataPrefix] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
       const [kelar,setKelar] = useState(false)
   
@@ -24,8 +26,8 @@ export default function App() {
 
   // function dataModel()
 
-  const linkPulsa = 'http://192.168.100.17:8000/dataPulsa/'
-  const linkPrefix = 'http://192.168.100.17:8000/dataPrefix/'
+  const linkPulsa = 'http://192.168.100.22:8000/dataPulsa/'
+  const linkPrefix = 'http://192.168.100.22:8000/dataPrefix/'
 
   useEffect(() => {
     fetchData()
@@ -40,7 +42,6 @@ export default function App() {
       const resPrefix = await axios.get(linkPrefix);
       setDataPrefix(resPrefix.data);
       console.log(resPrefix)
-      setIsLoading(false)
     } 
     
     catch (error) {
@@ -56,39 +57,45 @@ const styleAll={
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-        setKelar(true)
+    setIsLoading(true)
     try {
-      const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
+      const response = await axios.post('http://192.168.100.22:8000/', konfirmasi);
       alert("berhasil")
       console.log('Server response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
       alert("gagal")
     }
+    setIsLoading(false)
+    setKelar(true)
 
   };
 
 
   return (
-    <center>
-      <div style={styleAll} className='container'>
-        <h1>bPulsa</h1>
-        <table>
-          <tr>
-            <td>akses disini :  </td>
-            <td>http://192.168.100.17:3000</td>
-          </tr>
-        </table>
-        <form onSubmit={handleSubmit}>
-        {/* {isLoading ?'' : dataPrefix[0].kartu} */}
-      <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
-        <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
-        {/* {console.log(kartuApa)} */}
-        {console.log("nomor_kartu",nomorAndKartu)}
-        {console.log("konfirmasi",konfirmasi)}
-        <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar}/>
-        </form>
-      </div>
-    </center>
+
+        <center>
+
+        <div style={styleAll} className='container'>
+          <h1>bPulsa</h1>
+          <table>
+            <tr>
+              <td>akses disini :  </td>
+              <td>http://192.168.100.17:3000</td>
+            </tr>
+          </table>
+          <form onSubmit={handleSubmit}>
+          {/* {isLoading ?'' : dataPrefix[0].kartu} */}
+        <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
+          <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
+          {/* {console.log(kartuApa)} */}
+          {/* {console.log("nomor_kartu",nomorAndKartu)} */}
+          {/* {console.log("konfirmasi",konfirmasi)} */}
+          {console.log(isLoading)}
+          <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar} loading={isLoading}/>
+          </form>
+        </div>
+
+      </center>
   )
 }
