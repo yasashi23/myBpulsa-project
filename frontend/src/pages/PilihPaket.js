@@ -4,6 +4,7 @@ import InputPulsa from '../component/InputPulsa';
 import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
 
+
 export default function PilihPaket({setKonfirmasiPage, setData}) {
 
 const [dataPulsa, setDataPulsa] = useState([])
@@ -21,8 +22,8 @@ modals:false})
 
   // function dataModel()
 
-  const linkPulsa = 'http://192.168.100.22:8000/dataPulsa/'
-  const linkPrefix = 'http://192.168.100.22:8000/dataPrefix/'
+  const linkPulsa = 'http://192.168.100.17:8000/dataPulsa/'
+  const linkPrefix = 'http://192.168.100.17:8000/dataPrefix/'
 
   useEffect(() => {
     fetchData()
@@ -52,7 +53,7 @@ const styleAll={
     event.preventDefault();
     setIsLoading(true)
     try {
-      const response = await axios.post('http://192.168.100.22:8000/', konfirmasi);
+      const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
       console.log('Server response:', response.data);
 
     } catch (error) {
@@ -79,7 +80,7 @@ const styleAll={
               <td>http://192.168.100.17:3000</td>
             </tr>
           </table>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
           {/* {isLoading ?'' : dataPrefix[0].kartu} */}
         <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
           <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>

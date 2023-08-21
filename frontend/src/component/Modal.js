@@ -1,6 +1,10 @@
-import React,{useState} from 'react'
-
+import React,{useState,forwardRef} from 'react'
+import { PatternFormat } from 'react-number-format';
+import { TextField,Box, SvgIcon} from '@mui/material';
 import { Navigate } from "react-router-dom";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import WaSvg from './WaSvg';
+import validator from 'validator'
 
 
 
@@ -8,13 +12,8 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
-//   const navigate = useNavigate();
+    // const [isMobilePhone,setIsMobilePhone] = useState()
 
-    // const handleClick = () => {
-    //     // window.location.href = "/checkout"
-    //     konfirmasiPage(true)
-    //     return <>hahaha</>
-    // }
 
     const clickBayar = () =>{
         const date = new Date()
@@ -76,6 +75,24 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
         backgroundColor:"#f44336"
     }
 
+  const handleKeyPress = (e) => {
+  if(e.key == 'Enter'){
+    e.preventDefault()
+    
+  }
+}
+  const clickBayarDariInput = (e) => {
+  if(e.key == 'Enter'){
+    clickBayar()
+    
+  }
+}
+const InputPropsWa = {
+  format:"#### #### ####",
+  allowEmptyFormatting:false,
+  mask:""
+}
+
 
 
   return (
@@ -99,6 +116,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
                 <div class="modal-header">
                 <h5>{sudah ?  "Konfirmasi Pembelian(Via Whatsapp)" :"Sudah Benar?"}</h5>
+                <br />
                 </div>
 
                 {!sudah ?
@@ -107,18 +125,23 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                 <p>{data.nomor}</p>
                 </div>)
                 :
-               (<table>
-                    <tr>
-                        <td>Nama</td>
-                        <td><input type="text" placeholder='masukkan nama anda' onChange={(e) => setKonfirmasi({...konfirmasi,nama:e.target.value,...newN})}/></td>
-                    </tr>
-                </table>) 
+               ( <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                    <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                    <TextField
+                    id="input-with-sx"
+                    label="Masukkan Nama mu"
+                    variant="standard"
+                    onKeyDown={handleKeyPress}
+                    onChange={(e) => setKonfirmasi({...konfirmasi,nama:e.target.value,...newN})}
+                    />
+                    </Box>) 
+
                 }
 
                 <br />
 
                 <div class="modal-body">
-                <h5>{!sudah ? "Dengan Pilihan": "Masukkan No Whatsapp"}</h5>
+                <h5>{!sudah ? "Dengan Pilihan": ""}</h5>
                 
                 {!sudah ?
                  (<table>
@@ -131,12 +154,23 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                         <td>{data.harga}</td>
                     </tr>
                 </table>)
-                :(<table>
-                    <tr>
-                        <td>No. Wa</td>
-                        <td><input type="number" placeholder='087XXXXX' onChange={(e) => setKonfirmasi({...konfirmasi,nomorWa:e.target.value,...newN})}/></td>
-                    </tr>
-                </table>) 
+                :(               
+                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                    {/* <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} /> */}
+                    <WaSvg sx={{ color: "action.active", mr: 1, my: 0.5 }}/>
+                    <TextField
+                    id="input-with-sx"
+                    label="Masukkan No Wa mu"
+                    variant="standard"
+                    placeholder='08XX XXXX XXXX'
+                    InputProps={{
+                    inputComponent: InputNomor,
+                    inputProps:InputPropsWa}}
+                    onKeyDown={clickBayarDariInput}
+                    onChange={(e) => setKonfirmasi({...konfirmasi,nomorWa:e.target.value,...newN})}
+                    />
+                    </Box>
+                    ) 
 
                 }
                 </div>
@@ -167,7 +201,22 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
             </div>
         </div>
 
-
+            {console.log(`LOOK AT THIS ${'08888888'.startsWith('08')}`)}
     </div>
   )
 }
+
+
+const InputNama = forwardRef((props, ref) => {
+  const { component: Component, ...other } = props;
+  return <PatternFormat {...other} />;
+});
+
+const InputNomor = forwardRef((props, ref) => {
+  const { component: Component, ...other } = props;
+  return <PatternFormat {...other} />;
+});
+
+
+
+

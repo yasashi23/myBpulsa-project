@@ -12,6 +12,7 @@ export default function Checkout({konfirmasiPage,data}) {
   (<div>
         <h2>Hi {data.nama}, Terima kasih atas pembeliannya</h2>
         <p>Pembalian pada jam : {data.jam} </p>
+        <p>beli paket lagi <Link to="/">Disini</Link> </p>
   </div>)
         }
     </div>
