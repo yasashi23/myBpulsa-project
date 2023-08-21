@@ -1,6 +1,6 @@
 import React,{useState,forwardRef} from 'react'
 import { PatternFormat } from 'react-number-format';
-import { TextField,Box, SvgIcon} from '@mui/material';
+import { TextField,Box, Alert} from '@mui/material';
 import { Navigate } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import WaSvg from './WaSvg';
@@ -12,14 +12,17 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
-    // const [isMobilePhone,setIsMobilePhone] = useState()
-
-
+    const [cekNoWa, setCekNoWa] = useState({bool:false,word:''})
+    const numAwal = /^[1-9]/
     const clickBayar = () =>{
+        if(konfirmasi.nomorWa.length -2 < 10 ||  numAwal.test(konfirmasi.nomorWa)) {
+            setCekNoWa({...cekNoWa,bool:true})
+        }
+        else {
         const date = new Date()
         const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
         const noWa = (konfirmasi.nomorWa).slice(1,(konfirmasi.nomorWa).length)
-        setKonfirmasi({...konfirmasi,jam:time,nomorWa:`62${noWa}`})
+        setKonfirmasi({...konfirmasi,jam:time,nomorWa:`62${noWa}`})}
     }
 
     const onOffModals = data.modals
@@ -82,11 +85,28 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
   }
 }
   const clickBayarDariInput = (e) => {
-  if(e.key == 'Enter'){
-    clickBayar()
+  if(e.key == 'Enter' && cekNoWa.bool == true){
+    // clickBayar()
+    e.preventDefault()
+  }else{
+      clickBayar()
     
   }
 }
+let duaAngkaAwal = /^0[8]/
+const handleChangeNoWa = (e) => {
+const value = e.target.value
+
+if((!duaAngkaAwal.test(value) && value.length-2 >= 2)
+) {setCekNoWa({bool:true,word:'Gunakan "08" untuk awal nomor'})
+}
+else {setCekNoWa({bool:false,word:''})
+        setKonfirmasi({...konfirmasi,nomorWa:value,...newN})}
+
+}
+
+
+
 const InputPropsWa = {
   format:"#### #### ####",
   allowEmptyFormatting:false,
@@ -133,6 +153,7 @@ const InputPropsWa = {
                     variant="standard"
                     onKeyDown={handleKeyPress}
                     onChange={(e) => setKonfirmasi({...konfirmasi,nama:e.target.value,...newN})}
+                    required
                     />
                     </Box>) 
 
@@ -167,9 +188,12 @@ const InputPropsWa = {
                     inputComponent: InputNomor,
                     inputProps:InputPropsWa}}
                     onKeyDown={clickBayarDariInput}
-                    onChange={(e) => setKonfirmasi({...konfirmasi,nomorWa:e.target.value,...newN})}
+                    onChange={handleChangeNoWa}
+                    error={cekNoWa.bool}
+                    helperText={cekNoWa.word}
                     />
-                    </Box>
+           </Box>
+
                     ) 
 
                 }
@@ -180,7 +204,7 @@ const InputPropsWa = {
                 {
                 
                 <div style={containerBtn}>
-                {sudah ? (<button type='submit' style={btnYesStyle} onClick={clickBayar}>Bayar</button>)
+                {sudah ? (<button type='submit' style={btnYesStyle} disabled={cekNoWa.bool} onClick={clickBayar}>Bayar</button>)
                 :(<div style={btnYesStyle} onClick={()=> setSudah(true)}>sudah</div>)
                 }
                 
