@@ -1,10 +1,10 @@
 import React,{useState,forwardRef} from 'react'
 import { PatternFormat } from 'react-number-format';
-import { TextField,Box, Alert} from '@mui/material';
+import { TextField,Box, CircularProgress} from '@mui/material';
 import { Navigate } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import WaSvg from './WaSvg';
-import validator from 'validator'
+import TungguLoading from './TungguLoading';
 
 
 
@@ -13,6 +13,9 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
     const {modals,...newN} = data
 
     const [cekNoWa, setCekNoWa] = useState({bool:false,word:''})
+
+    const [cekNama, setCekNama] = useState({bool:false, word:''})
+
     const numAwal = /^[1-9]/
     const clickBayar = () =>{
         if(konfirmasi.nomorWa.length -2 < 10 ||  numAwal.test(konfirmasi.nomorWa)) {
@@ -86,7 +89,6 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 }
   const clickBayarDariInput = (e) => {
   if(e.key == 'Enter' && cekNoWa.bool == true){
-    // clickBayar()
     e.preventDefault()
   }else{
       clickBayar()
@@ -102,6 +104,21 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2)
 }
 else {setCekNoWa({bool:false,word:''})
         setKonfirmasi({...konfirmasi,nomorWa:value,...newN})}
+
+}
+
+const handleNama = (e) =>{
+    let value = e.target.value
+
+    if(value.length < 3) {
+        setCekNama({bool:true,word:'Lengkapi Namanya'})
+    }else{
+        setCekNama({bool:false,word:''})
+
+        setKonfirmasi({...konfirmasi,nama:value,...newN})
+    }
+
+
 
 }
 
@@ -123,14 +140,13 @@ const InputPropsWa = {
             <div class="modal">
             
             
-           {loading ?
+           {true ?
            
-            ( <div class="modal-content">
+            ( 
 
-                <div class="modal-header">
-                <h5>Tunggu Sebentar ya boss</h5>
-                </div>
-            </div>)
+                <TungguLoading loading={loading}/>
+
+            )
             : !kelar ?
             ( <div class="modal-content">
 
@@ -152,8 +168,10 @@ const InputPropsWa = {
                     label="Masukkan Nama mu"
                     variant="standard"
                     onKeyDown={handleKeyPress}
-                    onChange={(e) => setKonfirmasi({...konfirmasi,nama:e.target.value,...newN})}
+                    onChange={handleNama}
                     required
+                    error={cekNama.bool}
+                    helperText={cekNama.word}
                     />
                     </Box>) 
 
@@ -220,12 +238,10 @@ const InputPropsWa = {
             :
             <Navigate to="/checkout"/>
             }
-
-            {console.log(`kelar = ${!kelar}, loading = ${loading}`)}
             </div>
         </div>
 
-            {console.log(`LOOK AT THIS ${'08888888'.startsWith('08')}`)}
+
     </div>
   )
 }
