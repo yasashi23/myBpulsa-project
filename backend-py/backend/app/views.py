@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from . models import *
 from . serializer import *
-from seleniumnya.Selen import *
-from otp_generator.otp import generate_otp
+from seleniumnya.Selen import Selen
+from seleniumnya.Selen import OTPsend
 from selenium.common.exceptions import WebDriverException
 from rest_framework.response import Response
 import random as r
@@ -111,16 +111,20 @@ class SendOTP(APIView):
         nium = OTPsend()
         if serializer.is_valid():
             phone_number = serializer.validated_data['phone_number']
+            nomor = serializer.data['phone_number']
             otp = OTPgen()
 
             token = Token.objects.create(phone_number=phone_number, otp=otp)
             token.created_at = now()
             token.save()
 
+            print(nomor)
+
             try:
-                nium.gas(driver,phone_number,otp)
+                nium.gas(driver,nomor,otp)
                 return Response({'message':'Kode OTP sudah dikirimkan'})
-            except:
+            except WebDriverException as ll:
+                print(ll.msg)
                 return Response({'message':'Kode OTP gagal dikirimkan',"otp":otp})
 
         return Response({'cekerror':serializer.errors})

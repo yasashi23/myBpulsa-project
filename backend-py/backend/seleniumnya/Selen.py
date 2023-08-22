@@ -65,7 +65,7 @@ class OTPsend:
             upEl = f""" const ud= document.getElementById("udinB"); ud.setAttribute("href","{link}");  ud.click()"""
             drivernya.execute_script(upEl)
 
-            print(f"Waktu saat ini: {detik} detik {milidetik} mil elnya ada")
+            print(f"Waktu saat ini: {detik} detik {milidetik} OTPSEND")
 
         except NoSuchElementException:
             divApp = drivernya.find_element(By.CSS_SELECTOR,'div#app')
@@ -81,7 +81,7 @@ class OTPsend:
             time.sleep(2)
             drivernya.execute_script(clickNewEl)
 
-            print(f"Waktu saat ini: {detik} detik {milidetik} mil elnya kaga ada")
+            print(f"Waktu saat ini: {detik} detik {milidetik} OTP EXCEPT")
 
     
 
@@ -89,7 +89,7 @@ class OTPsend:
         chat = drivernya.find_element(By.CSS_SELECTOR,'div._3Uu1_')
         chat.click()
 
-        pesan(chat,nomor)
+        pesanOtp(chat,otp)
         print(f"Waktu saat ini: {detik} detik {milidetik} mil sukses")
         time.sleep(3)
         return "berhasil"
@@ -99,7 +99,7 @@ class OTPsend:
 
 
 
-def pesan(chat, otp):
+def pesanOtp(chat, otp):
     chat.send_keys(f"Kode OTP: {otp}. Jangan berikan kepada orang lain.")
     chat.send_keys(Keys.ENTER)
 

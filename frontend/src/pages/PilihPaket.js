@@ -26,8 +26,8 @@ modals:false})
 
   // function dataModel()
 
-  const linkPulsa = 'http://192.168.100.17:8000/dataPulsa/'
-  const linkPrefix = 'http://192.168.100.17:8000/dataPrefix/'
+  const linkPulsa = 'http://192.168.100.24:8000/dataPulsa/'
+  const linkPrefix = 'http://192.168.100.24:8000/dataPrefix/'
 
   useEffect(() => {
     fetchData()
@@ -65,7 +65,7 @@ const styleAll={
     setIsLoading(true)
     setSukses(true)
     try {
-      const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
+      const response = await axios.post('http://192.168.100.24:8000/', konfirmasi);
       console.log('Server response:', response.data);
       alert('berhasil')
 
