@@ -213,7 +213,7 @@ const InputPropsWa = {
                     error={cekNoWa.bool}
                     helperText={cekNoWa.word}
                     />
-           </Box>
+                </Box>
 
                     ) 
 
@@ -225,7 +225,7 @@ const InputPropsWa = {
                 {
                 
                 <div style={containerBtn}>
-                {sudah ? (<button type='submit' style={btnYesStyle} disabled={cekNoWa.bool} onClick={clickBayar}>Bayar</button>)
+                {sudah ? (<button type='submit' style={btnYesStyle} disabled={cekNoWa.bool} onClick={clickBayar}>Kirim OTP</button>)
                 :(<div style={btnYesStyle} onClick={()=> setSudah(true)}>sudah</div>)
                 }
                 

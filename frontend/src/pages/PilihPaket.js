@@ -3,7 +3,7 @@ import axios from 'axios'
 import InputPulsa from '../component/InputPulsa';
 import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
-import { Navigate } from 'react-router-dom';
+
 
 
 export default function PilihPaket({setKonfirmasiPage, setData, cekApi, setApi}) {
@@ -24,8 +24,8 @@ modals:false})
 
   // function dataModel()
 
-  const linkPulsa = 'http://192.168.100.24:8000/dataPulsa/'
-  const linkPrefix = 'http://192.168.100.24:8000/dataPrefix/'
+  const linkPulsa = 'http://192.168.100.17:8000/dataPulsa/'
+  const linkPrefix = 'http://192.168.100.17:8000/dataPrefix/'
 
   useEffect(() => {
     fetchData()
@@ -63,7 +63,7 @@ const styleAll={
     setIsLoading(true)
     setSukses(true)
     try {
-      const response = await axios.post('http://192.168.100.24:8000/', konfirmasi);
+      const response = await axios.post('http://192.168.100.17:8000/', konfirmasi);
       console.log('Server response:', response.data);
       alert('berhasil')
 
@@ -100,12 +100,8 @@ const styleAll={
           </table>
 
           <form onSubmit={handleSubmit} >
-          {/* {isLoading ?'' : dataPrefix[0].kartu} */}
-        <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
+          <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
           <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
-          {/* {console.log(kartuApa)} */}
-          {/* {console.log("nomor_kartu",nomorAndKartu)} */}
-          {/* {console.log("konfirmasi",konfirmasi)} */}
           {console.log(isLoading)}
           <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar} loading={isLoading} sukses={sukses} />
           </form>

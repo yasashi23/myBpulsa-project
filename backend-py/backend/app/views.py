@@ -2,41 +2,56 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from . models import *
 from . serializer import *
-from seleniumnya.Selen import Selen
-# from seleniumnya.Selen import RunServer
-from selenium.common.exceptions import NoSuchElementException
+from seleniumnya.Selen import *
+from otp_generator.otp import generate_otp
 from selenium.common.exceptions import WebDriverException
 from rest_framework.response import Response
+import random as r
+from django.utils.timezone import now
 import json
 
 
 # pc
-# jsonPrefix = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
-# jsonHargaPulsa = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
+jsonPrefixPc = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsaPc = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
 
 # laptop
-jsonPrefix = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
-jsonHargaPulsa = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
+jsonPrefixLap = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsaLap = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
 
-with open(jsonPrefix,'r') as file:
-    dataPrefix=json.load(file)
+try:
+    with open(jsonPrefixLap,'r') as file:
+        dataPrefix=json.load(file)
 
-with open(jsonHargaPulsa,'r') as file:
-    dataPulsa=json.load(file)
+    with open(jsonHargaPulsaLap,'r') as file:
+        dataPulsa=json.load(file)
+except:
+    with open(jsonPrefixPc,'r') as file:
+        dataPrefix=json.load(file)
+
+    with open(jsonHargaPulsaPc,'r') as file:
+        dataPulsa=json.load(file)
+
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+
 
 options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
-# service = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-service = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
-driver = webdriver.Chrome(service=service,options=options)
+servicePc = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
+serviceLap = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
+
+
+try:
+    driver = webdriver.Chrome(service=serviceLap,options=options)
+
+except:
+    driver = webdriver.Chrome(service=servicePc,options=options)
 
 
 
@@ -51,7 +66,6 @@ class ReactView(APIView):
         serializer = ReactSerializer(data=request.data)
         nium = Selen()
         
-        
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             kartu=serializer.data['kartu']
@@ -65,16 +79,72 @@ class ReactView(APIView):
                 nium.gas(driver,nama,nomor,kartu,nomorWa,pulsa,harga,jam)
                 print("Nium gas Berhasil")
             except WebDriverException as udin:
-                print("NIUM GAGAL", udin)
+                print("NIUM GAGAL")
 
-            print(serializer.data)
             return Response({"pesan":"berhasil"})
+
+
+def OTPgen():
+    otp=""
+    for i in range(4):
+        otp+= str(r.randint(1,9))
+    return otp
+    
+
         
 
 class ReactToken(APIView):
     def get(self, request):
         return Response(dataPulsa)
     
+
+
+    
 class ReactPrefix(APIView):
     def get(self, request):
         return Response(dataPrefix)
+    
+
+class SendOTP(APIView):
+    def post(self,request):
+        serializer = TokenSendSerializer(data=request.data)
+        nium = OTPsend()
+        if serializer.is_valid():
+            phone_number = serializer.validated_data['phone_number']
+            otp = OTPgen()
+
+            token = Token.objects.create(phone_number=phone_number, otp=otp)
+            token.created_at = now()
+            token.save()
+
+            try:
+                nium.gas(driver,phone_number,otp)
+                return Response({'message':'Kode OTP sudah dikirimkan'})
+            except:
+                return Response({'message':'Kode OTP gagal dikirimkan',"otp":otp})
+
+        return Response({'cekerror':serializer.errors})
+                    
+    
+
+class VerifyOTP(APIView):
+    def post(self,request):
+        serializer = VerifyTokenSerializer(data=request.data)
+
+        if serializer.is_valid():
+            phone_number= serializer.validated_data['phone_number']
+            entered_otp = serializer.validated_data['otp']
+
+            try:
+                token = Token.objects.get(phone_number=phone_number, otp=entered_otp)
+                token.delete()
+
+                return Response({'message':'OTP terverifikasi'})
+            
+            except Token.DoesNotExist:
+                return Response({'message':'OTP tidak sesuai'})
+            
+        return Response(serializer.errors)
+
+
+

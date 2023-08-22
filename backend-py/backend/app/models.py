@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 class React(models.Model):
     nama = models.CharField(max_length=30)
@@ -8,4 +9,10 @@ class React(models.Model):
     pulsa = models.CharField(max_length=20)
     harga = models.CharField(max_length=20)
     jam = models.CharField(max_length=10)
+
+
+class Token(models.Model):
+    phone_number = models.CharField(max_length=15)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now=True)
     

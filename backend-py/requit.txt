@@ -10,8 +10,10 @@ h11==0.14.0
 idna==3.4
 Markdown==3.4.4
 numpy==1.25.2
+otp-generator==0.1.0
 outcome==1.2.0
 pandas==2.0.3
+pathlib2==2.3.7.post1
 PySocks==1.7.1
 python-dateutil==2.8.2
 pytz==2023.3

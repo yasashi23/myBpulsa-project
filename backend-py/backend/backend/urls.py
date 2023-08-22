@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',ReactView.as_view(),name="anything"),
     path('dataPulsa/',ReactToken.as_view(),name="pulsa"),
-    path('dataPrefix/',ReactPrefix.as_view(),name="prefix")
+    path('dataPrefix/',ReactPrefix.as_view(),name="prefix"),
+    path('send-otp/',SendOTP.as_view(), name='send-otp'),
+    path('verify-otp/',VerifyOTP.as_view(), name='verify-otp')
 ]
