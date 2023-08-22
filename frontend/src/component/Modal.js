@@ -14,7 +14,6 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
     const [cekNoWa, setCekNoWa] = useState({bool:false,word:''})
 
-    const [cekNama, setCekNama] = useState({bool:false, word:''})
 
     const numAwal = /^[1-9]/
     const clickBayar = () =>{
@@ -24,8 +23,9 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
         else {
         const date = new Date()
         const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
+
         const noWa = (konfirmasi.nomorWa).slice(1,(konfirmasi.nomorWa).length)
-        setKonfirmasi({...konfirmasi,jam:time,nomorWa:`62${noWa}`})}
+        setData({...newN,...konfirmasi,jam:time,nomorWa:`62${noWa}`})}
     }
 
     const onOffModals = data.modals
@@ -107,20 +107,7 @@ else {setCekNoWa({bool:false,word:''})
 
 }
 
-const handleNama = (e) =>{
-    let value = e.target.value
 
-    if(value.length < 3) {
-        setCekNama({bool:true,word:'Lengkapi Namanya'})
-    }else{
-        setCekNama({bool:false,word:''})
-
-        setKonfirmasi({...konfirmasi,nama:value,...newN})
-    }
-
-
-
-}
 
 
 
@@ -138,109 +125,20 @@ const InputPropsWa = {
         
         <div class="modal-overlay" style={containerStyle}>
             <div class="modal">
-            
-            
-           {loading ?
-           
-            ( 
+              
+              {
+                onOffModals?
+                (
+                    <div>
+                        
+                    </div>
+                ):
+                (
 
-                <div>
-                    {sukses ? (<p>Hi {konfirmasi.nama}, Sedang di proses ya! </p>):''}
-                    <TungguLoading query={sukses}/>
-                </div>
+                )
+              }
 
-            )
-            : !kelar ?
-            ( <div class="modal-content">
-
-                <div class="modal-header">
-                <h5>{sudah ?  "Konfirmasi Pembelian(Via Whatsapp)" :"Sudah Benar?"}</h5>
-                <br />
-                </div>
-
-                {!sudah ?
-                (<div>
-                <h3>Nomor:</h3>
-                <p>{data.nomor}</p>
-                </div>)
-                :
-               ( <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                    <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                    <TextField
-                    id="input-with-sx"
-                    label="Masukkan Nama mu"
-                    variant="standard"
-                    onKeyDown={handleKeyPress}
-                    onChange={handleNama}
-                    required
-                    error={cekNama.bool}
-                    helperText={cekNama.word}
-                    />
-                    </Box>) 
-
-                }
-
-                <br />
-
-                <div class="modal-body">
-                <h5>{!sudah ? "Dengan Pilihan": ""}</h5>
-                
-                {!sudah ?
-                 (<table>
-                    <tr>
-                        <td>Pulsa:</td>
-                        <td>{data.pulsa}</td>
-                    </tr>
-                    <tr>
-                        <td>harga:</td>
-                        <td>{data.harga}</td>
-                    </tr>
-                </table>)
-                :(               
-                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                    {/* <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} /> */}
-                    <WaSvg sx={{ color: "action.active", mr: 1, my: 0.5 }}/>
-                    <TextField
-                    id="input-with-sx"
-                    label="Masukkan No Wa mu"
-                    variant="standard"
-                    placeholder='08XX XXXX XXXX'
-                    InputProps={{
-                    inputComponent: InputNomor,
-                    inputProps:InputPropsWa}}
-                    onKeyDown={clickBayarDariInput}
-                    onChange={handleChangeNoWa}
-                    error={cekNoWa.bool}
-                    helperText={cekNoWa.word}
-                    />
-                </Box>
-
-                    ) 
-
-                }
-                </div>
-
-                <br />
-
-                {
-                
-                <div style={containerBtn}>
-                {sudah ? (<button type='submit' style={btnYesStyle} disabled={cekNoWa.bool} onClick={clickBayar}>Kirim OTP</button>)
-                :(<div style={btnYesStyle} onClick={()=> setSudah(true)}>sudah</div>)
-                }
-                
-                {sudah ? (<div style={btnNoStyle} onClick={() => {setData({...data,modals:true}); setSudah(false)}}>kembali</div>):
-                (<div style={btnNoStyle} onClick={() => setData({...data,modals:false})}>belum</div>)}
-                
-                </div>
-                }
-
-
-
-            </div>)
-            :
-            <Navigate to="/checkout"/>
-            }
+              
             </div>
         </div>
 
@@ -250,10 +148,6 @@ const InputPropsWa = {
 }
 
 
-const InputNama = forwardRef((props, ref) => {
-  const { component: Component, ...other } = props;
-  return <PatternFormat {...other} />;
-});
 
 const InputNomor = forwardRef((props, ref) => {
   const { component: Component, ...other } = props;

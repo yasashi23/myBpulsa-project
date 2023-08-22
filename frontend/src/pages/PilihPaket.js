@@ -5,7 +5,7 @@ import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
 
 
-
+    
 export default function PilihPaket({setKonfirmasiPage, setData, cekApi, setApi}) {
 
 const [dataPulsa, setDataPulsa] = useState([])
@@ -20,7 +20,9 @@ modals:false})
 
   const [sukses, setSukses] = useState(false)
 
-  const [konfirmasi,setKonfirmasi] = useState({nama:"fulan/fulanah", nomorWa:"08XXXXXX"})
+  const [konfirmasi,setKonfirmasi] = useState({nomorWa:"08XXXXXX"})
+
+  const [menyamakanOtp, setMenyamakanOtp] = useState({otp:"",...konfirmasi})
 
   // function dataModel()
 
@@ -101,10 +103,13 @@ const styleAll={
 
           <form onSubmit={handleSubmit} >
           <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
+
           <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
           {console.log(isLoading)}
+
           <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar} loading={isLoading} sukses={sukses} />
           </form>
+
           </div>) : <h1>WEBSITE SEDANG GANGGUAN, silahkan coba lagi nanti</h1>}
 
 

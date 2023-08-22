@@ -14,7 +14,7 @@ export default function QuotaSelect({key,pulsak,harga,pilihan,kartu}) {
   return (
     <div>
 
-            <div style={kotak} onClick={() => pilihan({...kartu,pulsa:pulsak,harga:`Rp${harga.toLocaleString('id-ID')}`,modals:true})}>
+            <div key={key} style={kotak} onClick={() => pilihan({...kartu,pulsa:pulsak,harga:`Rp${harga.toLocaleString('id-ID')}`,modals:true})}>
                     <h3>{pulsak}</h3>
                     <p>{`Rp${harga.toLocaleString('id-ID')}`}</p>
             </div>
