@@ -1,13 +1,16 @@
-import React,{useState,useRef,useEffect,Typography} from 'react'
-import {Fade,Box, CircularProgress, Button} from '@mui/material';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
+export default function TungguLoading({query}) {
+  const [loading, setLoading] = React.useState(false);
+  // const [query, setQuery] = React.useState(false);
+  const timerRef = React.useRef();
 
-
-export default function TungguLoading({loading, setLoading}) {
-  const [query, setQuery] = useState('idle');
-  const timerRef = useRef();
-
-  useEffect(
+  React.useEffect(
     () => () => {
       clearTimeout(timerRef.current);
     },
@@ -15,34 +18,38 @@ export default function TungguLoading({loading, setLoading}) {
   );
 
 
+  // const handleClickQuery = (e) => {
+  //   if (timerRef.current) {
+  //     clearTimeout(timerRef.current);
+  //   }
+  //   setQuery(e)
+  //   // if (query !== 'idle') {
+  //   //   setQuery('idle');
+  //   //   return;
+  //   // }
 
-  const handleClickQuery = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
 
-    if (query !== 'idle') {
-      setQuery('idle');
-      return;
-    }
+    
+    
+  //   if(query === false) timerRef.current = window.setTimeout(() => {
+  //     setQuery(false);
+  //   }, 2000);
+    
+  //   else setQuery(true);
 
-    setQuery('progress');
-    timerRef.current = window.setTimeout(() => {
-      setQuery('success');
-    }, 2000);
-  };
+  // };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
+    {`${query}`}
       <Box sx={{ height: 40 }}>
-        {query === 'success' ? (
-          <Typography>Success!</Typography>
+        {! query ? (
+          <Typography>Ok, Sudah Kami Kirimkan Di wa anda</Typography>
         ) : (
           <Fade
-            in={query === 'progress'}
+            in={query}
             style={{
-              transitionDelay: query === 'progress' ? '800ms' : '0ms',
+              transitionDelay: query ? '800ms' : '0ms',
             }}
             unmountOnExit
           >
@@ -50,9 +57,10 @@ export default function TungguLoading({loading, setLoading}) {
           </Fade>
         )}
       </Box>
-      <Button onClick={handleClickQuery} sx={{ m: 2 }}>
-        {query !== 'idle' ? 'Reset' : 'Simulate a load'}
-      </Button>
+      {/* <Button onClick={() => handleClickQuery(!query)} sx={{ m: 2 }}>
+        {query ? 'Reset' : 'Simulate a load'}
+      </Button> */}
+      {/* {handleClickQuery(true)} */}
     </Box>
   );
 }

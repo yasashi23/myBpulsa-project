@@ -8,7 +8,7 @@ import TungguLoading from './TungguLoading';
 
 
 
-export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,loading}) {
+export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,loading, sukses}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
@@ -140,11 +140,14 @@ const InputPropsWa = {
             <div class="modal">
             
             
-           {true ?
+           {loading ?
            
             ( 
 
-                <TungguLoading loading={loading}/>
+                <div>
+                    {sukses ? (<p>Hi {konfirmasi.nama}, Sedang di proses ya! </p>):''}
+                    <TungguLoading query={sukses}/>
+                </div>
 
             )
             : !kelar ?

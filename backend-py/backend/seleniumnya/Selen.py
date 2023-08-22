@@ -20,19 +20,15 @@ milidetik = waktu_sekarang.microsecond // 1000
 
 class Selen:
     def gas(self,drivernya,nama,nomor,kartu,nomorWa,pulsa,harga,jam):
-
-            # cari = drivernya.find_element(By.CSS_SELECTOR,'div[data-testid="chat-list-search"]')
         link = "https://web.whatsapp.com/send/?phone=%2B"+nomorWa+"&amp;text&amp;type=phone_number&amp;app_absent=0"
 
         try:
             cek = drivernya.find_element(By.CSS_SELECTOR,'a#udinB')
-
-
             upEl = f""" const ud= document.getElementById("udinB"); ud.setAttribute("href","{link}");  ud.click()"""
             drivernya.execute_script(upEl)
-            # chat = drivernya.find_element(By.CSS_SELECTOR,'._3Uu1_')
 
             print(f"Waktu saat ini: {detik} detik {milidetik} mil elnya ada")
+
         except NoSuchElementException:
             divApp = drivernya.find_element(By.CSS_SELECTOR,'div#app')
             newEl = f"""
@@ -49,20 +45,14 @@ class Selen:
 
             print(f"Waktu saat ini: {detik} detik {milidetik} mil elnya kaga ada")
 
+    
+
         time.sleep(3)
         chat = drivernya.find_element(By.CSS_SELECTOR,'div._3Uu1_')
         chat.click()
-        # time.sleep(3)
-        # chat.send_keys("*Invoice Pembayaran Bpulsa*")
+
         pesan(chat,nama,nomor,kartu,pulsa,harga,jam)
         print(f"Waktu saat ini: {detik} detik {milidetik} mil sukses")
-
-
-        # cari.send_keys(nomor)
-        # cari.send_keys(Keys.ENTER)
-        # time.sleep(3)
-        # cont = drivernya.find_element(By.CSS_SELECTOR,'div._8nE1Y')
-        # cont.click()
         time.sleep(3)
         return "berhasil"
 
