@@ -5,10 +5,11 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 
-export default function TungguLoading({query}) {
+export default function TungguLoading({query, nomorWa,otpBerhasil}) {
   const [loading, setLoading] = React.useState(false);
   // const [query, setQuery] = React.useState(false);
   const timerRef = React.useRef();
+  // const query = false
 
   React.useEffect(
     () => () => {
@@ -43,12 +44,12 @@ export default function TungguLoading({query}) {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box sx={{ height: 40 }}>
         {! query ? (
-          <Typography>Ok, Sudah Kami Kirimkan Di wa anda</Typography>
+          <Typography>{otpBerhasil? `Ok, Kode OTP sudah Dikirmkan ke ${nomorWa.phone_number}` : `Kode OTP gagal Dikirmkan ke ${nomorWa.phone_number}`}</Typography>
         ) : (
           <Fade
             in={query}
             style={{
-              transitionDelay: query ? '800ms' : '0ms',
+              transitionDelay: query ? '400ms' : '0ms',
             }}
             unmountOnExit
           >

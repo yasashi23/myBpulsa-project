@@ -1,10 +1,11 @@
 
 import React,{useState,forwardRef} from 'react'
-import { LanjutBtn, KembaliBtn, KirimBtn, KembaliInfo } from './ButtonModal';
+import { LanjutBtn, KembaliBtn, KirimBtn, KembaliInfo, VerifyOtp } from './ButtonModal';
 import { InputNoWa } from './InputNoWa';
 // import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Navigate } from "react-router-dom";
 import TungguLoading from './TungguLoading';
+import Otpinput from './Otpinput';
 
 
 
@@ -18,11 +19,21 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
     const [btnDisable,setBtnDisable] = useState(false)
 
+    const [load,setLoad] = useState(false)
+
     const onOffModals = data.modals
 
-    const aturanLoading = (s) => {
-      setIsLoading(s)
-    }
+    const [otpBerhasilDikirim,setOtpBerhasilDikirim] = useState(false)
+
+    const [otp,setOtp] = useState('')
+
+    const [verifyOtp, setVerifyOtp] = useState({...nomorWa,otp:''})
+
+    const [panjangOtp, setPanjangOtp] = useState(true)
+
+    const [sekaliSubmitAja, setSekaliSubmitAja] = useState({sendOtp:0,verifyOtp:0})
+
+    const [otpTidakSesuia,setOtpTidakSesuai] = useState('')
 
     const flex = {
         display:(onOffModals?"flex":"none"),
@@ -62,22 +73,42 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
   return (
     <div style={fullCont}>
 
-        {console.log(nomorWa)}
         <div class="modal-overlay" style={containerStyle}>
             <div class="modal">
               
               {
                 onOffModals?
 
-                sudah ? //onOffModals True
+                sudah ? //start [onOffModals True]
 
-                isLoading ? //sudah True //onOffModals True
+                isLoading ? //start [sudah True] //still [onOffModals True]
 
                 (
-                  <TungguLoading query={'sukses'}/>
-                ) //isLoading true //sudah True //onOffModals True
+                  <div>
+
+                  <TungguLoading query={load} otpBerhasil={otpBerhasilDikirim} nomorWa={nomorWa}/>
+                  </div>
+                ) // start [isLoading true] //still [sudah True] //still [onOffModals True]
 
                 :
+
+                otpBerhasilDikirim?   //start [isloading false] //still [sudah True] //still [onOffModals True]
+
+                (
+                  <div>
+                    <Otpinput 
+                      otp={otp} 
+                      setOtp={setOtp}
+                      nomorWa={nomorWa}
+                      setVerifyOtp={setVerifyOtp}
+                      panjangOtp={setPanjangOtp}
+                      />
+                  </div>
+                ) //start [otp true] //still [isloading false] //still [sudah True] //still [onOffModals True]
+                
+                :
+
+                //BUAT JIKA OTP BERHASIL DI VERIFIKASINYA DISINI
 
                 (<div className="input-no-wa">
                     <h3>Verifikasi Kode OTP via Whatsapp</h3>
@@ -88,7 +119,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                       btnDisable={setBtnDisable}  
                       />
                     <br />
-                  </div>) //isLoading false //sudah True //onOffModals True
+                  </div>) //Last [otp False] //Last [isloading false] //still [sudah True] //still [onOffModals True]
                 :
                 (   <div className='Info-nomor-pulsa'> 
                       <h3>Apakah sudah benar?</h3>
@@ -108,13 +139,16 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                         </tr>
                       </table>                        
                     </div>
-                ) //sudah False //onOffModals True
+                ) //Last [sudah false] //still [onOffModals True]
                 :
                 (
                   <div></div>
-                )//onOffModals False
+                )//Last[onOffModals False]
               }
               <br />
+
+
+
 
               {
                 
@@ -123,6 +157,22 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                 isLoading ? //sudah true
               (<div></div>) //loading true //sudah true
               :
+
+              otpBerhasilDikirim?
+                (<div className='containerBtn' style={containerBtn}>
+
+                  <VerifyOtp 
+                    txt={'Verifikasi Kode'}
+                    verifyOtp={verifyOtp}
+                    otp={otp}
+                    panjangOtp={panjangOtp}
+                    sekaliSubmitAja={sekaliSubmitAja}
+                    setSekaliSubmitAja={setSekaliSubmitAja}
+                  />
+
+                </div>)
+              :
+
               (<div className="containerBtn" style={containerBtn}>
               <KirimBtn
                 txt={"Kirim OTP"}
@@ -131,6 +181,10 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                 noWa={nomorWa}
                 loading={setIsLoading}
                 btnDisable={btnDisable}
+                setLoad={setLoad}
+                setOtpBerhasil={setOtpBerhasilDikirim}
+                sekaliSubmitAja={sekaliSubmitAja}
+                setSekaliSubmitAja={setSekaliSubmitAja}
               />
               <KembaliInfo 
                 txt={"Kembali"}
