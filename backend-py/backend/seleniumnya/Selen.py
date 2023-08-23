@@ -58,8 +58,11 @@ class Selen:
 
 class OTPsend:
     def gas(self,drivernya,nomor,otp):
-        link = "https://web.whatsapp.com/send/?phone=%2B"+nomor+"&amp;text&amp;type=phone_number&amp;app_absent=0"
+        # link = "https://web.whatsapp.com/send/?phone=%2B"+nomor+"&amp;text&amp;type=phone_number&amp;app_absent=0"
+        newNom = nomor.replace(" ","")
+        link = "https://web.whatsapp.com/send/?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
 
+        print(link)
         try:
             cek = drivernya.find_element(By.CSS_SELECTOR,'a#udinB')
             upEl = f""" const ud= document.getElementById("udinB"); ud.setAttribute("href","{link}");  ud.click()"""
@@ -78,21 +81,37 @@ class OTPsend:
                 """
             drivernya.execute_script(newEl,divApp)
             clickNewEl = """const ud= document.getElementById("udinB"); ud.click()"""
-            time.sleep(2)
+            time.sleep(1)
             drivernya.execute_script(clickNewEl)
 
             print(f"Waktu saat ini: {detik} detik {milidetik} OTP EXCEPT")
 
-    
-
         time.sleep(3)
         chat = drivernya.find_element(By.CSS_SELECTOR,'div._3Uu1_')
         chat.click()
-
-        pesanOtp(chat,otp)
+        time.sleep(1)
+        chat.send_keys(Keys.ENTER)
+        # pesanOtp(chat,otp)
         print(f"Waktu saat ini: {detik} detik {milidetik} mil sukses")
-        time.sleep(3)
+        time.sleep(1)
         return "berhasil"
+    
+    def gasError(self,drivernya,nomor,otp):
+        time.sleep(2)
+        chat = drivernya.find_element(By.CSS_SELECTOR,'div._3Uu1_')
+        chat.click()
+        time.sleep(1)
+        chat.send_keys(Keys.ENTER)
+        # pesanOtp(chat,otp)
+        print(f"Waktu saat ini: {detik} detik {milidetik} mil sukses")
+        time.sleep(1)
+        return "berhasil"
+    
+
+
+
+
+
 
 
 
