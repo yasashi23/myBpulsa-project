@@ -125,7 +125,7 @@ class SendOTP(APIView):
                 return Response({'message':'Kode OTP sudah dikirimkan'})
             except WebDriverException as ll:
                 print(ll.msg)
-                return Response({'message':'Kode OTP gagal dikirimkan',"otp":otp})
+                return Response({'message':'Kode OTP gagal dikirimkan'})
 
         return Response({'cekerror':serializer.errors})
                     

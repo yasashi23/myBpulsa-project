@@ -41,7 +41,6 @@ export default function TungguLoading({query}) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    {`${query}`}
       <Box sx={{ height: 40 }}>
         {! query ? (
           <Typography>Ok, Sudah Kami Kirimkan Di wa anda</Typography>

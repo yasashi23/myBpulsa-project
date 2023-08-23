@@ -1,5 +1,5 @@
+
 import React,{useState,forwardRef} from 'react'
-import { PatternFormat } from 'react-number-format';
 import { LanjutBtn, KembaliBtn, KirimBtn, KembaliInfo } from './ButtonModal';
 import { InputNoWa } from './InputNoWa';
 // import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -8,32 +8,21 @@ import TungguLoading from './TungguLoading';
 
 
 
-export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,loading, sukses}) {
+export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar, sukses}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [nomorWa,setNoWa] = useState({phone_number:''})
 
-
-
-    const numAwal = /^[1-9]/
-
-    // const clickBayar = () =>{
-    //     if(konfirmasi.nomorWa.length -2 < 10 ||  numAwal.test(konfirmasi.nomorWa)) {
-    //         setCekNoWa({...cekNoWa,bool:true})
-    //     }
-    //     else {
-    //     const date = new Date()
-    //     const time = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
-
-    //     const noWa = (konfirmasi.nomorWa).slice(1,(konfirmasi.nomorWa).length)
-    //     setData({...newN,...konfirmasi,jam:time,nomorWa:`62${noWa}`})}
-    // }
-
-
-
+    const [btnDisable,setBtnDisable] = useState(false)
 
     const onOffModals = data.modals
+
+    const aturanLoading = (s) => {
+      setIsLoading(s)
+    }
 
     const flex = {
         display:(onOffModals?"flex":"none"),
@@ -67,58 +56,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
         gap:"8px"
     }
 
-    const btnStyle = {
-        padding:"6px",
-        color:"white",
-        backgroundColor:"transparent",
-        border:"none",
-        textAlign: "center",
-        textDecoration: "none",
-        color:"white",
-        cursor:"pointer"
-    }
-    const btnYesStyle = {
-        ...btnStyle,
-        backgroundColor:"#4CAF50"
-    }
-    const btnNoStyle ={
-        ...btnStyle,
-        backgroundColor:"#f44336"
-    }
 
-    const centerWa ={
-      display:'flex',
-      justifyContent:'center',
-      flexDirection:'column'
-
-    }
-
-
-//   const clickBayarDariInput = (e) => {
-//   if(e.key == 'Enter' && cekNoWa.bool == true){
-//     e.preventDefault()
-//   }else{
-//       clickBayar()
-    
-//   }
-// }
-
-let duaAngkaAwal = /^0[8]/
-
-// const handleChangeNoWa = (e) => {
-// const value = e.target.value
-
-// if((!duaAngkaAwal.test(value) && value.length-2 >= 2)
-// ) {setCekNoWa({bool:true,word:'Gunakan "08" untuk awal nomor'})
-// }
-// else {setCekNoWa({bool:false,word:''})
-//         setKonfirmasi({...konfirmasi,nomorWa:value,...newN})}
-
-// }
-
-const textLeft = {
-  textAlign:'left'
-}
 
 
   return (
@@ -131,19 +69,28 @@ const textLeft = {
               {
                 onOffModals?
 
-                sudah ?
+                sudah ? //onOffModals True
+
+                isLoading ? //sudah True //onOffModals True
 
                 (
-                  <div className="input-no-wa">
+                  <TungguLoading query={'sukses'}/>
+                ) //isLoading true //sudah True //onOffModals True
+
+                :
+
+                (<div className="input-no-wa">
                     <h3>Verifikasi Kode OTP via Whatsapp</h3>
                     <br />
-                    <InputNoWa setNoWa={setNoWa} noWa = {nomorWa}/>
+                    <InputNoWa 
+                      setNoWa={setNoWa} 
+                      noWa ={nomorWa}
+                      btnDisable={setBtnDisable}  
+                      />
                     <br />
-                  </div>
-                )
+                  </div>) //isLoading false //sudah True //onOffModals True
                 :
-                (
-                    <div className='Info-nomor-pulsa'>
+                (   <div className='Info-nomor-pulsa'> 
                       <h3>Apakah sudah benar?</h3>
                       <br />
                       <h4>Nomor Anda</h4>
@@ -161,22 +108,29 @@ const textLeft = {
                         </tr>
                       </table>                        
                     </div>
-                )
+                ) //sudah False //onOffModals True
                 :
                 (
-                  <InputNoWa/>
-                )
+                  <div></div>
+                )//onOffModals False
               }
               <br />
 
-              {sudah ?
+              {
+                
+                sudah ?
 
+                isLoading ? //sudah true
+              (<div></div>) //loading true //sudah true
+              :
               (<div className="containerBtn" style={containerBtn}>
               <KirimBtn
                 txt={"Kirim OTP"}
                 setSudah={setSudah}
                 setNoWa={setNoWa}
                 noWa={nomorWa}
+                loading={setIsLoading}
+                btnDisable={btnDisable}
               />
               <KembaliInfo 
                 txt={"Kembali"}
@@ -184,7 +138,8 @@ const textLeft = {
                 setData={setData}
                 setSudah={setSudah}
               />
-              </div>)
+              </div>) // loading false //sudah true
+
               :
               (<div className="containerBtn" style={containerBtn}>
               <LanjutBtn 
@@ -196,7 +151,7 @@ const textLeft = {
                 data={data}
                 setData={setData}
               />
-              </div>)
+              </div>)//sudah false
 
               }
               

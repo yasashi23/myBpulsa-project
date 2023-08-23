@@ -5,6 +5,7 @@ import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
 
 
+
     
 export default function PilihPaket({setKonfirmasiPage, setData, cekApi, setApi}) {
 
@@ -24,10 +25,14 @@ modals:false})
 
   const [menyamakanOtp, setMenyamakanOtp] = useState({otp:"",...konfirmasi})
 
-  // function dataModel()
 
-  const linkPulsa = 'http://192.168.100.24:8000/dataPulsa/'
-  const linkPrefix = 'http://192.168.100.24:8000/dataPrefix/'
+
+  // function dataModel()
+  const Link = process.env.REACT_APP_LINK
+  const linkPulsa = Link+'/dataPulsa/'
+  const linkPrefix = Link+'/dataPrefix/'
+
+  console.log(linkPrefix)
 
   useEffect(() => {
     fetchData()

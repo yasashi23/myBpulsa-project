@@ -4,7 +4,7 @@ import { TextField,Box, CircularProgress} from '@mui/material';
 import axios from 'axios'
 import WaSvg from './WaSvg';
 
-function InputNoWa({setNoWa,noWa}) {
+function InputNoWa({setNoWa,noWa,btnDisable}) {
 
 
 
@@ -23,11 +23,19 @@ const handleChangeNoWa = (e) => {
 const value = e.target.value
 
 const newVal = '62'+value.slice(1,value.length)
-if((!duaAngkaAwal.test(value) && value.length-2 >= 2)) {
-
+if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
+    e.preventDefault()
+    btnDisable(true)
     setCekNoWa({bool:true,word:'Gunakan "08" untuk awal nomor'})}
+
+    else if(value.length - 2 < 11) {
+    e.preventDefault()
+    btnDisable(true)
+    setCekNoWa({bool:true,word:''})
+    }
     
     else {
+      btnDisable(false)
         setCekNoWa({bool:false,word:''})
         // setKonfirmasi({...konfirmasi,nomorWa:value,...newN})
         setNoWa({phone_number:newVal})
