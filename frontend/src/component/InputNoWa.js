@@ -4,7 +4,7 @@ import { TextField,Box, CircularProgress} from '@mui/material';
 import axios from 'axios'
 import WaSvg from './WaSvg';
 
-function InputNoWa({setNoWa,noWa,btnDisable}) {
+function InputNoWa({setNoWa,btnDisable,btnDisableName}) {
 
 
 

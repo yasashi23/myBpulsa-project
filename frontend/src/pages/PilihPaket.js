@@ -7,7 +7,7 @@ import Modal from '../component/Modal';
 
 
     
-export default function PilihPaket({setKonfirmasiPage, setData, cekApi, setApi}) {
+export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi}) {
 
 const [dataPulsa, setDataPulsa] = useState([])
 const [dataPrefix, setDataPrefix] = useState([])
@@ -21,9 +21,7 @@ modals:false})
 
   const [sukses, setSukses] = useState(false)
 
-  const [konfirmasi,setKonfirmasi] = useState({nomorWa:"08XXXXXX"})
 
-  const [menyamakanOtp, setMenyamakanOtp] = useState({otp:"",...konfirmasi})
 
 
 
@@ -57,7 +55,7 @@ modals:false})
       
       
     }
-    // return <Navigate to='/error'/>
+
   };
 
 
@@ -65,31 +63,6 @@ const styleAll={
   width:"800px"
 }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true)
-    setSukses(true)
-    try {
-      const response = await axios.post(Link, konfirmasi);
-      console.log('Server response:', response.data);
-      alert('berhasil')
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('gagal')
-    }
-
-    setKonfirmasiPage(true)
-    setData(konfirmasi)
-    setSukses(false)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-    setKelar(true)
-    
-
-
-  };
 
 
   return (
@@ -106,10 +79,19 @@ const styleAll={
             </tr>
           </table>
 
-          <form onSubmit={handleSubmit} >
-          <InputPulsa prefix={dataPrefix} noKaSet = {setNomorAndKartu} noKa={nomorAndKartu}/>
+          <form >
+          <InputPulsa 
+            prefix={dataPrefix} 
+            noKaSet = {setNomorAndKartu} 
+            noKa={nomorAndKartu}
+            />
 
-          <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
+          <CarouselQuota 
+            pulsa={dataPulsa} 
+            kartu={nomorAndKartu} 
+            pilih={setNomorAndKartu}
+            />
+
           {console.log(isLoading)}
 
           <Modal 
@@ -117,6 +99,9 @@ const styleAll={
             setData={setNomorAndKartu} 
             setKelar={setKelar} 
             loading={isLoading} 
+            setKonfirmasi={setKonfirmasiPage}
+            konfirmasi={konfirmasi}
+
             />
           </form>
           

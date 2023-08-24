@@ -1,4 +1,4 @@
-import React, {useState,useEffect,forwardRef, useImperativeHandle} from 'react'
+import React, {useState,useEffect,forwardRef, useRef} from 'react'
 import { PatternFormat } from 'react-number-format';
 import { TextField } from '@mui/material';
 import validator from 'validator'
@@ -9,10 +9,13 @@ export default function InputPulsa({prefix,noKaSet}) {
 
   const [cariNo,setCariNo] = useState("")
   const [iniKartunya,setIniKartunya] = useState("")
-    const [cekNomor,setCekNomor] = useState({bool:false, word:""})
+  const [cekNomor,setCekNomor] = useState({bool:false, word:""})
+
+  const inputRef = useRef(null)
   
     
   useEffect(() => {
+    inputRef.current.focus()
     let foundCard = null;
     let kk = cariNo.slice(0,4)
     let duaAngkaAwal = /^0[8]/
@@ -59,6 +62,7 @@ setCariNo(e.target.value)
   return (
     <div>
         <TextField
+          ref={inputRef}
           error={cekNomor.bool}
           helperText={cekNomor.word}
           placeholder="08XX XXXX XXXX"

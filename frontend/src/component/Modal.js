@@ -6,10 +6,11 @@ import { InputNoWa } from './InputNoWa';
 import { Navigate } from "react-router-dom";
 import TungguLoading from './TungguLoading';
 import Otpinput from './Otpinput';
+import InputName from './InputName';
 
 
 
-export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar, sukses}) {
+export default function Modal ({data, setData, konfirmasi, setKonfirmasi}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
@@ -34,6 +35,8 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
     const [sekaliSubmitAja, setSekaliSubmitAja] = useState({sendOtp:0,verifyOtp:0})
 
     const [pesanOtp,setPesanOtp ] = useState('sedang diisi')
+
+    const[btnDsableName,setBtnDisableName] = useState(true)
 
     const flex = {
         display:(onOffModals?"flex":"none"),
@@ -73,7 +76,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
   return (
     <div style={fullCont}>
 
-      {console.log({data})}
+      {console.log({btnDisable,btnDsableName})}
 
         <div class="modal-overlay" style={containerStyle}>
             <div class="modal">
@@ -117,10 +120,17 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                 (<div className="input-no-wa">
                     <h3>Verifikasi Kode OTP via Whatsapp</h3>
                     <br />
+                    <InputName 
+                      setData={setData}
+                      data={data}
+                      btnDisable={setBtnDisable}
+                      />  
+                      <br />
                     <InputNoWa 
                       setNoWa={setNoWa} 
                       noWa ={nomorWa}
                       btnDisable={setBtnDisable}  
+                      btnDisableName={btnDsableName}
                       />
                     <br />
                   </div>) //Last [otp False] //Last [isloading false] //still [sudah True] //still [onOffModals True]
@@ -173,6 +183,8 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                     sekaliSubmitAja={sekaliSubmitAja}
                     setSekaliSubmitAja={setSekaliSubmitAja}
                     dataBerhasilVerify={data}
+                    nomorWa={nomorWa}
+                    setKonfirmasi={setKonfirmasi}
                   />
 
                 </div>)
@@ -186,10 +198,12 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                 noWa={nomorWa}
                 loading={setIsLoading}
                 btnDisable={btnDisable}
+                btnDisableName={btnDsableName}
                 setLoad={setLoad}
                 setOtpBerhasil={setOtpBerhasilDikirim}
                 sekaliSubmitAja={sekaliSubmitAja}
                 setSekaliSubmitAja={setSekaliSubmitAja}
+
               />
               <KembaliInfo 
                 txt={"Kembali"}
@@ -220,11 +234,3 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
     </div>
   )
 }
-
-
-
-
-
-
-
-

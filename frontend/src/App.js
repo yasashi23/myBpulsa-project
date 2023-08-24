@@ -12,8 +12,10 @@ import TungguLoading from './component/TungguLoading'
 
 
 export default function App() {
-  const [konfirmasiPage,setKonfirmasiPage] = useState(false)
+  const [konfirmasiPage,setKonfirmasiPage] = useState({data:{},aman:false,link:'/checkout/for-udin'})
   const [theData, setTheData] = useState({})
+
+
 
   const [cekApi, setCekApi ] = useState(true)
 
@@ -25,12 +27,13 @@ export default function App() {
     <center>
     <br />
       <h1>bPulsa</h1>
+      {console.log(konfirmasiPage.link)}
       <br />
       <Router>
         <Routes>
-          <Route path='/' element={<PilihPaket setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
-          <Route path='/checkout' element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
-          <Route path='/error' element={<ErrorWeb cekApi={cekApi}/>}/>
+          <Route path='/' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
+          <Route path={konfirmasiPage.link} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
+          <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}
 
