@@ -17,7 +17,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
     const [nomorWa,setNoWa] = useState({phone_number:''})
 
-    const [btnDisable,setBtnDisable] = useState(false)
+    const [btnDisable,setBtnDisable] = useState(true)
 
     const [load,setLoad] = useState(false)
 
@@ -33,7 +33,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
 
     const [sekaliSubmitAja, setSekaliSubmitAja] = useState({sendOtp:0,verifyOtp:0})
 
-    const [otpTidakSesuia,setOtpTidakSesuai] = useState('')
+    const [pesanOtp,setPesanOtp ] = useState('sedang diisi')
 
     const flex = {
         display:(onOffModals?"flex":"none"),
@@ -73,6 +73,8 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
   return (
     <div style={fullCont}>
 
+      {console.log({data})}
+
         <div class="modal-overlay" style={containerStyle}>
             <div class="modal">
               
@@ -102,6 +104,8 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                       nomorWa={nomorWa}
                       setVerifyOtp={setVerifyOtp}
                       panjangOtp={setPanjangOtp}
+                      pesanOtp={pesanOtp}
+                      setPesanOtp={setPesanOtp}
                       />
                   </div>
                 ) //start [otp true] //still [isloading false] //still [sudah True] //still [onOffModals True]
@@ -168,6 +172,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, kelar,
                     panjangOtp={panjangOtp}
                     sekaliSubmitAja={sekaliSubmitAja}
                     setSekaliSubmitAja={setSekaliSubmitAja}
+                    dataBerhasilVerify={data}
                   />
 
                 </div>)

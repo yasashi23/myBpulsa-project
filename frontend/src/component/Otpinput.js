@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
+import {Alert} from '@mui/material'
 
-export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp}) {
+export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp,pesanOtp,setPesanOtp}) {
     
 
     const contStyle = {
@@ -47,6 +48,7 @@ export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp})
       containerStyle={contStyle}
       inputStyle={inpStyle}
     />
+    {/* <Alert variant="outlined" severity="error" sx={{p:0}}>UDIN NGANGA</Alert> */}
 
     </div>
   )

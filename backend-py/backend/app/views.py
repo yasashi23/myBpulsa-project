@@ -128,9 +128,9 @@ class SendOTP(APIView):
                 newNom = nomor.replace(" ","")
                 link = "https://web.whatsapp.com/send/?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
 
-                time.sleep(3)
+                time.sleep(1)
                 driver.get(link)
-                time.sleep(3)
+                time.sleep(5)
                 nium.gasError(driver,nomor,otp)
                 
                 return Response({'message':'Kode OTP sudah dikirimkan'})

@@ -70,7 +70,7 @@ const styleAll={
     setIsLoading(true)
     setSukses(true)
     try {
-      const response = await axios.post('http://192.168.100.24:8000/', konfirmasi);
+      const response = await axios.post(Link, konfirmasi);
       console.log('Server response:', response.data);
       alert('berhasil')
 
@@ -112,8 +112,14 @@ const styleAll={
           <CarouselQuota pulsa={dataPulsa} kartu={nomorAndKartu} pilih={setNomorAndKartu}/>
           {console.log(isLoading)}
 
-          <Modal data={nomorAndKartu} setData={setNomorAndKartu} konfirmasi={konfirmasi} setKonfirmasi={setKonfirmasi} kelar={kelar} setKelar={setKelar} loading={isLoading} sukses={sukses} />
+          <Modal 
+            data={nomorAndKartu} 
+            setData={setNomorAndKartu} 
+            setKelar={setKelar} 
+            loading={isLoading} 
+            />
           </form>
+          
 
           </div>) : <h1>WEBSITE SEDANG GANGGUAN, silahkan coba lagi nanti</h1>}
 

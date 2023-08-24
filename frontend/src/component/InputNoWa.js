@@ -10,6 +10,8 @@ function InputNoWa({setNoWa,noWa,btnDisable}) {
 
 const [cekNoWa, setCekNoWa] = useState({bool:false,word:''})
 
+const [memory,setMemory] = useState()
+
 const InputPropsWa = {
   format:"#### #### ####",
   allowEmptyFormatting:false,
@@ -21,6 +23,7 @@ let duaAngkaAwal = /^0[8]/
 
 const handleChangeNoWa = (e) => {
 const value = e.target.value
+setMemory(value)
 
 const newVal = '62'+value.slice(1,value.length)
 if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
@@ -59,6 +62,7 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
         onChange={handleChangeNoWa}
         error={cekNoWa.bool}
         helperText={cekNoWa.word}
+        value={memory}
         />
     </Box>
 

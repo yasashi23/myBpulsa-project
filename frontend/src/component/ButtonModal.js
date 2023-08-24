@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Button } from '@mui/material'
+import { Button, Snackbar,Alert } from '@mui/material'
 import axios from 'axios'
 
 
@@ -117,20 +117,52 @@ function KembaliInfo({txt,press,setSudah}) {
 }
 
 
-function VerifyOtp({txt,verifyOtp,panjangOtp, sekaliSubmitSaja,setSekaliSubmitAja}) {
+function VerifyOtp({txt,verifyOtp,panjangOtp, dataBerhasilVerify}) {
   const Link = process.env.REACT_APP_LINK+'/verify-otp/'
+  const SendData = process.env.REACT_APP_LINK+'/dat/'
 
   const [terVerifikasi, setTervirifikasi] = useState('')
+  const [open, setOpen] = useState(false);
+  const [sukses,setSukses] = useState('error')
 
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+
+
+  const {modals,...dataSiap} = dataBerhasilVerify
+
+  const sendNewDat = {
+    ...dataSiap,
+    nama:'fulan/fulanah',
+    jam:''
+  }
+
+  console.log({sendNewDat})
 
    const handleSubmit = async(e) =>{
 
-
         try {
           const response = await axios.post(Link,verifyOtp);
+          let yy = response.data.message
+
+          if(yy == "OTP terverifikasi") {
+            setOpen(true)
+            setSukses("success")
+          }else {
+            setOpen(true)
+            setSukses("error")
+            }
+
           console.log('Server response:', response.data); 
-          setTervirifikasi(response.data.message)
-          alert(`${terVerifikasi}`)         
+          setTervirifikasi(yy)      
         } catch (error) {
           console.error('Error submitting form:', error);
           console.log(Link)    
@@ -139,15 +171,36 @@ function VerifyOtp({txt,verifyOtp,panjangOtp, sekaliSubmitSaja,setSekaliSubmitAj
   }
 
 
+  const sendData = async() => {
+        try {
+          const response = await axios.post(SendData,sendNewDat);
+          let yy = response.data.message
+          console.log('Server response:', response.data); 
+          alert("data mu berhasil di kirim")         
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert("data mu gagal di kirim")
+            
+        }
+  }
+
+
   return(
-    <Button
+    <div>
+      <Button
       variant='contained'
       disabled={panjangOtp}
       onClick={handleSubmit}
-
-    >
+      >
       {txt}
     </Button>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity={sukses} sx={{ width: '100%' }}>
+        {sukses == 'success'? "OTP Terverifikasi":"OTP tidak sesuai"}
+      </Alert>
+    </Snackbar>
+    </div>
+
   )
 }
 
