@@ -2,6 +2,7 @@ import React, {useState,useEffect,forwardRef, useRef} from 'react'
 import { PatternFormat } from 'react-number-format';
 import { TextField } from '@mui/material';
 import validator from 'validator'
+import OperatorsLogo from './OperatorsLogo';
 
 
 
@@ -78,7 +79,8 @@ setCariNo(e.target.value)
           onKeyPress={(e) => handleKeyPress(e)}
           required/>
 
-        <h1>{iniKartunya}{`${cariNo.startsWith('08')}`}</h1>
+          <OperatorsLogo operator={`${iniKartunya}`} imgStyle={{height:'80px'}}/>
+
     </div>
   )
 }

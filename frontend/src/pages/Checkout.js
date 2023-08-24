@@ -1,13 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default function Checkout({konfirmasiPage,data}) {
+export default function Checkout({konfirmasiPage}) {
+
+  const {data,link,aman} = konfirmasiPage
 
   return (
     <div>
-    {console.log(`KONFIRMASI PAGE --> ${konfirmasiPage.aman}`)}
+    {console.log(`KONFIRMASI PAGE --> ${aman}`)}
+    {console.log(data,link)}
         {
-                    !konfirmasiPage.aman ? 
+                    !aman ? 
   (<div><p> lakukan pemilihan paket terlebih dahulu</p> <Link to="/">Disini</Link></div>): 
   (<div>
         <h2>Hi {data.nama}, Terima kasih atas pembeliannya</h2>

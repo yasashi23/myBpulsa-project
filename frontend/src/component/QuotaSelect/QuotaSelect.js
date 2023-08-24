@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function QuotaSelect({key,pulsak,harga,pilihan,kartu}) {
-    const [data,setData] = useState([])
+
     const kotak = {
         border:"1px solid red",
         width:"150px",

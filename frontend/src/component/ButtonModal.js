@@ -152,9 +152,9 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   const linkName = `/checkout/for-${dataSiap.nama}`
 
   const konfirmasi = {
-    data:{...dataSiap},
+    data:{...sendNewDat},
     aman:true,
-    link:linkName
+    link:linkName,
   }
 
   console.log(konfirmasi)
