@@ -1,9 +1,8 @@
-
 import React,{useState,forwardRef} from 'react'
 import { LanjutBtn, KembaliBtn, KirimBtn, KembaliInfo, VerifyOtp } from './ButtonModal';
 import { InputNoWa } from './InputNoWa';
-// import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Navigate } from "react-router-dom";
+import { Snackbar} from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import TungguLoading from './TungguLoading';
 import Otpinput from './Otpinput';
 import InputName from './InputName';
@@ -11,7 +10,10 @@ import PilihOperator from './OperatorSquare';
 
 
 
-export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNomor}) {
+
+
+export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setOpen}) {
+  
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
@@ -38,6 +40,11 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNom
     const [pesanOtp,setPesanOtp ] = useState('sedang diisi')
 
     const[btnDsableName,setBtnDisableName] = useState(true)
+
+
+    
+
+
 
 
     
@@ -140,7 +147,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNom
                   </div>) //Last [otp False] //Last [isloading false] //still [sudah True] //still [onOffModals True]
                 :
                 (   <div className='Info-nomor-pulsa'> 
-                      <h3>Apakah sudah benar?</h3>
+                      <h3>{open? 'Perbaiki Nomor Anda!!':'Apakah sudah benar?'}</h3>
                       <br />
                       {console.log({data})}
                       <h4>Nomor Anda</h4>
@@ -156,9 +163,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNom
                 )//Last[onOffModals False]
               }
               <br />
-
-
-
+              
 
               {
                 
@@ -215,6 +220,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNom
                 txt={"Sudah"}
                 setSudah={setSudah}
                 cekNomor={data.nomor}
+                open={open}
               />
               <KembaliBtn 
                 txt={"Belum"}
@@ -231,3 +237,4 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNom
     </div>
   )
 }
+

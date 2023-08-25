@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import QuotaSelect from './QuotaSelect';
 import "react-multi-carousel/lib/styles.css";
 
-export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor }) {
+export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor,setOpen }) {
   const [dataPulsanya, setDataPulsanya] = useState([]);
   const [foundIndex, setFoundIndex] = useState(-1);
 
@@ -55,7 +55,7 @@ const responsive = {
         group.push(
           <div key={i} style={coba}>
             {(iniIsipulsa).slice(i,i+3).map((item,index) => (
-              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} kartu={kartu} cekNomor={cekNomor}/>
+              <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} kartu={kartu} cekNomor={cekNomor} setOpen={setOpen}/>
               
             ))}
 

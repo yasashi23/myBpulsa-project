@@ -13,6 +13,7 @@ export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi
 const [dataPulsa, setDataPulsa] = useState([])
 const [dataPrefix, setDataPrefix] = useState([])
 const [isLoading, setIsLoading] = useState(false);
+const [open, setOpen] = useState(true);
 
 const [kelar,setKelar] = useState(false)
 
@@ -92,6 +93,7 @@ const styleAll={
             kartu={nomorAndKartu} 
             pilih={setNomorAndKartu}
             cekNomor={nomorBlmBenar}
+            setOpen={setOpen}
             />
 
           {console.log(isLoading)}
@@ -104,6 +106,8 @@ const styleAll={
             setKonfirmasi={setKonfirmasiPage}
             konfirmasi={konfirmasi}
             cekNomor={nomorBlmBenar}
+            open={open}
+            setOpen={setOpen}
 
             />
           </form>

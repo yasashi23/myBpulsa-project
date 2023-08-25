@@ -124,7 +124,7 @@ class SendOTP(APIView):
             try:
                 nium.gas(driver,nomor,otp)
                 return Response({'message':'Kode OTP sudah dikirimkan'})
-            except WebDriverException as ll:
+            except:
                 newNom = nomor.replace(" ","")
                 link = "https://web.whatsapp.com/send/?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
 
@@ -135,7 +135,7 @@ class SendOTP(APIView):
                 
                 return Response({'message':'Kode OTP sudah dikirimkan'})
 
-        return Response({'cekerror':serializer.errors})
+        return Response({'message':'kode otp gagal di kirim'})
                     
     
 

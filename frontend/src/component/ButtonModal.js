@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Navigate } from 'react-router'
 
 
- function LanjutBtn({txt,setSudah,cekNomor}) {
+ function LanjutBtn({txt,setSudah,cekNomor,open}) {
     const[disableBtn,setDisableBtn] = useState(true)
 
 
@@ -22,7 +22,7 @@ import { Navigate } from 'react-router'
         <Button 
         variant='outlined'
         onClick={handleKeyPress}
-        disabled={cekNomor}
+        disabled={open}
         >{txt}</Button>
     </div>
   )
