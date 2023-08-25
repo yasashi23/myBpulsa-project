@@ -4,50 +4,147 @@ import UjungTsel from '../asset/tselAsset.webp'
 import UjungAxis from '../asset/axisAsset.webp'
 import UjungSmartfren from '../asset/smartfrenAsset.webp'
 import UjungXl from '../asset/xlAsset.webp'
-import TriSvg from './Tri'
+import TriSvg from './svgComponent/Tri'
+import IndosatSvg from './svgComponent/IndosatSvg'
 
 
-export default function OperatorSquare() {
+export default function PilihOperator({operator,pulsa,harga}){
+
+    if(operator === 'xl') {
+       return (<Square 
+            style={{
+                    background: 'linear-gradient(180deg, #002BBA 0%, #00C89E 120%)',
+                    textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}} 
+                    element={<AssetUjungXl styleImg={{height:'46px'}}/>}
+                    pulsa={pulsa}
+                    harga={harga}
+
+                    />)
+    }
+    else if (operator === 'axis') {
+        return (<Square
+            style={{
+                background: '#753C94',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            element={<AssetUjungAxis styleImg={{height:'46px'}}/>}
+            pulsa={pulsa}
+            harga={harga}
+
+            />)
+    }
+    else if (operator === 'telkomsel') {
+        return (
+                    <Square
+            style={{
+                background: 'linear-gradient(191deg, #D40010 0%, #FF490D 100%)',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            element={<AssetUjungTsel styleImg={{height:'46px'}}/>}
+            pulsa={pulsa}
+            harga={harga}
+
+            />
+        )
+    }
+
+    else if (operator === 'smartfren') {
+        return (<Square
+            style={{
+                background: 'linear-gradient(180deg, #ED1D61 0%, #F44F85 100%)',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            element={<AssetUjungSmartfren styleImg={{height:'20px'}}/>}
+            pulsa={pulsa}
+            harga={harga}
+
+            />)
+    }
+
+    else if (operator === 'tri') {
+        return (<AssetUjungTri 
+            sx={{opacity:'.4'}} 
+            widthAndHeigthSvg={'60px'}
+            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            pulsa={pulsa}
+            harga={harga}
+
+
+            />)
+    }
+
+    else if(operator === 'indosat') {
+        return (<AssetUjungIndosat 
+            widthAndHeigthSvg={'40px'}
+            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            pulsa={pulsa}
+            harga={harga}
+            
+            />)
+    }
+
+    else {
+        return <div></div>
+    }
+
+}
+
+
+
+function OperatorSquare() {
 
   
   return (
     <div>
         <Square 
-            style={{background: 'linear-gradient(180deg, #002BBA 0%, #00C89E 120%)'}} 
+            style={{
+                background: 'linear-gradient(180deg, #002BBA 0%, #00C89E 120%)',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}} 
             element={<AssetUjungXl styleImg={{height:'46px'}}/>}
             />
 
         <br/>
 
         <Square
-            style={{background: '#753C94'}}
+            style={{
+                background: '#753C94',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
             element={<AssetUjungAxis styleImg={{height:'46px'}}/>}
         />
 
         <br/>
 
         <Square
-            style={{background: 'linear-gradient(191deg, #D40010 0%, #FF490D 100%)'}}
-            element={<AssetUjungTsel styleImg={{height:'46px'}}/>}
-        />
+            style={{
+                background: 'linear-gradient(191deg, #D40010 0%, #FF490D 100%)',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            element={<AssetUjungTsel styleImg={{height:'46px'}}/>}/>
 
         <br/>
 
         <Square
-            style={{background: 'linear-gradient(180deg, #ED1D61 0%, #F44F85 100%)'}}
-            element={<AssetUjungSmartfren styleImg={{height:'20px'}}/>}
-        />
+            style={{
+                background: 'linear-gradient(180deg, #ED1D61 0%, #F44F85 100%)',
+                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
+            element={<AssetUjungSmartfren styleImg={{height:'20px'}}/>}/>
 
         <br/>
-        <AssetUjungTri sx={{opacity:'.4'}} widthAndHeigthSvg={'60px'}/>
+        <AssetUjungTri 
+            sx={{opacity:'.4'}} 
+            widthAndHeigthSvg={'60px'}
+            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}/>
+
+
+        <br/>
+
+        <AssetUjungIndosat 
+            widthAndHeigthSvg={'40px'}
+            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}/>
+
+        <br/>
 
     </div>
   )
 }
 
-
-
-function AssetUjungTri({sx, widthAndHeigthSvg}){
+function AssetUjungIndosat({sx, widthAndHeigthSvg,styleN, pulsa,harga}){
     const styleKotak = {
         width: '180px',
         height: '106px',
@@ -57,7 +154,64 @@ function AssetUjungTri({sx, widthAndHeigthSvg}){
         justifyContent: 'center',
         color:'white',
         background: 'linear-gradient(153deg, #F2522D 0%, #EF267E 100%)',
-        alignItems:'center'
+        ...styleN
+    }
+
+    const kartuContainerStyle ={
+        position:'absolute',
+        zIndex:'1',
+        top:'-2px',
+        left:'6px'
+    }
+
+    const sxStyle = {
+        width:widthAndHeigthSvg,
+        height:widthAndHeigthSvg,
+        ...sx
+    }
+
+    //styleWOrd
+    const styleWord = {
+        zIndex:'9999'
+    }
+    const h2Pulsa = {
+        fontSize: '38px',
+    }
+    const pHargaPulsa = {
+        fontSize: '14px'
+    }
+
+
+    return(
+        <div style={styleKotak}>
+            <div style={kartuContainerStyle}>
+                <IndosatSvg sx={sxStyle}/>
+            </div>
+            <div style={styleWord}>
+                <h2 style={h2Pulsa}>{pulsa}</h2>
+                <p style={pHargaPulsa}>{harga}</p>
+            </div>
+        </div>
+    )
+
+}
+
+
+
+
+
+function AssetUjungTri({sx, widthAndHeigthSvg,styleN,pulsa,harga}){
+    const styleKotak = {
+        width: '180px',
+        height: '106px',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        color:'white',
+        background: 'linear-gradient(153deg, #F2522D 0%, #EF267E 100%)',
+        alignItems:'center',
+        ...styleN
     }
 
     const kartuContainerStyle ={
@@ -89,8 +243,8 @@ function AssetUjungTri({sx, widthAndHeigthSvg}){
                 <TriSvg sx={sxStyle}/>
             </div>
             <div style={styleWord}>
-                <h2 style={h2Pulsa}>100.000</h2>
-                <p style={pHargaPulsa}>Rp.100.000</p>
+                <h2 style={h2Pulsa}>{pulsa}</h2>
+                <p style={pHargaPulsa}>{harga}</p>
             </div>
         </div>
     )
@@ -101,10 +255,10 @@ function AssetUjungTri({sx, widthAndHeigthSvg}){
 
 
 
-function Square({style,element}) {
+function Square({style,element,pulsa,harga}) {
     //containernya
     const styleKotak = {
-        width: '180px',
+        width: '190px',
         height: '106px',
         position: 'relative',
         display: 'flex',
@@ -126,8 +280,8 @@ function Square({style,element}) {
         position:'relative'
     }
     const h2Pulsa = {
-        fontSize: '38px',
-        width: '44%'
+        fontSize: '36px',
+        width: '48%'
     }
 
     // style Harga Pulsanya
@@ -148,10 +302,10 @@ function Square({style,element}) {
                 {(element)}
             </div>
             <div className="pulsanya"  style={pulsaStyle}>
-                <h2 style={h2Pulsa}>5000</h2>
+                <h2 style={h2Pulsa}>{pulsa}</h2>
             </div>
             <div className='hargaPulsanya' style={hargaPulsa}>
-                <p style={pHargaPulsa}>Rp.4.000</p>
+                <p style={pHargaPulsa}>{harga}</p>
             </div>
         </div>
     )

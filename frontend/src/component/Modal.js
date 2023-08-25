@@ -7,10 +7,11 @@ import { Navigate } from "react-router-dom";
 import TungguLoading from './TungguLoading';
 import Otpinput from './Otpinput';
 import InputName from './InputName';
+import PilihOperator from './OperatorSquare';
 
 
 
-export default function Modal ({data, setData, konfirmasi, setKonfirmasi}) {
+export default function Modal ({data, setData, konfirmasi, setKonfirmasi, cekNomor}) {
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
 
@@ -37,6 +38,9 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi}) {
     const [pesanOtp,setPesanOtp ] = useState('sedang diisi')
 
     const[btnDsableName,setBtnDisableName] = useState(true)
+
+
+    
 
     const flex = {
         display:(onOffModals?"flex":"none"),
@@ -138,20 +142,12 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi}) {
                 (   <div className='Info-nomor-pulsa'> 
                       <h3>Apakah sudah benar?</h3>
                       <br />
+                      {console.log({data})}
                       <h4>Nomor Anda</h4>
                       <h2><strong><u>{data.nomor}</u></strong></h2>
                       <br />
-                      <h4>Paket yang anda pilih</h4>
-                      <table>
-                        <tr>
-                          <td>Pulsa: </td>
-                          <td><strong>{data.pulsa}</strong></td>
-                        </tr>
-                        <tr>
-                        <td>Harga: </td>
-                          <td><strong>{data.harga}</strong></td>
-                        </tr>
-                      </table>                        
+                      <h4 style={{marginBottom:'10px'}}>Paket yang anda pilih</h4>
+                      <PilihOperator operator={data.kartu} pulsa={data.pulsa} harga={data.harga}/>
                     </div>
                 ) //Last [sudah false] //still [onOffModals True]
                 :
@@ -218,6 +214,7 @@ export default function Modal ({data, setData, konfirmasi, setKonfirmasi}) {
               <LanjutBtn 
                 txt={"Sudah"}
                 setSudah={setSudah}
+                cekNomor={data.nomor}
               />
               <KembaliBtn 
                 txt={"Belum"}

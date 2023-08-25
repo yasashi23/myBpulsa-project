@@ -20,7 +20,7 @@ const [nomorAndKartu, setNomorAndKartu] = useState({kartu:"kosong",nomor:"kosong
 modals:false})
 
 
-  const [sukses, setSukses] = useState(false)
+  const[nomorBlmBenar, setNomorBlmBenar] = useState(true)
 
 
 
@@ -91,6 +91,7 @@ const styleAll={
             pulsa={dataPulsa} 
             kartu={nomorAndKartu} 
             pilih={setNomorAndKartu}
+            cekNomor={nomorBlmBenar}
             />
 
           {console.log(isLoading)}
@@ -102,6 +103,7 @@ const styleAll={
             loading={isLoading} 
             setKonfirmasi={setKonfirmasiPage}
             konfirmasi={konfirmasi}
+            cekNomor={nomorBlmBenar}
 
             />
           </form>

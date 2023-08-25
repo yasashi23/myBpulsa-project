@@ -2,7 +2,7 @@ import React,{useState,forwardRef, useEffect} from 'react'
 import { PatternFormat } from 'react-number-format';
 import { TextField,Box, CircularProgress} from '@mui/material';
 import axios from 'axios'
-import WaSvg from './WaSvg';
+import WaSvg from './svgComponent/WaSvg';
 
 function InputNoWa({setNoWa,btnDisable,btnDisableName}) {
 

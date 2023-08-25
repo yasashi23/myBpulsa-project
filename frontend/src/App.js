@@ -32,13 +32,13 @@ export default function App() {
       <br />
       <Router>
         <Routes>
-          <Route path='/u' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
+          <Route path='/' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
           <Route path={konfirmasiPage.link} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}
 
-        <Route path='/' element={<OperatorSquare/>}/>
+        <Route path='/u' element={<OperatorSquare/>}/>
 
         </Routes>
         {/* {cekApi ? (<Navigate to='/'/>):(<Navigate to='/error'/>)}   */}

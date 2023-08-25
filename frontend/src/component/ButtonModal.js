@@ -4,20 +4,25 @@ import axios from 'axios'
 import { Navigate } from 'react-router'
 
 
- function LanjutBtn({txt,press,setSudah}) {
+ function LanjutBtn({txt,setSudah,cekNomor}) {
+    const[disableBtn,setDisableBtn] = useState(true)
+
+
       const handleKeyPress = (e) => {
         if(e.key == 'Enter'){
             e.preventDefault()
-            
-        }
+          }
         setSudah(true)
+
     }
   return (
 
     <div>
+      {console.log(cekNomor.length)}
         <Button 
         variant='outlined'
         onClick={handleKeyPress}
+        disabled={cekNomor}
         >{txt}</Button>
     </div>
   )
