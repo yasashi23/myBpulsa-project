@@ -1,15 +1,14 @@
 import React,{useState} from 'react'
-import OperatorsLogo from './OperatorsLogo'
 import UjungTsel from '../asset/tselAsset.webp'
 import UjungAxis from '../asset/axisAsset.webp'
 import UjungSmartfren from '../asset/smartfrenAsset.webp'
 import UjungXl from '../asset/xlAsset.webp'
 import TriSvg from './svgComponent/Tri'
 import IndosatSvg from './svgComponent/IndosatSvg'
-import BelumLunas from './svgComponent/belumLunasIcon'
 
 
-export default function PilihOperator({operator,pulsa,harga,belumLunas}){
+
+export default function PilihOperator({operator,pulsa,harga,belumLunas,style}){
 
     if(operator === 'xl') {
        return (<Square 
@@ -43,6 +42,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas}){
             pulsa={pulsa}
             harga={harga}
             belumLunas={belumLunas}
+            styleBaru={style}
             />
         )
     }
@@ -89,61 +89,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas}){
 
 
 
-function OperatorSquare() {
 
-  
-  return (
-    <div>
-        <Square 
-            style={{
-                background: 'linear-gradient(180deg, #002BBA 0%, #00C89E 120%)',
-                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}} 
-            element={<AssetUjungXl styleImg={{height:'46px'}}/>}
-            />
-
-        <br/>
-
-        <Square
-            style={{
-                background: '#753C94',
-                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
-            element={<AssetUjungAxis styleImg={{height:'46px'}}/>}
-        />
-
-        <br/>
-
-        <Square
-            style={{
-                background: 'linear-gradient(191deg, #D40010 0%, #FF490D 100%)',
-                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
-            element={<AssetUjungTsel styleImg={{height:'46px'}}/>}/>
-
-        <br/>
-
-        <Square
-            style={{
-                background: 'linear-gradient(180deg, #ED1D61 0%, #F44F85 100%)',
-                textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}
-            element={<AssetUjungSmartfren styleImg={{height:'20px'}}/>}/>
-
-        <br/>
-        <AssetUjungTri 
-            sx={{opacity:'.4'}} 
-            widthAndHeigthSvg={'60px'}
-            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}/>
-
-
-        <br/>
-
-        <AssetUjungIndosat 
-            widthAndHeigthSvg={'40px'}
-            styleN={{textShadow: '0px 4px 6px rgba(0, 0, 0, 0.46)'}}/>
-
-        <br/>
-
-    </div>
-  )
-}
 
 function AssetUjungIndosat({sx, widthAndHeigthSvg,styleN, pulsa,harga}){
     const styleKotak = {
@@ -256,7 +202,20 @@ function AssetUjungTri({sx, widthAndHeigthSvg,styleN,pulsa,harga}){
 
 
 
-function Square({style,element,pulsa,harga,belumLunas}) {
+function Square({style,element,pulsa,harga,belumLunas,styleBaru}) {
+    const {
+        tambahanStyleContainerAll, 
+        tambahanPembungkusOpt,
+        tambahanPembungkusPulsa,
+        tambahanPulsanya,
+        tambahanPembungkusHargaPulsa,
+        tambahanHargaPulsa,
+        tambahanPembungkusSegitigaBlmLunas,
+        tambahanPembungkusLinkWebsite,
+        tambahanPembungkusTextLinkWeb
+
+    } = styleBaru
+
     //containernya
     const styleKotak = {
         width: '190px',
@@ -265,65 +224,77 @@ function Square({style,element,pulsa,harga,belumLunas}) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        color:'white',...style
+        color:'white',
+        ...tambahanStyleContainerAll,
+        ...style
     }
 
     // container Contentnya
 
-    const styleCont = {
+    const pembungkusLogoOpt = {
         display: 'flex',
         position: 'absolute',
-        top: '0px'
+        top: '0px',
+        ...tambahanPembungkusOpt
     }
 
     //style untuk pulsanya
-    const pulsaStyle ={
-        position:'relative'
+    const pembungkusPulsaTxt ={
+        position:'relative',
+        tambahanPembungkusPulsa
     }
     const h2Pulsa = {
         fontSize: '36px',
-        width: '48%'
+        width: '48%',
+        ...tambahanPulsanya
     }
 
     // style Harga Pulsanya
-    const hargaPulsa = {
+    const pembungkusHargaPulsa = {
         position: 'absolute',
         marginLeft: '10px',
-        bottom: '10px'
+        bottom: '10px',
+        ...tambahanPembungkusHargaPulsa
     }
     const pHargaPulsa = {
-        fontSize: '14px'
+        fontSize: '14px',
+        ...tambahanHargaPulsa
     }
-    const blmLunas = {
+    const pembungkusSegitigaBlmLunas = {
         position: 'absolute',
         top: 0,
         right: 0,
+        ...tambahanPembungkusSegitigaBlmLunas
     }
-    const smallTxt ={
+    const pembungkusLinkWebsite ={
         position:'absolute',
         fontSize:'12px',
         left: '70%',
         bottom:'8%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        ...tambahanPembungkusLinkWebsite
+    }
+    const textLinkWebsite = {
+        ...tambahanPembungkusTextLinkWeb
     }
 
 
     return(
         <div style={styleKotak}>
-            <div className="ujungStle" style={styleCont}>
+            <div className="ujungStle" style={pembungkusLogoOpt}>
                 {(element)}
             </div>
-            <div className="pulsanya"  style={pulsaStyle}>
+            <div className="pulsanya"  style={pembungkusPulsaTxt}>
                 <h2 style={h2Pulsa}>{pulsa}</h2>
             </div>
-            <div className='hargaPulsanya' style={hargaPulsa}>
+            <div className='hargaPulsanya' style={pembungkusHargaPulsa}>
                 <p style={pHargaPulsa}>{harga}</p>
             </div>
-            <div style={blmLunas}>
+            <div style={pembungkusSegitigaBlmLunas}>
                 {(belumLunas)}
             </div>
-            <div style={smallTxt}>
-                <small>www.bipulsa.com</small>
+            <div style={pembungkusLinkWebsite}>
+                <small style={textLinkWebsite}>www.bipulsa.com</small>
             </div>
         </div>
     )
