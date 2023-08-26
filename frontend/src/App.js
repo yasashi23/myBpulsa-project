@@ -1,12 +1,9 @@
 import './App.css'
 import Checkout from './pages/Checkout'
-import Konfirmasi from './pages/Konfirmasi'
 import PilihPaket from './pages/PilihPaket'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import React,{ useState } from 'react'
-import { Navigate } from "react-router-dom";
 import ErrorWeb from './pages/ErrorWeb'
-import TungguLoading from './component/TungguLoading'
 import OperatorSquare from './component/OperatorSquare'
 
 
@@ -32,8 +29,8 @@ export default function App() {
       <br />
       <Router>
         <Routes>
-          <Route path='/' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
-          <Route path={konfirmasiPage.link} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
+          <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
+          <Route path={'/gas'} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}

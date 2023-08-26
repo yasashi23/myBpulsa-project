@@ -6,9 +6,10 @@ import UjungSmartfren from '../asset/smartfrenAsset.webp'
 import UjungXl from '../asset/xlAsset.webp'
 import TriSvg from './svgComponent/Tri'
 import IndosatSvg from './svgComponent/IndosatSvg'
+import BelumLunas from './svgComponent/belumLunasIcon'
 
 
-export default function PilihOperator({operator,pulsa,harga}){
+export default function PilihOperator({operator,pulsa,harga,belumLunas}){
 
     if(operator === 'xl') {
        return (<Square 
@@ -41,7 +42,7 @@ export default function PilihOperator({operator,pulsa,harga}){
             element={<AssetUjungTsel styleImg={{height:'46px'}}/>}
             pulsa={pulsa}
             harga={harga}
-
+            belumLunas={belumLunas}
             />
         )
     }
@@ -255,7 +256,7 @@ function AssetUjungTri({sx, widthAndHeigthSvg,styleN,pulsa,harga}){
 
 
 
-function Square({style,element,pulsa,harga}) {
+function Square({style,element,pulsa,harga,belumLunas}) {
     //containernya
     const styleKotak = {
         width: '190px',
@@ -293,7 +294,18 @@ function Square({style,element,pulsa,harga}) {
     const pHargaPulsa = {
         fontSize: '14px'
     }
-
+    const blmLunas = {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+    }
+    const smallTxt ={
+        position:'absolute',
+        fontSize:'12px',
+        left: '70%',
+        bottom:'8%',
+        transform: 'translate(-50%, -50%)'
+    }
 
 
     return(
@@ -306,6 +318,12 @@ function Square({style,element,pulsa,harga}) {
             </div>
             <div className='hargaPulsanya' style={hargaPulsa}>
                 <p style={pHargaPulsa}>{harga}</p>
+            </div>
+            <div style={blmLunas}>
+                {(belumLunas)}
+            </div>
+            <div style={smallTxt}>
+                <small>www.bipulsa.com</small>
             </div>
         </div>
     )
