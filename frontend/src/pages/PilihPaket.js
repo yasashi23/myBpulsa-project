@@ -3,6 +3,7 @@ import axios from 'axios'
 import InputPulsa from '../component/InputPulsa';
 import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
+import CaraPengisian from '../component/CaraPengisian';
 
 
 
@@ -111,7 +112,8 @@ const styleAll={
 
             />
           </form>
-          
+
+            <CaraPengisian/>
 
           </div>) : <h1>WEBSITE SEDANG GANGGUAN, silahkan coba lagi nanti</h1>}
 
