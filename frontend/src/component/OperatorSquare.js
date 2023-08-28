@@ -18,7 +18,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas,style}){
                     element={<AssetUjungXl styleImg={{height:'46px'}}/>}
                     pulsa={pulsa}
                     harga={harga}
-
+                    styleBaru={{...style}}
                     />)
     }
     else if (operator === 'axis') {
@@ -29,6 +29,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas,style}){
             element={<AssetUjungAxis styleImg={{height:'46px'}}/>}
             pulsa={pulsa}
             harga={harga}
+            styleBaru={{...style}}
 
             />)
     }
@@ -42,7 +43,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas,style}){
             pulsa={pulsa}
             harga={harga}
             belumLunas={belumLunas}
-            styleBaru={style}
+            styleBaru={{...style}}
             />
         )
     }
@@ -55,7 +56,7 @@ export default function PilihOperator({operator,pulsa,harga,belumLunas,style}){
             element={<AssetUjungSmartfren styleImg={{height:'20px'}}/>}
             pulsa={pulsa}
             harga={harga}
-
+            styleBaru={{...style}}
             />)
     }
 
