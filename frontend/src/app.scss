@@ -1,0 +1,11 @@
+$desktop-breakpoint: 1024px;
+$tablet-breakpoint: 740px;
+$mobile-breakpoint: 360px;
+
+
+
+@mixin respond-to($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}

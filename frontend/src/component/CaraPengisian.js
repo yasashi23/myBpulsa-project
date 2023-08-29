@@ -4,13 +4,14 @@ import Cara2 from '../asset/cara2.png'
 import Cara3 from '../asset/cara3.png'
 import Cara4 from '../asset/cara4.png'
 import { Padding } from '@mui/icons-material'
+import kelasnya from '../scssFile/caraPengisian.module.scss'
 
 export default function CaraPengisian() {
   return (
     <div>
         <h3>Cara Pengisiannya:</h3>
         <br/>
-        <div className="containerCard" style={{display:'flex', gap:'8px'}}>
+        <div className={`${kelasnya.containerCard}`}>
 
             <CaraPengisianCard foto={Cara1} nomor={'1'} text={'Masukkan nomor hp mu yang ingin di isi pulsanya'}/>
             <CaraPengisianCard foto={Cara2} nomor={'2'} text={'Pilihan paket pulsa akan muncul'}/>
@@ -24,19 +25,15 @@ export default function CaraPengisian() {
 function CaraPengisianCard({foto,nomor,text}) {
 
   return (
-    <div style={{width:'200px', display:'flex', flexDirection:'column', border:'1px solid', padding:'12px',borderRadius:'6px'}}>
-        <div className="imgContainer">
-            <img src={foto} alt="" style={{width:'100%',borderRadius:'6px'}}/>
+    <div className={kelasnya.pengisianCardContainer}>
+        <div className={`${kelasnya.imgContainer}`}>
+            <img src={foto} alt=""/>
         </div>
         <br />
-        <div>
+        <div className={`${kelasnya.containerTablePengisian}`}>
             <table>
-                <tr style={{
-                            display:'flex', alignItems:'flex-start',
-                            textAlign: 'justify',
-                            textJustify: 'inter-word'
-                            }}>
-                    <td style={{padding:'4px', borderRadius:'1000px',background:'#D9D9D9',marginRight:'10px'}}>{nomor}</td>
+                <tr>
+                    <td>{nomor}</td>
                     <td>{text}</td>
                 </tr>
             </table>

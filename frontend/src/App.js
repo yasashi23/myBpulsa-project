@@ -24,9 +24,8 @@ export default function App() {
   return(
     <center>
     <br />
-      <h1>bPulsa</h1>
+      <h1>biPulsa</h1>
       {console.log(konfirmasiPage.link)}
-      <br />
       <Router>
         <Routes>
           <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>

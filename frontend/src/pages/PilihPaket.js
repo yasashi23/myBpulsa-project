@@ -75,12 +75,11 @@ const styleAll={
        <div style={styleAll} className='container'>
           
         {cekApi ? (<div>
-          <table>
-            <tr>
-              <td>akses disini :  </td>
-              <td>http://192.168.100.24:3000</td>
-            </tr>
-          </table>
+
+            <div>
+              <h3>Isi Pulsa mudah dan murah</h3>
+            </div>
+
 
           <form >
           <InputPulsa 

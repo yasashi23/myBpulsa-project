@@ -62,6 +62,7 @@ setCariNo(e.target.value)
 
   return (
     <div>
+        {/* <OperatorsLogo operator={`${iniKartunya}`} imgStyle={{height:'40px'}}/> */}
         <TextField
           ref={inputRef}
           error={cekNomor.bool}
@@ -78,8 +79,6 @@ setCariNo(e.target.value)
           value={cariNo}
           onKeyPress={(e) => handleKeyPress(e)}
           required/>
-
-          <OperatorsLogo operator={`${iniKartunya}`} imgStyle={{height:'80px'}}/>
 
     </div>
   )

@@ -2,11 +2,14 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import React, { useEffect, useState } from 'react';
 import QuotaSelect from './QuotaSelect';
+import kelasnya from '../../scssFile/carouselQuots.module.scss'
 import "react-multi-carousel/lib/styles.css";
 
 export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor,setOpen }) {
   const [dataPulsanya, setDataPulsanya] = useState([]);
   const [foundIndex, setFoundIndex] = useState(-1);
+
+  const[munculkan,setMunculkan] = useState(false)
 
   
 
@@ -54,6 +57,7 @@ const responsive = {
       for(let i = 0; i < iniIsipulsa.length; i += 3) {
         group.push(
           <div key={i} style={coba}>
+          {/* {setMunculkan(true)} */}
             {(iniIsipulsa).slice(i,i+3).map((item,index) => (
               <QuotaSelect key={index} pulsak={item.pulsa} harga={item.hargaBaru} pilihan={pilih} kartu={kartu} cekNomor={cekNomor} setOpen={setOpen}/>
               
@@ -78,6 +82,7 @@ const responsive = {
     <div>
             {/* {console.log(kartu, dataPulsanya[foundIndex] === undefined)} */}
       <Carousel
+      containerClass={dataPulsanya[foundIndex] === undefined? kelasnya.containerCarousel : kelasnya.containerCarouselOn}
         responsive={responsive}
         style={crs}
         swipeable={true}
