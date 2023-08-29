@@ -1,10 +1,15 @@
 @import '../app.scss';
 
+
+.container{
+    // border: 1px solid;
+
+}
 .containerCarouselOn{
-    transition: 1s;
+    transition: 5s;
     height: 500px;
 }
 .containerCarousel{
-    transition: 1s;
-    height: 2px;
+    height: 0px;
+    transition: 5s;
 }

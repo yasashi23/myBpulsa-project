@@ -39,9 +39,9 @@ const responsive = {
 
   const coba = {
     // border : "solid 1px",
-    display:"flex",
-    "flexDirection":"column",
-    gap:'30px'
+    // display:"flex",
+    // "flexDirection":"column",
+    // gap:'30px'
   }
 
   const groupDiv = () =>{
@@ -82,7 +82,7 @@ const responsive = {
     <div>
             {/* {console.log(kartu, dataPulsanya[foundIndex] === undefined)} */}
       <Carousel
-      containerClass={dataPulsanya[foundIndex] === undefined? kelasnya.containerCarousel : kelasnya.containerCarouselOn}
+      containerClass={`${kelasnya.container} ${dataPulsanya[foundIndex] === undefined ? kelasnya.containerCarousel: kelasnya.containerCarouselOn }`}
         responsive={responsive}
         style={crs}
         swipeable={true}

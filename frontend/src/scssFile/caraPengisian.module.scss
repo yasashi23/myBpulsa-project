@@ -2,16 +2,23 @@
 
 .containerCard{
     display: flex; 
+    justify-content:center ;
     gap:10px;
+    flex-wrap: wrap;
+    @include respond-ke($mobile-breakpoint){
+        width: 400px;
+
+    }
 }
 
 .pengisianCardContainer {
-    width: 200px; 
+    width: 150px; 
     display:flex; 
     flex-direction:column;
     border:1px solid;
     padding:12px;
     border-radius:6px;
+
 }
 
 .imgContainer{
