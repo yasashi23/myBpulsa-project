@@ -74,7 +74,7 @@ setCariNo(e.target.value)
           inputComponent: MyInputComponent,
           inputProps:inputProps}}
           id="filled-basic"
-          label="Masukkan Nomor"
+          label="Masukkan Nomor Hp"
           variant="outlined"
           onChange={handleChange}
           value={cariNo}
