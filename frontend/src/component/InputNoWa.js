@@ -55,6 +55,7 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
         label="Masukkan No Wa mu"
         variant="standard"
         placeholder='08XX XXXX XXXX'
+        required={true}
         InputProps={{
         inputComponent: InputNomor,
         inputProps:InputPropsWa}}

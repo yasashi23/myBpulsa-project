@@ -4,7 +4,7 @@ import InputPulsa from '../component/InputPulsa';
 import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
 import CaraPengisian from '../component/CaraPengisian';
-
+import kelas from '../scssFile/pilihPaket.module.scss'
 
 
 
@@ -16,7 +16,9 @@ const [dataPrefix, setDataPrefix] = useState([])
 const [isLoading, setIsLoading] = useState(false);
 const [open, setOpen] = useState(true);
 
+
 const [kelar,setKelar] = useState(false)
+const [dataPulsaIndex,setDataPulsaIndex] = useState(-1)
 
 const [nomorAndKartu, setNomorAndKartu] = useState({kartu:"kosong",nomor:"kosong",pulsa:"kosong",harga:"kosong",
 modals:false})
@@ -62,9 +64,7 @@ modals:false})
   };
 
 
-const styleAll={
-  width:"800px"
-}
+
 
 
 
@@ -72,12 +72,13 @@ const styleAll={
 
     
 
-       <div style={styleAll} className='container'>
+       <div className={kelas.containerPilihPaket}>
           
         {cekApi ? (<div>
 
             <div>
-              <h3>Isi Pulsa mudah dan murah</h3>
+              <h1>biPulsa</h1>
+              <p>Isi Pulsa mudah dan murah</p>
             </div>
 
 
@@ -86,6 +87,8 @@ const styleAll={
             prefix={dataPrefix} 
             noKaSet = {setNomorAndKartu} 
             noKa={nomorAndKartu}
+            pulsa={dataPulsa}
+            dataPulsaIndex={dataPulsaIndex}
             />
 
           <CarouselQuota 
@@ -94,6 +97,7 @@ const styleAll={
             pilih={setNomorAndKartu}
             cekNomor={nomorBlmBenar}
             setOpen={setOpen}
+            setDataPulsaIndex={setDataPulsaIndex}
             />
 
           {console.log(isLoading)}

@@ -7,7 +7,7 @@ import TungguLoading from './TungguLoading';
 import Otpinput from './Otpinput';
 import InputName from './InputName';
 import PilihOperator from './OperatorSquare';
-
+import kelas from '../scssFile/modal.module.scss'
 
 
 
@@ -51,45 +51,18 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
 
     const flex = {
         display:(onOffModals?"flex":"none"),
-        flexDirection:"column",
-        justifyContent:"center",
-        alignItems:"center"
     }
-    const fullCont = {
-        width:"100%",
-        height:"100vh",
-        position:"fixed",
-        background: "rgba(164, 164, 164, 0.47)",
-        top:0,
-        left:0,
-        zIndex:"999",
-        ...flex
-    }
-    const containerStyle = {
-        display:"block",
-        padding:"45px 10px",
-        boxSizing:"border-box",
-        width:"400px",
-        backgroundColor:"white",
-        ...flex,
-        top:"-20%",
-        position:"relative"
-    }
-    const containerBtn = {
-        ...flex,
-        flexDirection:"row",
-        gap:"8px"
-    }
+
 
 
 
 
   return (
-    <div style={fullCont}>
+    <div className={kelas.modalContainer} style={flex}>
 
       {console.log({btnDisable,btnDsableName})}
 
-        <div class="modal-overlay" style={containerStyle}>
+        <div className={kelas.layerOverlay} style={flex}>
             <div class="modal">
               
               {
@@ -128,8 +101,9 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
 
                 //BUAT JIKA OTP BERHASIL DI VERIFIKASINYA DISINI
 
-                (<div className="input-no-wa">
-                    <h3>Verifikasi Kode OTP via Whatsapp</h3>
+                (<div className={kelas.inputNoWa}>
+                    <h2>Verifikasi OTP dulu ya!!</h2>
+                    <p>Kode OTP akan di kirimkan via Whatsapp</p>
                     <br />
                     <InputName 
                       setData={setData}
@@ -146,8 +120,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                     <br />
                   </div>) //Last [otp False] //Last [isloading false] //still [sudah True] //still [onOffModals True]
                 :
-                (   <div className='Info-nomor-pulsa'> 
-                      <h3>{open? 'Perbaiki Nomor Anda!!':'Apakah sudah benar?'}</h3>
+                (   <div className={kelas.infoNoPulsa}> 
+                      <h3>{open? 'Perbaiki Nomor Anda!!':'Di cek lagi ya!!'}</h3>
                       <br />
                       {console.log({data})}
                       <h4>Nomor Anda</h4>
@@ -155,6 +129,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                       <br />
                       <h4 style={{marginBottom:'10px'}}>Paket yang anda pilih</h4>
                       <PilihOperator operator={data.kartu} pulsa={data.pulsa} harga={data.harga}/>
+                      <br />
+                      <p>{open? 'Klik belum dan Perbaiki Nomor anda':'Sudah benar semua?'}</p>
                     </div>
                 ) //Last [sudah false] //still [onOffModals True]
                 :
@@ -162,7 +138,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                   <div></div>
                 )//Last[onOffModals False]
               }
-              <br />
+              
               
 
               {
@@ -174,7 +150,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
               :
 
               otpBerhasilDikirim?
-                (<div className='containerBtn' style={containerBtn}>
+                (<div className={kelas.containerButton} style={flex}>
 
                   <VerifyOtp 
                     txt={'Verifikasi Kode'}
@@ -191,9 +167,9 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                 </div>)
               :
 
-              (<div className="containerBtn" style={containerBtn}>
+              (<div className={kelas.containerButtonOtp} style={flex}>
               <KirimBtn
-                txt={"Kirim OTP"}
+                txt={"Minta Kode"}
                 setSudah={setSudah}
                 setNoWa={setNoWa}
                 noWa={nomorWa}
@@ -215,7 +191,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
               </div>) // loading false //sudah true
 
               :
-              (<div className="containerBtn" style={containerBtn}>
+              (<div className={kelas.containerButton} style={flex}>
               <LanjutBtn 
                 txt={"Sudah"}
                 setSudah={setSudah}

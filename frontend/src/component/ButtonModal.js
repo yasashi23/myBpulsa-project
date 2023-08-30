@@ -15,6 +15,12 @@ import { Navigate } from 'react-router'
         setSudah(true)
 
     }
+    const sxStyle = {
+      color:'white',
+      border:'none',
+      fontWeight:'600',
+      background:(open? 'transparent':'#6FCA61')
+    }
   return (
 
     <div>
@@ -23,6 +29,7 @@ import { Navigate } from 'react-router'
         variant='outlined'
         onClick={handleKeyPress}
         disabled={open}
+        sx={{...sxStyle }}
         >{txt}</Button>
     </div>
   )
@@ -43,6 +50,7 @@ import { Navigate } from 'react-router'
         <Button 
             variant='outlined'
             onClick={handleKeyPress}
+            sx={{background:'#E84545',color:'white',border:'none',fontWeight:'600'}}
         >{txt}</Button>
     </div>
   )
@@ -122,7 +130,8 @@ function KembaliInfo({txt,press,setSudah}) {
         <Button 
         variant='outlined'
         onClick={handleKeyPress}
-        >{txt}</Button>
+        sx={{border:'none', color:'black', fontWeight:'800', fontSize:'12px',opacity:'.7'}}
+        ><u>{txt}</u></Button>
     </div>
   )
 }

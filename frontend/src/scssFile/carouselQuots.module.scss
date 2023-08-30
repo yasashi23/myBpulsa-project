@@ -3,13 +3,13 @@
 
 .container{
     // border: 1px solid;
-
+    z-index: 2;
 }
 .containerCarouselOn{
-    transition: 5s;
+    transition: 1s;
     height: 500px;
 }
 .containerCarousel{
     height: 0px;
-    transition: 5s;
+    transition: 1s;
 }

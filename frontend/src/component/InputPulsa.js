@@ -3,10 +3,11 @@ import { PatternFormat } from 'react-number-format';
 import { TextField } from '@mui/material';
 import validator from 'validator'
 import OperatorsLogo from './OperatorsLogo';
+import kelas from '../scssFile/inputPulsa.module.scss'
 
 
 
-export default function InputPulsa({prefix,noKaSet}) {
+export default function InputPulsa({prefix,noKaSet,pulsa,dataPulsaIndex}) {
 
   const [cariNo,setCariNo] = useState("")
   const [iniKartunya,setIniKartunya] = useState("")
@@ -61,9 +62,9 @@ setCariNo(e.target.value)
 
 
   return (
-    <div>
-        {/* <OperatorsLogo operator={`${iniKartunya}`} imgStyle={{height:'40px'}}/> */}
+    <div className={kelas.containerInputPulsa}>
         <TextField
+          className={`${kelas.inputPulsaNormal} ${pulsa[dataPulsaIndex] == undefined? kelas.inputPulsaFull: kelas.inputPulsa}`}
           ref={inputRef}
           error={cekNomor.bool}
           helperText={cekNomor.word}
@@ -74,11 +75,16 @@ setCariNo(e.target.value)
           inputProps:inputProps}}
           id="filled-basic"
           label="Masukkan Nomor"
-          variant="filled"
+          variant="outlined"
           onChange={handleChange}
           value={cariNo}
           onKeyPress={(e) => handleKeyPress(e)}
           required/>
+          {console.log()}
+          <div className={`${kelas.logoOperatorNormal} ${pulsa[dataPulsaIndex] == undefined? kelas.logoOperatorOff: kelas.logoOperator}`}>
+
+          <OperatorsLogo operator={`${iniKartunya}`} imgStyle={{height:'40px'}}/>
+          </div>
 
     </div>
   )

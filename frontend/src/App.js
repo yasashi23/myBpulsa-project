@@ -24,7 +24,6 @@ export default function App() {
   return(
     <center>
     <br />
-      <h1>biPulsa</h1>
       {console.log(konfirmasiPage.link)}
       <Router>
         <Routes>

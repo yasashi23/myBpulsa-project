@@ -5,7 +5,7 @@ import QuotaSelect from './QuotaSelect';
 import kelasnya from '../../scssFile/carouselQuots.module.scss'
 import "react-multi-carousel/lib/styles.css";
 
-export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor,setOpen }) {
+export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor,setOpen,setDataPulsaIndex }) {
   const [dataPulsanya, setDataPulsanya] = useState([]);
   const [foundIndex, setFoundIndex] = useState(-1);
 
@@ -17,6 +17,7 @@ export default function CarouselQuota({ pulsa, kartu, pilih,cekNomor,setOpen }) 
     setDataPulsanya(pulsa); 
     const ind = pulsa.findIndex(item => item.kartu.toLowerCase() === kartu.kartu);
     setFoundIndex(ind);
+    setDataPulsaIndex(ind)
   }, [pulsa, kartu]);
 
 const responsive = {

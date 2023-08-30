@@ -1,0 +1,35 @@
+.inputPulsaNormal{
+    margin-top: 10px !important;
+        width: 500px;
+}
+
+.inputPulsaFull {
+    transition: 1s;
+    width: 500px;
+}
+.inputPulsa{
+    transition: 1s;
+    width: 160px;
+}
+
+.containerInputPulsa{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;    
+}
+
+.logoOperatorNormal{
+    opacity:0;
+}
+.logoOperatorOff{
+    opacity: 0;
+    transition: 1s;
+}
+.logoOperator{
+    opacity: 10;
+    transition: 2s;
+}
+
+
+
