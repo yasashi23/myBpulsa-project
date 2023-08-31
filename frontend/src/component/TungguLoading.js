@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export default function TungguLoading({query, nomorWa,otpBerhasil}) {
   const [loading, setLoading] = React.useState(false);
-  // const [query, setQuery] = React.useState(false);
+  const numberWa = "0"+ nomorWa.phone_number.slice(2)
   const timerRef = React.useRef();
   // const query = false
 
@@ -19,32 +19,13 @@ export default function TungguLoading({query, nomorWa,otpBerhasil}) {
   );
 
 
-  // const handleClickQuery = (e) => {
-  //   if (timerRef.current) {
-  //     clearTimeout(timerRef.current);
-  //   }
-  //   setQuery(e)
-  //   // if (query !== 'idle') {
-  //   //   setQuery('idle');
-  //   //   return;
-  //   // }
-
-
-    
-    
-  //   if(query === false) timerRef.current = window.setTimeout(() => {
-  //     setQuery(false);
-  //   }, 2000);
-    
-  //   else setQuery(true);
-
-  // };
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box sx={{ height: 40 }}>
         {! query ? (
-          <Typography>{otpBerhasil? `Ok, Kode OTP sudah Dikirmkan ke ${nomorWa.phone_number}` : `Kode OTP gagal Dikirmkan ke ${nomorWa.phone_number}`}</Typography>
+          <Typography>{otpBerhasil? (<p>
+            Ok, Kode OTP sudah<br/>Dikirmkan ke {numberWa}
+          </p>) : (<p>Kode OTP gagal<br/>Dikirimkan ke {numberWa}</p>)}</Typography>
         ) : (
           <Fade
             in={query}

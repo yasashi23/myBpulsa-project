@@ -79,6 +79,7 @@ setCariNo(e.target.value)
           onChange={handleChange}
           value={cariNo}
           onKeyPress={(e) => handleKeyPress(e)}
+          size='big'
           required/>
           {console.log()}
           <div className={`${kelas.logoOperatorNormal} ${pulsa[dataPulsaIndex] == undefined? kelas.logoOperatorOff: kelas.logoOperator}`}>

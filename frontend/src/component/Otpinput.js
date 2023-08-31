@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import {Alert} from '@mui/material'
+import kelas from '../scssFile/otpInput.module.scss'
 
-export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp,pesanOtp,setPesanOtp}) {
+export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp,warningOtp,setWarningOtp}) {
     
-
-    const contStyle = {
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'center',
-        gap:'3px'
-    }
-    const inpStyle ={
-        width:'3rem',
-        height:'4rem',
-        fontSize:'2rem'
-    }
-
 
       const handleKeyPress = (e) => {
         if(e.key == 'Enter'){
@@ -32,12 +20,14 @@ export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp,p
         }
         else{
             panjangOtp(true)
+            setWarningOtp('mengisi')
         }
     }
 
   return (
-    <div>
-    <h3>Masukkan Kode OTPnya</h3>
+    <div className={kelas.modalInputOtp}>
+    <h3>Masukkan Kodenya</h3>
+    <p>Masukkan kode OTP yang sudah<br/>dikirimkan ke no WA anda.</p>
     <br/>
      <OtpInput
       value={otp}
@@ -45,10 +35,11 @@ export default function Otpinput({otp,setOtp, nomorWa, setVerifyOtp,panjangOtp,p
       numInputs={4}
       renderSeparator={<span>-</span>}
       renderInput={(props) => <input {...props} />}
-      containerStyle={contStyle}
-      inputStyle={inpStyle}
+      containerStyle={kelas.otpInputValue}
+      inputStyle={`${kelas.otpInputannya} ${warningOtp === 'success'? kelas.Berhasil: warningOtp === 'mengisi'?  kelas.mengisi : kelas.Gagal}`}
     />
     {/* <Alert variant="outlined" severity="error" sx={{p:0}}>UDIN NGANGA</Alert> */}
+    {console.log({warningOtp})}
 
     </div>
   )

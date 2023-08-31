@@ -3,6 +3,7 @@ import { PatternFormat } from 'react-number-format';
 import { TextField,Box, CircularProgress} from '@mui/material';
 import axios from 'axios'
 import WaSvg from './svgComponent/WaSvg';
+import kelas from '../scssFile/otpModal.module.scss'
 
 function InputNoWa({setNoWa,btnDisable,btnDisableName}) {
 
@@ -49,7 +50,7 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
   return (
     
     <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent:'center' }}>
-        <WaSvg sx={{ color: "action.active", mr: 1, my: 0.5 }}/>
+        <WaSvg classnya={kelas.otpLogoWa} sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
         id="input-with-sx"
         label="Masukkan No Wa mu"

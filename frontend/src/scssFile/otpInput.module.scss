@@ -1,0 +1,38 @@
+.modalInputOtp {
+    h3{
+        font-size: 28px;
+    }
+    p{
+        margin-top: 3px;
+        font-size: 15px;
+        opacity: .7;
+    }
+    .otpInputValue{
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        gap:3px;
+        border-radius: 2px;
+    }
+    .otpInputannya{
+        width: 3rem !important;
+        height:4rem;
+        font-size:2rem;
+        border-radius: 12px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        &.mengisi{
+        border-color: black;
+        }
+        &.Gagal{
+        border-color: #FF0000;
+        }
+        &.Berhasil{
+            border-color: #6FCA61;
+        }
+    }
+    margin-bottom: 8px;
+
+}
+

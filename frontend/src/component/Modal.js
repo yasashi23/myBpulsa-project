@@ -8,11 +8,19 @@ import Otpinput from './Otpinput';
 import InputName from './InputName';
 import PilihOperator from './OperatorSquare';
 import kelas from '../scssFile/modal.module.scss'
-
+import { useTimer } from 'use-timer';
 
 
 
 export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setOpen}) {
+  const { time, start, pause, reset, status } = useTimer({
+  initialTime: 10,
+  endTime:0,
+  timerType: 'DECREMENTAL',
+    onTimeOver: () => {
+    alert('Time is over');
+  },
+});
   
     const [sudah,setSudah] = useState(false)
     const {modals,...newN} = data
@@ -41,7 +49,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
 
     const[btnDsableName,setBtnDisableName] = useState(true)
 
-
+    const[warningOtp,setWarningOtp] = useState('mengisi')
     
 
 
@@ -70,7 +78,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
 
                 sudah ? //start [onOffModals True]
 
-                isLoading ? //start [sudah True] //still [onOffModals True]
+               isLoading? //isLoading ? //start [sudah True] //still [onOffModals True]
+               //otpBerhasilDikirim},nomorWa
 
                 (
                   <div>
@@ -93,6 +102,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                       panjangOtp={setPanjangOtp}
                       pesanOtp={pesanOtp}
                       setPesanOtp={setPesanOtp}
+                      warningOtp={warningOtp}
+                      setWarningOtp={setWarningOtp}
                       />
                   </div>
                 ) //start [otp true] //still [isloading false] //still [sudah True] //still [onOffModals True]
@@ -150,8 +161,9 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
               :
 
               otpBerhasilDikirim?
-                (<div className={kelas.containerButton} style={flex}>
+                (<div className={`${kelas.containerButton} ${kelas.buttonVerify}`} style={flex}>
 
+                  <p className={`${kelas.warningTextOtp} ${warningOtp === 'success'? kelas.Berhasil: warningOtp === 'mengisi'?  kelas.mengisi : kelas.Gagal}`}>{warningOtp === 'success'? 'OTP sesuai': warningOtp === 'mengisi'?  '' : 'OTP Tidak Sesuai'}</p>
                   <VerifyOtp 
                     txt={'Verifikasi Kode'}
                     verifyOtp={verifyOtp}
@@ -162,7 +174,9 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                     dataBerhasilVerify={data}
                     nomorWa={nomorWa}
                     setKonfirmasi={setKonfirmasi}
+                    setWarningOtp={setWarningOtp}
                   />
+                  <p>Minta lagi {time} {console.log(status)}</p>
 
                 </div>)
               :
@@ -180,7 +194,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                 setOtpBerhasil={setOtpBerhasilDikirim}
                 sekaliSubmitAja={sekaliSubmitAja}
                 setSekaliSubmitAja={setSekaliSubmitAja}
-
+                start={start}
               />
               <KembaliInfo 
                 txt={"Kembali"}

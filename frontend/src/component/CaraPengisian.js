@@ -18,9 +18,11 @@ export default function CaraPengisian() {
         <div className={`${kelasnya.containerCard}`}>
             <CaraPengisianCard foto={Cara1} nomor={'1'} text={'Masukkan nomor hp mu yang ingin di isi pulsanya'}/>
             <CaraPengisianCard foto={widthWindowForPhone? CaraMobile2 : Cara2} nomor={'2'} text={'Pilihan pulsa akan muncul'}/>
-            <CaraPengisianCard foto={widthWindowForPhone? CaraMobile3 : Cara3} nomor={'3'} text={'Lalu klik pulsa yang anda butuhkan'}/>
+            <CaraPengisianCard foto={widthWindowForPhone? CaraMobile3 : Cara3} nomor={'3'} text={'Lalu pilih pulsa yang anda butuhkan'}/>
             <CaraPengisianCard foto={widthWindowForPhone? CaraMobile4 : Cara4} nomor={'4'} text={'Akan muncul seperti ini, dan lanjutkan prosesnya'}/>
         </div>
+        <br/>
+        <br/>
     </div>
   )
 }

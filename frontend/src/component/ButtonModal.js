@@ -57,7 +57,7 @@ import { Navigate } from 'react-router'
 }
 
 
-function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisableName}) {
+function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisableName,start}) {
       const Link = process.env.REACT_APP_LINK+'/send-otp/'
 
       const [hitungKlik, setHitungKlik] = useState(0)
@@ -83,8 +83,9 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
                 try {
                   const response = await axios.post(Link,noWa);
                   setOtpBerhasil(true)
+                  start()
                   console.log('Server response:', response.data);
-                  setTimeout(()=>{loading(false)},1500)
+                  setTimeout(()=>{loading(false)},2500)
                   
                 } catch (error) {
                   console.error('Error submitting form:', error);
@@ -101,6 +102,14 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
     setLoad(false)
 
 }
+
+      const sxStyle = {
+        color:'white',
+        border:'none',
+        fontWeight:'600',
+        background:(btnDisable? 'transparent':'#6FCA61')
+      }
+
   return (
 
     <div>
@@ -109,6 +118,7 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
         variant='outlined'
         onClick={handleSubmit}
         disabled={btnDisable}
+        sx={{...sxStyle}}
         >{txt}</Button>
     </div>
   )
@@ -137,7 +147,7 @@ function KembaliInfo({txt,press,setSudah}) {
 }
 
 
-function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi }) {
+function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi,setWarningOtp }) {
   const Link = process.env.REACT_APP_LINK + '/verify-otp/';
   const SendData = process.env.REACT_APP_LINK + '/dat/';
 
@@ -173,6 +183,10 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
 
   console.log(konfirmasi)
 
+  function sebelumRedirect(){
+    setSukses('success');
+  }
+
   const handleSubmit = async (e) => {
     try {
       const response = await axios.post(Link, verifyOtp);
@@ -180,13 +194,15 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
 
       if (yy === 'OTP terverifikasi') {
         setOpen(true);
-        setSukses('success');
+        setTimeout(sebelumRedirect,1500)
+        setWarningOtp('success')
         setKonfirmasi({...konfirmasi,aman:true})
         sendData();
       } else {
         setKonfirmasi({...konfirmasi,aman:false})
         setOpen(true);
         setSukses('error');
+        setWarningOtp('error')
       }
 
       console.log('Server response:', response.data);
@@ -212,17 +228,27 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
     
     return <Navigate to={linkName} />;
   }
+        const sxStyle = {
+        color:(panjangOtp? 'gray':'white'),
+        border:'none',
+        fontWeight:'600',
+        background:(panjangOtp? 'transparent':'#6FCA61')
+      }
 
   return (
     <div>
-      <Button variant="contained" disabled={panjangOtp} onClick={handleSubmit}>
+      <Button variant="outlined" 
+      disabled={panjangOtp} 
+      onClick={handleSubmit}
+      style={{...sxStyle}}
+      >
         {txt}
       </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={sukses} sx={{ width: '100%' }}>
           {sukses === 'success' ? 'OTP Terverifikasi' : 'OTP tidak sesuai'}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </div>
   );
 }
@@ -237,4 +263,4 @@ export {
     KirimBtn,
     KembaliInfo,
     VerifyOtp
-}
+  }
