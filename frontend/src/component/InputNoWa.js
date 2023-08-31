@@ -66,6 +66,7 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
         helperText={cekNoWa.word}
         value={memory}
         />
+        {console.log({memory})}
     </Box>
 
   )

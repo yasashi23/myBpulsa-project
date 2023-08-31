@@ -2,6 +2,9 @@ $desktop-breakpoint: 1024px;
 $tablet-breakpoint: 740px;
 $mobile-breakpoint: 470px;
 
+$greenBtn : #6FCA61 !important;
+$redBtn: #E84545 !important;
+
 
 *{
     margin: 0;
@@ -14,3 +17,9 @@ $mobile-breakpoint: 470px;
         @content;
     }
 }
+
+@mixin svgSize($wAndH){
+    width: $wAndH - 16; //14 
+    height: $wAndH/5; //3
+}
+

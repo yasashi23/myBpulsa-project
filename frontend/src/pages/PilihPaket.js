@@ -82,7 +82,7 @@ modals:false})
             </div>
 
 
-          <form >
+          <div >
           <InputPulsa 
             prefix={dataPrefix} 
             noKaSet = {setNomorAndKartu} 
@@ -114,7 +114,7 @@ modals:false})
             setOpen={setOpen}
 
             />
-          </form>
+          </div>
 
             <CaraPengisian/>
 

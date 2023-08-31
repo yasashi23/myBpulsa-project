@@ -1,0 +1,19 @@
+@import '../app.scss';
+
+.kirimOtpBtn:hover,
+.nextBtn:hover
+
+{
+    color: $greenBtn;
+    border-color: $greenBtn;
+}
+
+.kembaliBtnNumber:hover {
+    color: $redBtn;
+    border-color: $redBtn;
+}
+
+.kembaliInfoBtn:hover {
+    border: none !important;
+    opacity: .6;
+}

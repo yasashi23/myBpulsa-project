@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Button, Snackbar,Alert } from '@mui/material'
 import axios from 'axios'
 import { Navigate } from 'react-router'
+import kelas from '../scssFile/buttonModal.module.scss'
 
 
  function LanjutBtn({txt,setSudah,cekNomor,open}) {
@@ -30,6 +31,7 @@ import { Navigate } from 'react-router'
         onClick={handleKeyPress}
         disabled={open}
         sx={{...sxStyle }}
+        className={kelas.nextBtn}
         >{txt}</Button>
     </div>
   )
@@ -51,6 +53,7 @@ import { Navigate } from 'react-router'
             variant='outlined'
             onClick={handleKeyPress}
             sx={{background:'#E84545',color:'white',border:'none',fontWeight:'600'}}
+            className={kelas.kembaliBtnNumber}
         >{txt}</Button>
     </div>
   )
@@ -67,7 +70,6 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
 
 
       const handleSubmit = async(e) =>{
-
         if(btnDisable === true ) {
           e.preventDefault()
           
@@ -76,8 +78,8 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
         
         else{
           
-          if(hitungKlik < 2) {
-            
+          if(hitungKlik < 2 || e.key === 'Enter') {
+
                 loading(true)
                 setLoad(true)
                 try {
@@ -119,6 +121,7 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
         onClick={handleSubmit}
         disabled={btnDisable}
         sx={{...sxStyle}}
+        className={kelas.kirimOtpBtn}
         >{txt}</Button>
     </div>
   )
@@ -141,6 +144,7 @@ function KembaliInfo({txt,press,setSudah}) {
         variant='outlined'
         onClick={handleKeyPress}
         sx={{border:'none', color:'black', fontWeight:'800', fontSize:'12px',opacity:'.7'}}
+        className={kelas.kembaliInfoBtn}
         ><u>{txt}</u></Button>
     </div>
   )
@@ -188,6 +192,7 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   }
 
   const handleSubmit = async (e) => {
+
     try {
       const response = await axios.post(Link, verifyOtp);
       const yy = response.data.message;
@@ -241,14 +246,10 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
       disabled={panjangOtp} 
       onClick={handleSubmit}
       style={{...sxStyle}}
+      className={kelas.verifyBtn}
       >
         {txt}
       </Button>
-      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={sukses} sx={{ width: '100%' }}>
-          {sukses === 'success' ? 'OTP Terverifikasi' : 'OTP tidak sesuai'}
-        </Alert>
-      </Snackbar> */}
     </div>
   );
 }

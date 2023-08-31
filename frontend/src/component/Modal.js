@@ -18,7 +18,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
   const [timeNone,setTimeNone] = useState(false)
 
   const { time, start, pause, reset, status } = useTimer({
-  initialTime: 12,
+  initialTime: 63,
   endTime:0,
   timerType: 'DECREMENTAL',
     onTimeOver: () => {
@@ -65,15 +65,18 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
     const flex = {
         display:(onOffModals?"flex":"none"),
     }
+
     function mintaLagi(){
       if(mintaLagiOn == true) {
         setOtpBerhasilDikirim(false)
         setMintaLagiOn(false)
+        setBtnDisable(true)
       }
       else{
         return
       }
     }
+
 
     const mintaLagiStyle = {
       opacity:(mintaLagiOn? '10' : '.4'),

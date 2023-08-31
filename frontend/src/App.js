@@ -22,8 +22,7 @@ export default function App() {
   }
 
   return(
-    <center>
-    <br />
+    <div>
       {console.log(konfirmasiPage.link)}
       <Router>
         <Routes>
@@ -39,6 +38,6 @@ export default function App() {
         {/* {cekApi ? (<Navigate to='/'/>):(<Navigate to='/error'/>)}   */}
       </Router>
     {console.log("KONFIRMASI RESULT",cekApi)}
-    </center>
+    </div>
   )
   }

@@ -1,0 +1,55 @@
+@import '../../app.scss';
+
+.danaPayContainer{
+    height: 100vh;
+    background: linear-gradient(180deg, #108DE8 0%, #005898 100%);
+    color: white;
+    padding: 30px 46px 0px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    > div:nth-child(2){
+        margin-top: 25px;
+    }
+    > div:nth-child(n+2){
+        p{
+            font-size: 16px;
+        }
+    }
+    h2{
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        color:rgba(255, 255, 255, 0.468);
+    }
+    .garisDana{
+        width: 250px;
+        height: 1px;
+        background-color: white;
+        margin-top: 10px;
+        opacity: .6;
+    }
+
+    .danaSvg{
+        @include svgSize(140px);
+    }
+    .withCopy{
+        display: flex;
+        gap: 10px;
+    }
+    .contentCopyLogo:active{
+        opacity: .4;
+    }
+    .timerCountdown{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > div{
+            text-align: center;
+            font-size: 42px;
+        }
+    }
+
+}
