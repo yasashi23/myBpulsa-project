@@ -13,12 +13,17 @@ import { useTimer } from 'use-timer';
 
 
 export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setOpen}) {
+  const [mintaLagiOn, setMintaLagiOn] = useState(false)
+
+  const [timeNone,setTimeNone] = useState(false)
+
   const { time, start, pause, reset, status } = useTimer({
-  initialTime: 10,
+  initialTime: 12,
   endTime:0,
   timerType: 'DECREMENTAL',
     onTimeOver: () => {
-    alert('Time is over');
+   setMintaLagiOn(true)
+   setTimeNone(true)
   },
 });
   
@@ -60,9 +65,25 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
     const flex = {
         display:(onOffModals?"flex":"none"),
     }
+    function mintaLagi(){
+      if(mintaLagiOn == true) {
+        setOtpBerhasilDikirim(false)
+        setMintaLagiOn(false)
+      }
+      else{
+        return
+      }
+    }
 
-
-
+    const mintaLagiStyle = {
+      opacity:(mintaLagiOn? '10' : '.4'),
+      fontSize:'13px',
+      fontWeight:'600',
+      cursor:'pointer',
+    }
+    const timeStyle ={
+      display:(!mintaLagiOn? 'block':'none')
+    }
 
 
   return (
@@ -164,6 +185,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                 (<div className={`${kelas.containerButton} ${kelas.buttonVerify}`} style={flex}>
 
                   <p className={`${kelas.warningTextOtp} ${warningOtp === 'success'? kelas.Berhasil: warningOtp === 'mengisi'?  kelas.mengisi : kelas.Gagal}`}>{warningOtp === 'success'? 'OTP sesuai': warningOtp === 'mengisi'?  '' : 'OTP Tidak Sesuai'}</p>
+
                   <VerifyOtp 
                     txt={'Verifikasi Kode'}
                     verifyOtp={verifyOtp}
@@ -176,7 +198,14 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                     setKonfirmasi={setKonfirmasi}
                     setWarningOtp={setWarningOtp}
                   />
-                  <p>Minta lagi {time} {console.log(status)}</p>
+                  <p 
+                    onClick={mintaLagi}
+                    style={{...mintaLagiStyle}}
+                    ><u>Kirim Ulang Kode</u>
+                    <span style={{...timeStyle}}>
+                       {time}
+                    </span>
+                  </p>
 
                 </div>)
               :
