@@ -68,21 +68,34 @@ function Perline({title, txt}){
 }
 
 function PerlineTimer({title, state}){
-    const renderer = ({ hours, minutes, seconds, completed }) => {
-  if (completed) {
-    // Render a completed state
-    return <p>Berhasil</p>;
-  } else {
-    // state({min:minutes,sec:seconds})
-    return <span>{minutes}:{seconds}</span>;
-  }
-}
+
     return(
         <div className={kelas.timerCountdown}>
             <h2>{title}</h2>
             <div>
-                <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/>
+                <HitungJam/>
             </div>
+        </div>
+    )
+}
+
+function HitungJam(){
+    const [tigaJam, setTigaJam] = useState({})
+    
+    
+    const jamnya = new Date()
+    let[jam,menit,detik]=[jamnya.getHours(),jamnya.getMinutes(),jamnya.getSeconds()]
+
+        const sls = (((jam*3600)+(menit*60)+(detik*1))+3600)
+        const Jam = (sls - (sls%3600))/3600
+        const Menit = ((sls%3600)-((sls%3600)%60))/60
+        const Detik = (sls%3600)%60
+        
+
+
+    return(
+        <div>
+            {`${Jam}:${Menit}:${Detik}`}
         </div>
     )
 }

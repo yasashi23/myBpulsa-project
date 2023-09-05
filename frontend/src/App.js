@@ -17,17 +17,25 @@ export default function App() {
 
   const [cekApi, setCekApi ] = useState(true)
 
+  const [jamTerakhir,setJamTerakhir] = useState('')
+
   const ErrPage = (e) => {
     setCekApi(e)
   }
+  const centerContainer = {
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center'
+  }
 
   return(
-    <div>
+    <div  style={centerContainer}>
       {console.log(konfirmasiPage.link)}
       <Router>
         <Routes>
-          <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
-          <Route path={'/gas'} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
+          <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} setJamTerakhir={setJamTerakhir}/>}/>
+          <Route path={'/gas'} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} jamTerakhir={jamTerakhir}/>}/>
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}

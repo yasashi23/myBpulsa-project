@@ -9,7 +9,7 @@ import kelas from '../scssFile/pilihPaket.module.scss'
 
 
     
-export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi}) {
+export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi,setJamTerakhir}) {
 
 const [dataPulsa, setDataPulsa] = useState([])
 const [dataPrefix, setDataPrefix] = useState([])
@@ -72,7 +72,7 @@ modals:false})
 
     
 
-       <div className={kelas.containerPilihPaket}>
+       <center className={kelas.containerPilihPaket}>
           
         {cekApi ? (<div>
 
@@ -112,6 +112,7 @@ modals:false})
             cekNomor={nomorBlmBenar}
             open={open}
             setOpen={setOpen}
+            setJamTerakhir={setJamTerakhir}
 
             />
           </div>
@@ -122,7 +123,7 @@ modals:false})
 
 
 
-        </div> 
+        </center> 
   )
 
   }
