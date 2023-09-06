@@ -72,7 +72,7 @@ modals:false})
 
     
 
-       <div className={kelas.containerPilihPaket}>
+       <center className={kelas.containerPilihPaket}>
           
         {cekApi ? (<div>
 
@@ -122,7 +122,7 @@ modals:false})
 
 
 
-        </div> 
+        </center> 
   )
 
   }
