@@ -42,10 +42,21 @@ export default function App() {
     alignItems:'center'
   }
 
+  const centerSet = {
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
+  }
+
   return(
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div  style={centerContainer}>
       {console.log(konfirmasiPage.link)}
+=======
+    <div style={{...centerSet}}>
+ 
+>>>>>>> percobaan
       <Router>
         <Routes>
           <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} setJamTerakhir={setJamTerakhir}/>}/>
@@ -58,7 +69,10 @@ export default function App() {
           <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
           <Route path={nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
 
+<<<<<<< HEAD
 >>>>>>> ea0847a (update 6 sep 22:48)
+=======
+>>>>>>> percobaan
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}

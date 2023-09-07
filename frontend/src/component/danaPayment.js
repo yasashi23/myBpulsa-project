@@ -74,10 +74,14 @@ function PerlineTimer({title, state}){
             <h2>{title}</h2>
             <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <HitungJam/>
 =======
                 {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
 >>>>>>> ea0847a (update 6 sep 22:48)
+=======
+                {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
+>>>>>>> percobaan
             </div>
         </div>
     )

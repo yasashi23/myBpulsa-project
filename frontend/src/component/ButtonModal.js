@@ -240,11 +240,15 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
 
   if (sukses === 'success') {
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
 =======
    
 >>>>>>> ea0847a (update 6 sep 22:48)
+=======
+   
+>>>>>>> percobaan
     return <Navigate to={linkName} />;
   }
         const sxStyle = {
