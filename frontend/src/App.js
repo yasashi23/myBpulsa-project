@@ -24,8 +24,28 @@ export default function App() {
 
   const [cekApi, setCekApi ] = useState(true)
 
+  const [jamTerakhir,setJamTerakhir] = useState('')
+
   const ErrPage = (e) => {
     setCekApi(e)
+  }
+  const centerContainer = {
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center'
+  }
+
+  const centerSet = {
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
+  }
+
+  const centerSet = {
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
   }
 
   const centerSet = {
@@ -35,6 +55,22 @@ export default function App() {
   }
 
   return(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <div  style={centerContainer}>
+      {console.log(konfirmasiPage.link)}
+=======
+    <div style={{...centerSet}}>
+ 
+>>>>>>> percobaan
+      <Router>
+        <Routes>
+          <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} setJamTerakhir={setJamTerakhir}/>}/>
+          <Route path={'/gas'} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} jamTerakhir={jamTerakhir}/>}/>
+=======
+>>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
     <div style={{...centerSet}}>
  
       <Router>
@@ -42,6 +78,13 @@ export default function App() {
           <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
           <Route path={nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ea0847a (update 6 sep 22:48)
+=======
+>>>>>>> percobaan
+>>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}

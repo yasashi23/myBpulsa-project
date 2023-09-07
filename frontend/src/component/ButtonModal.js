@@ -152,7 +152,7 @@ function KembaliInfo({txt,press,setSudah}) {
 }
 
 
-function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi,setWarningOtp }) {
+function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi,setWarningOtp,setJamTerakhir }) {
   const Link = process.env.REACT_APP_LINK + '/verify-otp/';
   const SendData = process.env.REACT_APP_LINK + '/dat/';
 
@@ -179,6 +179,12 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   };
 
   const linkName = `/checkout/for-${dataSiap.nama}`
+
+
+  const sls = (((date.getHours*3600)+(date.getMinutes()*60)+(date.getSeconds()*1))+(3*3600))
+  const Jam = String((sls - (sls%3600))/3600).length < 2 ? `0${(sls - (sls%3600))/3600}` : (sls - (sls%3600))/3600
+  const Menit = String(((sls%3600)-((sls%3600)%60))/60).length < 2 ? `0${((sls%3600)-((sls%3600)%60))/60}` : ((sls%3600)-((sls%3600)%60))/60
+  const Detik = String((sls%3600)%60).length < 2 ? `0${(sls%3600)%60}` : (sls%3600)%60
 
   const konfirmasi = {
     data:{...sendNewDat},
@@ -233,7 +239,20 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   };
 
   if (sukses === 'success') {
+<<<<<<< HEAD
    
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+    setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
+=======
+   
+>>>>>>> ea0847a (update 6 sep 22:48)
+=======
+   
+>>>>>>> percobaan
+>>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
     return <Navigate to={linkName} />;
   }
         const sxStyle = {
