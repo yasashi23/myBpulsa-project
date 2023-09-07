@@ -3,6 +3,7 @@ import { Button, Snackbar,Alert } from '@mui/material'
 import axios from 'axios'
 import { Navigate } from 'react-router'
 import kelas from '../scssFile/buttonModal.module.scss'
+import Cookies from 'js-cookie'
 
 
  function LanjutBtn({txt,setSudah,cekNomor,open}) {
@@ -207,6 +208,8 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
         setOpen(true);
         setTimeout(sebelumRedirect,1500)
         setWarningOtp('success')
+        console.log("SEND NEW DAT", sendNewDat)
+        Cookies.set('linkPembayaran',linkName,{expires:0.125}) 
         setKonfirmasi({...konfirmasi,aman:true})
         sendData();
       } else {
@@ -236,8 +239,12 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   };
 
   if (sukses === 'success') {
+<<<<<<< HEAD
     
     setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
+=======
+   
+>>>>>>> ea0847a (update 6 sep 22:48)
     return <Navigate to={linkName} />;
   }
         const sxStyle = {

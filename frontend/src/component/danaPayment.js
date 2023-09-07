@@ -73,7 +73,11 @@ function PerlineTimer({title, state}){
         <div className={kelas.timerCountdown}>
             <h2>{title}</h2>
             <div>
+<<<<<<< HEAD
                 <HitungJam/>
+=======
+                {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
+>>>>>>> ea0847a (update 6 sep 22:48)
             </div>
         </div>
     )
