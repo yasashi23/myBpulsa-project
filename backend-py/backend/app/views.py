@@ -10,6 +10,10 @@ import random as r
 from django.utils.timezone import now
 import json
 import time
+import datetime
+import math
+
+
 
 
 # pc
@@ -53,6 +57,33 @@ try:
 
 except:
     driver = webdriver.Chrome(service=servicePc,options=options)
+
+
+def batasPembayaran():
+    x = datetime.datetime.now()
+    hour = int(x.strftime("%H"))
+    minute = int(x.strftime("%M"))
+    second = int(x.strftime("%S"))
+
+
+    timeToMiliSeconds = ((hour*3600)+(minute*60)+(second*1)+2*3600)
+
+    jam = f"{math.floor((timeToMiliSeconds - (timeToMiliSeconds%3600))/3600)}"
+    menit = f"{math.floor(((timeToMiliSeconds%3600)-((timeToMiliSeconds%3600)%60))/60)}"
+    detik =f"{math.floor((timeToMiliSeconds%3600)%60)}"
+
+    if len(detik) < 2 :
+        detik = f"0{detik}"
+
+    if(len(jam) < 2):
+        jam = f"0{jam}"
+
+    if(len(menit) < 2):
+        menit = f"0{menit}"
+        
+    return f"{jam}:{menit}:{detik}"
+
+
 
 
 
@@ -123,10 +154,12 @@ class SendOTP(APIView):
 
             try:
                 nium.gas(driver,nomor,otp)
+                print('try')
                 return Response({'message':'Kode OTP sudah dikirimkan'})
             except:
+                # https://api.whatsapp.com/send?
                 newNom = nomor.replace(" ","")
-                link = "https://web.whatsapp.com/send/?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
+                link = "https://api.whatsapp.com/send?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
 
                 time.sleep(1)
                 driver.get(link)
@@ -151,7 +184,7 @@ class VerifyOTP(APIView):
                 token = Token.objects.get(phone_number=phone_number, otp=entered_otp)
                 token.delete()
 
-                return Response({'message':'OTP terverifikasi'})
+                return Response({'message':'OTP terverifikasi','waktuPembayaran':f"{batasPembayaran()}"})
             
             except Token.DoesNotExist:
                 return Response({'message':'OTP tidak sesuai'})

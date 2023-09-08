@@ -20,7 +20,7 @@ milidetik = waktu_sekarang.microsecond // 1000
 
 class Selen:
     def gas(self,drivernya,nama,nomor,kartu,nomorWa,pulsa,harga,jam):
-        link = "https://web.whatsapp.com/send/?phone=%2B"+nomorWa+"&amp;text&amp;type=phone_number&amp;app_absent=0"
+        link = "https://api.whatsapp.com/send?phone=%2B"+nomorWa+"&amp;text&amp;type=phone_number&amp;app_absent=0"
 
         try:
             cek = drivernya.find_element(By.CSS_SELECTOR,'a#udinB')
@@ -60,7 +60,7 @@ class OTPsend:
     def gas(self,drivernya,nomor,otp):
         # link = "https://web.whatsapp.com/send/?phone=%2B"+nomor+"&amp;text&amp;type=phone_number&amp;app_absent=0"
         newNom = nomor.replace(" ","")
-        link = "https://web.whatsapp.com/send/?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
+        link = "https://api.whatsapp.com/send?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
 
         print(link)
         try:

@@ -178,13 +178,12 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
     nomorWa: nomorWa.phone_number
   };
 
+  const {jam,...dataCookie} = sendNewDat
+
   const linkName = `/checkout/for-${dataSiap.nama}`
 
 
-  const sls = (((date.getHours*3600)+(date.getMinutes()*60)+(date.getSeconds()*1))+(3*3600))
-  const Jam = String((sls - (sls%3600))/3600).length < 2 ? `0${(sls - (sls%3600))/3600}` : (sls - (sls%3600))/3600
-  const Menit = String(((sls%3600)-((sls%3600)%60))/60).length < 2 ? `0${((sls%3600)-((sls%3600)%60))/60}` : ((sls%3600)-((sls%3600)%60))/60
-  const Detik = String((sls%3600)%60).length < 2 ? `0${(sls%3600)%60}` : (sls%3600)%60
+  
 
   const konfirmasi = {
     data:{...sendNewDat},
@@ -203,6 +202,8 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
     try {
       const response = await axios.post(Link, verifyOtp);
       const yy = response.data.message;
+      const waktuPembayaran = response.data.waktuPembayaran
+      const detailPengguna = JSON.stringify(dataCookie)
 
       if (yy === 'OTP terverifikasi') {
         setOpen(true);
@@ -210,6 +211,8 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
         setWarningOtp('success')
         console.log("SEND NEW DAT", sendNewDat)
         Cookies.set('linkPembayaran',linkName,{expires:0.125}) 
+        Cookies.set('batasPembayaran',waktuPembayaran,{expires:0.125}) 
+        Cookies.set('detailPengguna',detailPengguna,{expires:0.125}) 
         setKonfirmasi({...konfirmasi,aman:true})
         sendData();
       } else {
@@ -239,20 +242,10 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   };
 
   if (sukses === 'success') {
-<<<<<<< HEAD
-   
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     
-    setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
-=======
-   
->>>>>>> ea0847a (update 6 sep 22:48)
-=======
-   
->>>>>>> percobaan
->>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
+    // setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
+
     return <Navigate to={linkName} />;
   }
         const sxStyle = {

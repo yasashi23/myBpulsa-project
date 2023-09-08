@@ -4,7 +4,8 @@ import DanaSvg from './svgComponent/DanaSvg'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Tooltip from '@mui/material/Tooltip';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import Countdown from "react-countdown";
+import Cookies from 'js-cookie'
+
 
 export default function DanaPayment() {
         const [copyPasteRek, setCopyPasteRek] = useState({value:'085212454896',copied:false})
@@ -17,7 +18,7 @@ export default function DanaPayment() {
         <Perline title={'Atas Nama:'} txt={'Yasashi Briliant Putra'}/>
         <PerlineWithCopy title={'Dengan Keterangan:'} txt={'biPulsa81314427019'} copyValue={copyPasteKet} setCopy={setCopyPasteKet} titCopy={'copy keterangan'}/>
         <br/>
-        <PerlineTimer title={'Waktu Pembayaran Tersisa:'}/>
+        <PerlineTimer title={'Bayar Sebelum jam:'}/>
     </div>
   )
 }
@@ -68,46 +69,14 @@ function Perline({title, txt}){
 }
 
 function PerlineTimer({title, state}){
+    const nilaiCookie = Cookies.get('batasPembayaran')
 
     return(
         <div className={kelas.timerCountdown}>
             <h2>{title}</h2>
             <div>
-<<<<<<< HEAD
-                {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <HitungJam/>
-=======
-                {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
->>>>>>> ea0847a (update 6 sep 22:48)
-=======
-                {/* <Countdown date={(Date.now() + 3.6e6)} renderer={renderer}/> */}
->>>>>>> percobaan
->>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
+                {`${nilaiCookie}`}
             </div>
-        </div>
-    )
-}
-
-function HitungJam(){
-    const [tigaJam, setTigaJam] = useState({})
-    
-    
-    const jamnya = new Date()
-    let[jam,menit,detik]=[jamnya.getHours(),jamnya.getMinutes(),jamnya.getSeconds()]
-
-        const sls = (((jam*3600)+(menit*60)+(detik*1))+3600)
-        const Jam = (sls - (sls%3600))/3600
-        const Menit = ((sls%3600)-((sls%3600)%60))/60
-        const Detik = (sls%3600)%60
-        
-
-
-    return(
-        <div>
-            {`${Jam}:${Menit}:${Detik}`}
         </div>
     )
 }

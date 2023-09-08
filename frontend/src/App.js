@@ -14,7 +14,6 @@ export default function App() {
 
     useEffect(() => {
     const userAgent = window.navigator.userAgent;
-    console.log("User Agent:HJAHHAHAHHAHJHSDJKSHAJKHDAJK", userAgent);
   }, []);
 
   const [konfirmasiPage,setKonfirmasiPage] = useState({data:{},aman:false,link:''})
@@ -42,49 +41,18 @@ export default function App() {
     alignItems:'center'
   }
 
-  const centerSet = {
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center'
-  }
-
-  const centerSet = {
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center'
-  }
 
   return(
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     <div  style={centerContainer}>
-      {console.log(konfirmasiPage.link)}
-=======
-    <div style={{...centerSet}}>
- 
->>>>>>> percobaan
-      <Router>
-        <Routes>
-          <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} setJamTerakhir={setJamTerakhir}/>}/>
-          <Route path={'/gas'} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} jamTerakhir={jamTerakhir}/>}/>
-=======
->>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
-    <div style={{...centerSet}}>
+      {console.log(nilaiCookie)}
+
+    {/* <div style={{...centerSet}}> */}
  
       <Router>
         <Routes>
           <Route path='/a' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
-          <Route path={nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData}/>}/>
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ea0847a (update 6 sep 22:48)
-=======
->>>>>>> percobaan
->>>>>>> 95a0bde972b9bb5487a6835adac84daa44cb64d9
+          <Route path={nilaiCookie === undefined? '/checkout' :nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={nilaiCookie}/>}/>
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}
@@ -95,6 +63,7 @@ export default function App() {
         {/* {cekApi ? (<Navigate to='/'/>):(<Navigate to='/error'/>)}   */}
       </Router>
     </div>
+    // </div>
   
   )
   }
