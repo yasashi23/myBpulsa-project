@@ -6,21 +6,39 @@ import PilihOperator from './OperatorSquare'
 export default function CheckoutComponent({konfirmasiPage}) {
   const dataPengguna = JSON.parse(Cookies.get('detailPengguna'))
   const nomorTanpaSpasi = dataPengguna.nomor.replaceAll(" ","-")
+  const tambahanPulsanya = {
+    width:'100%',
+    textAlign:'center'
+  }
+
+  const f = 250
+  const widthRumus = f/1.79
+    const tambahanStyleContainerAll = {
+      width:`${f}px`,
+      height: `${widthRumus}px`
+    }
+
+    const handleClick = () =>{
+      window.open("https://api.whatsapp.com/send?phone=6285280167388&text=Halo%2C%20saya%20ingin%20konfirmasi%20pembayaran",'_blank')
+    }
+
+
 
   return (  
     <div className={kelas.compCheckout}>
         {console.log("INI ADALAH CHECKOUT", dataPengguna)}
-        <div>
-          <h3>biPulsa Checkout Page</h3>
+        <div className={kelas.title}>
+          <h3>biPulsa <span>Checkout Page</span></h3>
         </div>
+        <div className={kelas.line}></div>
 
-        <div>
+        <div className={kelas.keterangan}>
           <h2>Paket Pulsa Yang Dipilih:</h2>
-          <div>
+          <div className={kelas.operator}>
             <div>
-              <PilihOperator operator={dataPengguna.kartu} pulsa={dataPengguna.pulsa} harga={dataPengguna.harga}/>
+              <PilihOperator operator={dataPengguna.kartu} pulsa={dataPengguna.pulsa} harga={dataPengguna.harga} style={{tambahanPulsanya,tambahanStyleContainerAll}}/>
             </div>
-            <div>
+            <div className={kelas.keteranganPulsa}>
               <h4>Keterangan</h4>
               <table>
                 <tr>
@@ -36,18 +54,18 @@ export default function CheckoutComponent({konfirmasiPage}) {
               </table>
             </div>
           </div>
-          <div>
+          <div className={kelas.pemberitahuan}>
             <h4>Hi, {dataPengguna.nama}</h4>
-            <p>Silahkan lakukan pembayaran dengan total {dataPengguna.harga} dan langsung konfirmasi via WA agar pulsa segera dikirimkan
-                ke nomor {nomorTanpaSpasi}.
+            <p>Silahkan lakukan pembayaran dengan total <u>{dataPengguna.harga}</u> dan mengirimkan bukti via WA agar pulsa segera dikirimkan
+                ke nomor <u>{nomorTanpaSpasi}</u>.
             </p>
           </div>
         </div>
-
-        <div>
+        <div className={kelas.line}></div>
+        <div className={kelas.konfirmasiWa}>
           <div>Konfirmasi WA disini</div>
           <div>
-            <button>Konfirmasi</button>
+            <button onClick={handleClick}>Konfirmasi</button>
           </div>
         </div>
 

@@ -159,7 +159,7 @@ class SendOTP(APIView):
             except:
                 # https://api.whatsapp.com/send?
                 newNom = nomor.replace(" ","")
-                link = "https://api.whatsapp.com/send?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain.&type=phone_number&app_absent=0"
+                link = "https://api.whatsapp.com/send?phone="+newNom+"&text=Kode%20OTP%3A%20"+otp+".%20Jangan%20berikan%20kepada%20orang%20lain"
 
                 time.sleep(1)
                 driver.get(link)

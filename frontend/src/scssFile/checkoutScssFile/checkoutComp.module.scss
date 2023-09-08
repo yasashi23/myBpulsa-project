@@ -1,3 +1,65 @@
 .compCheckout{
     width: 100%;
+    padding: 40px 70px 0px 84px;
+    box-sizing: border-box;
+    .line{
+        width: 90%;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.60);;
+        margin-top: 10px;
+        opacity: .6;
+    }
+    .title{
+        padding-bottom: 18px;
+        font-size: 30px;
+        span{
+            font-weight: normal;
+        }
+    }
+
+    .keterangan{
+        padding-top: 40px;
+        padding-bottom: 46px;
+        > h2 {
+            font-size: 30px;
+            opacity: .6;
+        }
+
+        .operator {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            padding: 30px 0px 54px 0px;
+        }
+        .pemberitahuan {
+            opacity: .6;
+            h4{
+                font-size: 28px;
+                padding-bottom: 6px;
+            }
+            p{
+                width: 500px;
+                font-size: 18px;
+                line-height: 23px;
+            }
+        }
+        .keteranganPulsa {
+            h4{
+                font-size: 22px;
+            }
+            tr{
+                td{
+                    font-size: 18px;
+                }
+                td:nth-child(2){
+                    padding: 2px 5px;
+                }
+            }
+        }
+
+    }
+    .konfirmasiWa {
+        padding-top: 45px;
+        display: flex;
+    }
 }

@@ -242,7 +242,7 @@ function Square({style,element,pulsa,harga,belumLunas,styleBaru}) {
     //style untuk pulsanya
     const pembungkusPulsaTxt ={
         position:'relative',
-        tambahanPembungkusPulsa
+        ...tambahanPembungkusPulsa
     }
     const h2Pulsa = {
         fontSize: '36px',

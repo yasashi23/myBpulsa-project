@@ -8,17 +8,25 @@ import Cookies from 'js-cookie'
 
 
 export default function DanaPayment() {
+        const dataPengguna = JSON.parse(Cookies.get('detailPengguna'))
+          const nomorTanpaSpasi = dataPengguna.nomor.replaceAll(" ","")
+          const pulsaTanpaTitik = Number(dataPengguna.pulsa.replaceAll(".",""))/1000
+
+          const gabunganKeteranganDana = `bi${pulsaTanpaTitik}${nomorTanpaSpasi.slice(2,nomorTanpaSpasi.length)}`
+
+
+
         const [copyPasteRek, setCopyPasteRek] = useState({value:'085212454896',copied:false})
-        const [copyPasteKet, setCopyPasteKet] = useState({value:'biPulsa085212454896',copied:false})
-        const [MinuteAndSec,setMinuteAndSec] = useState({min:'',Sec:''})
+        const [copyPasteKet, setCopyPasteKet] = useState({value:gabunganKeteranganDana,copied:false})
+
   return (
     <div className={kelas.danaPayContainer}>
         <PerlineOne title={'Top up Via:'} svg={<DanaSvg classnya={kelas.danaSvg}/>}/>
         <PerlineWithCopy title={'Top up ke:'} txt={'085212454896'} copyValue={copyPasteRek} setCopy={setCopyPasteRek} titCopy={'copy rek dana'}/>
         <Perline title={'Atas Nama:'} txt={'Yasashi Briliant Putra'}/>
-        <PerlineWithCopy title={'Dengan Keterangan:'} txt={'biPulsa81314427019'} copyValue={copyPasteKet} setCopy={setCopyPasteKet} titCopy={'copy keterangan'}/>
+        <PerlineWithCopy title={'Dengan Keterangan:'} txt={gabunganKeteranganDana} copyValue={copyPasteKet} setCopy={setCopyPasteKet} titCopy={'copy keterangan'}/>
         <br/>
-        <PerlineTimer title={'Bayar Sebelum jam:'}/>
+        <PerlineTimer title={'Terakhir Pembayaran Jam:'}/>
     </div>
   )
 }
