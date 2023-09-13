@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import kelas from '../scssFile/checkoutScssFile/checkoutComp.module.scss'
 import Cookies from 'js-cookie'
 import PilihOperator from './OperatorSquare'
+import { Navigate } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export default function CheckoutComponent({konfirmasiPage}) {
   const dataPengguna = JSON.parse(Cookies.get('detailPengguna'))
@@ -11,6 +13,8 @@ export default function CheckoutComponent({konfirmasiPage}) {
     textAlign:'center'
   }
 
+  const [sudahKlikKonfirmasi,setSudahKlikKonfirmasi] = useState('belum')
+
   const f = 250
   const widthRumus = f/1.79
     const tambahanStyleContainerAll = {
@@ -19,7 +23,12 @@ export default function CheckoutComponent({konfirmasiPage}) {
     }
 
     const handleClick = () =>{
-      window.open("https://api.whatsapp.com/send?phone=6285280167388&text=Halo%2C%20saya%20ingin%20konfirmasi%20pembayaran",'_blank')
+      // window.open("https://api.whatsapp.com/send?phone=6285280167388&text=Halo%2C%20saya%20ingin%20konfirmasi%20pembayaran",'_blank')
+
+      Cookies.remove('batasPembayaran')
+      Cookies.remove('detailPengguna')
+      Cookies.remove('linkPembayaran')
+
     }
 
 
@@ -65,7 +74,9 @@ export default function CheckoutComponent({konfirmasiPage}) {
         <div className={kelas.konfirmasiWa}>
           <div>Konfirmasi WA disini</div>
           <div>
-            <button onClick={handleClick}>Konfirmasi</button>
+            <button onClick={handleClick}>
+             <Link to={'/'}>konfirmasi</Link>
+            </button>
           </div>
         </div>
 

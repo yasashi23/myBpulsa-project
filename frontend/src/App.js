@@ -52,7 +52,9 @@ export default function App() {
       <Router>
         <Routes>
           <Route path='' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
+
           <Route path={nilaiCookie === undefined? '/checkout' :nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={nilaiCookie}/>}/>
+          
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
         {/* UNTUK DEVELOP SEMENTARA */}
