@@ -5,12 +5,34 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from fastapi.middleware.cors import CORSMiddleware
+import mariadb
 
 
 app = FastAPI()
 
 
+konek = mariadb.connect (
+    user="laptop24",
+    password="briliant329020",
+    host="192.168.100.202",
+    port=3307,
+    database="latihan"
+)
 
+cur = konek.cursor()
+
+sql = "select * from data2"
+cur.execute(sql)
+hasil  = cur.fetchall()
+coba =json.dumps(hasil)
+print(hasil)
+
+# print(hasil)
+# if hasil:
+#     table_name = "data"
+#     first_row = hasil[0]
+#     print(f"Table: {table_name}")
+#     print(first_row)
 
 
 # pc
@@ -18,8 +40,8 @@ jsonPrefixPc = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/da
 jsonHargaPulsaPc = '/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/dataMitra/dataPulsa.json'
 
 # laptop
-jsonPrefixLap = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
-jsonHargaPulsaLap = '/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
+jsonPrefixLap = '/home/yasashi/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/nomorDiketahui.json'
+jsonHargaPulsaLap = '/home/yasashi/Documents/ngoding/project/dummy-pulsa-web/backend-py/dataMitra/dataPulsa.json'
 
 try:
     with open(jsonPrefixLap,'r') as file:
@@ -38,7 +60,7 @@ options = Options()
 options.add_experimental_option("debuggerAddress","localhost:9222")
 
 servicePc = ChromeService(executable_path='/media/yasashibp/D/ngoding/latihan/dummy-pulsa-app/backend-py/backend/seleniumnya/chrome/chromedriver') 
-serviceLap = ChromeService(executable_path='/home/yasashibp/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
+serviceLap = ChromeService(executable_path='/home/yasashi/Documents/ngoding/project/dummy-pulsa-web/backend-py/backend/seleniumnya/popLapChrome/chromedriver') 
 
 origins = [
     "http://localhost:3000",
@@ -63,6 +85,7 @@ except:
     driver = webdriver.Chrome(service=servicePc,options=options)
 
 
+# print("udin")
 
 @app.get("/dataPulsa")
 def read_root():
@@ -71,5 +94,4 @@ def read_root():
 @app.get("/dataPrefix")
 def read_root():
     return dataPrefix
-
 
