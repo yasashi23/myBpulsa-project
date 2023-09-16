@@ -1,31 +1,32 @@
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from fastapi.middleware.cors import CORSMiddleware
-import mariadb
+import pymongo
+from pymongo import MongoClient
+from pydantic import BaseModel
+import random as r
+
+
+
+client = MongoClient("mongodb://admin:root@192.168.100.202/")
+
+db = client.test
+pp = db.latihanData.find()
+otpDb = db.otp
+# print(pp[0])
+
+# for x in pp:
+#     # print(x)
 
 
 app = FastAPI()
 
 
-konek = mariadb.connect (
-    user="laptop24",
-    password="briliant329020",
-    host="192.168.100.202",
-    port=3307,
-    database="latihan"
-)
 
-cur = konek.cursor()
-
-sql = "select * from data2"
-cur.execute(sql)
-hasil  = cur.fetchall()
-coba =json.dumps(hasil)
-print(hasil)
 
 # print(hasil)
 # if hasil:
@@ -67,6 +68,7 @@ origins = [
     "http://192.168.100.17:3000",
     "http://192.168.100.22:3000",
     "http://192.168.100.24:3000",
+    "http://192.168.100.7:3000",
 ]
 
 app.add_middleware(
@@ -85,6 +87,13 @@ except:
     driver = webdriver.Chrome(service=servicePc,options=options)
 
 
+def OTPgen():
+    otp=""
+    for i in range(4):
+        otp+= str(r.randint(1,9))
+    return otp
+    
+
 # print("udin")
 
 @app.get("/dataPulsa")
@@ -94,4 +103,50 @@ def read_root():
 @app.get("/dataPrefix")
 def read_root():
     return dataPrefix
+
+
+class Item(BaseModel):
+    phone_number:str
+    otp:str
+
+class verify(BaseModel):
+    phone_number:str
+    otp:str
+
+@app.post("/send-otp")
+async def terima(item:Item,request:Request):
+    
+    otpnya = OTPgen()
+    otp = {
+        "phone_number":item.phone_number,
+        "otp":otpnya
+    }
+
+    otpDb.insert_one(otp)
+
+    for x in otpDb.find():
+        print(x)
+
+    # print(item.otp)
+
+    return{"msg":"berhasil"}
+
+
+@app.post("/verify-otp")
+async def terima(item:verify):
+    # print(item)
+    # return{"msg":"berhasil"}
+    
+    otpCheck = otpDb.find_one({"phone_number":item.phone_number,"otp":item.otp})
+
+    if otpCheck:
+        print(otpCheck)
+        return{"msg":"berhasil"}
+    else:
+        return{"msg":"gagal"}
+    
+
+
+
+    
 
