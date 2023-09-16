@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export default function TungguLoading({query, nomorWa,otpBerhasil}) {
   const [loading, setLoading] = React.useState(false);
-  const numberWa = "0"+ nomorWa.phone_number.slice(2)
+  const numberWa = "0"+ nomorWa.nomor.slice(2)
   const timerRef = React.useRef();
   // const query = false
 

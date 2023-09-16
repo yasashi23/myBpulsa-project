@@ -42,7 +42,7 @@ if((!duaAngkaAwal.test(value) && value.length-2 >= 2 )) {
       btnDisable(false)
         setCekNoWa({bool:false,word:''})
         // setKonfirmasi({...konfirmasi,nomorWa:value,...newN})
-        setNoWa({phone_number:newVal})
+        setNoWa({nomor:newVal})
     }
 
 }

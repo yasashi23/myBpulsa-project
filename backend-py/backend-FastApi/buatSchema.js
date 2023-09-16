@@ -31,15 +31,55 @@ db.createCollection("otp",{
     validator:{
         $jsonSchema:{
             bsonType:"object",
-            required:["phone_number","otp"],
+            required:["nomor","otp"],
             properties:{
-                phone_number:{
+                nomor:{
                     bsonType:"string",
-                    description:"phone_number Error"
+                    description:"nomor HP Error"
                 },
                 otp:{
                     bsonType:"string",
                     description:"otp Error"
+                }
+            }
+        }
+    }
+})
+
+db.createCollection("dataPelanggan",{
+    validationAction:"error",
+    validator:{
+        $jsonSchema:{
+            bsonType:"object",
+            required:["nama","nomor","nomorWa","kartu","pulsa","harga","status"],
+            properties:{
+                nama:{
+                    bsonType:"string",
+                    description:"nama Error"
+                },
+                nomor:{
+                    bsonType:"string",
+                    description:"nomor Error"
+                },
+                nomorWa:{
+                    bsonType:"string",
+                    description:"nomorWa HP Error"
+                },
+                kartu:{
+                    bsonType:"string",
+                    description:"kartu Error"
+                },
+                pulsa:{
+                    bsonType:"string",
+                    description:"Pulsa Error"
+                },
+                harga:{
+                    bsonType:"string",
+                    description:"harga Error"
+                },
+                status:{
+                    bsonType:"string",
+                    description:"status Error"
                 }
             }
         }

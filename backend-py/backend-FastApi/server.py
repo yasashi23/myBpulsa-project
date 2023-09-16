@@ -10,6 +10,8 @@ from pymongo import MongoClient
 from pydantic import BaseModel
 import random as r
 
+import datetime
+
 
 
 client = MongoClient("mongodb://admin:root@192.168.100.202/")
@@ -17,7 +19,7 @@ client = MongoClient("mongodb://admin:root@192.168.100.202/")
 db = client.test
 pp = db.latihanData.find()
 otpDb = db.otp
-# print(pp[0])
+dbDataPelanggan = db.dataPelanggan
 
 # for x in pp:
 #     # print(x)
@@ -105,48 +107,95 @@ def read_root():
     return dataPrefix
 
 
-class Item(BaseModel):
-    phone_number:str
-    otp:str
+class generateOtp(BaseModel):
+    nomorWa:str
+
 
 class verify(BaseModel):
-    phone_number:str
     otp:str
+    pulsa:str
+    kartu:str
+    nama:str
+    nomor:str
+    harga:str
+    nomorWa:str
+    status:str
+    jam:str
+
+class getData(BaseModel):
+    nama:str
+    harga:str
+    nomor:str
+    nomorWa:str
+    pulsa:str
+    kartu:str
+    jam:str
+    status:str
 
 @app.post("/send-otp")
-async def terima(item:Item,request:Request):
+async def terima(item:generateOtp,request:Request):
+    jam = datetime.datetime.now() + datetime.timedelta(minutes=1) 
     
     otpnya = OTPgen()
     otp = {
-        "phone_number":item.phone_number,
-        "otp":otpnya
+        "nomor":item.nomorWa,
+        "otp":otpnya,
+        "expire":jam
     }
 
     otpDb.insert_one(otp)
-
     for x in otpDb.find():
         print(x)
-
-    # print(item.otp)
 
     return{"msg":"berhasil"}
 
 
+
+
+def delete(data):
+    otpDb.delete_one(data)
+
+
+
+
 @app.post("/verify-otp")
 async def terima(item:verify):
-    # print(item)
-    # return{"msg":"berhasil"}
-    
-    otpCheck = otpDb.find_one({"phone_number":item.phone_number,"otp":item.otp})
+
+    otpCheck = otpDb.find_one({"nomor":item.nomorWa,"otp":item.otp})
+
+    dataPelanggan = {
+        "nama":item.nama,
+        "nomor":item.nomor,
+        "nomorWa":item.nomorWa,
+        "kartu":item.kartu,
+        "pulsa":item.pulsa,
+        "harga":item.harga,
+        "status":item.status
+    }
 
     if otpCheck:
-        print(otpCheck)
-        return{"msg":"berhasil"}
+        print("otpCheck ===>>",otpCheck["expire"] > datetime.datetime.now())
+
+        if otpCheck["expire"] > datetime.datetime.now():
+            delete({'otp':item.otp})
+            dbDataPelanggan.insert_one(dataPelanggan)
+            return{"message":"OTP terverifikasi"}
+        else:
+            delete({'otp':item.otp})
+            print("TIDAK EXPIRE")
+            return {"message":'verifikasi gagal'}
+        
     else:
-        return{"msg":"gagal"}
+        return{"message":"OTP ggl"}
     
 
+@app.post("/dat")
+async def terima(data:getData):
+
+    print(data)
+
+    return{"message":"terimakasih"}
 
 
-    
+
 

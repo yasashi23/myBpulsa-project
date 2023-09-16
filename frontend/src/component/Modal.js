@@ -32,7 +32,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [nomorWa,setNoWa] = useState({phone_number:''})
+    const [nomorWa,setNoWa] = useState({nomor:''})
 
     const [btnDisable,setBtnDisable] = useState(true)
 
@@ -71,6 +71,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
         setOtpBerhasilDikirim(false)
         setMintaLagiOn(false)
         setBtnDisable(true)
+        setOtp('')
+        setWarningOtp('mengisi')
       }
       else{
         return
@@ -228,6 +230,7 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                 sekaliSubmitAja={sekaliSubmitAja}
                 setSekaliSubmitAja={setSekaliSubmitAja}
                 start={start}
+                data={data}
               />
               <KembaliInfo 
                 txt={"Kembali"}

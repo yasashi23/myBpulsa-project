@@ -61,14 +61,23 @@ import Cookies from 'js-cookie'
 }
 
 
-function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisableName,start}) {
+function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisableName,start,data}) {
       const Link = process.env.REACT_APP_LINK+'/send-otp/'
 
       const [hitungKlik, setHitungKlik] = useState(0)
 
       const cek = btnDisable&&btnDisableName
 
+      const { modals, ...dataSiap } = data;
 
+      const sendData= {
+        ...dataSiap,
+        nomorWa: noWa.nomor,
+        status:'verifikasi OTP'
+      };
+
+      // console.log("SEND DATA",sendData)
+      const noYgDkrm = {nomorWa: noWa.nomor}
 
       const handleSubmit = async(e) =>{
         if(btnDisable === true ) {
@@ -84,7 +93,7 @@ function KirimBtn({txt,noWa,loading,btnDisable,setLoad, setOtpBerhasil,btnDisabl
                 loading(true)
                 setLoad(true)
                 try {
-                  const response = await axios.post(Link,noWa);
+                  const response = await axios.post(Link,noYgDkrm);
                   setOtpBerhasil(true)
                   start()
                   console.log('Server response:', response.data);
@@ -175,14 +184,16 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   const sendNewDat = {
     ...dataSiap,
     jam: time,
-    nomorWa: nomorWa.phone_number
+    nomorWa: nomorWa.nomor,
+    otp:verifyOtp.otp,
+    status:"belum bayar"
   };
 
   const {jam,...dataCookie} = sendNewDat
 
   const linkName = `/checkout/for-${dataSiap.nama}`
 
-
+  console.log("INIDIAHAHAHA",sendNewDat)
   
 
   const konfirmasi = {
@@ -193,6 +204,8 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
 
   console.log(konfirmasi)
 
+  console.log("VerifyOTP", verifyOtp)
+
   function sebelumRedirect(){
     setSukses('success');
   }
@@ -200,7 +213,7 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
   const handleSubmit = async (e) => {
 
     try {
-      const response = await axios.post(Link, verifyOtp);
+      const response = await axios.post(Link, sendNewDat);
       const yy = response.data.message;
       const waktuPembayaran = response.data.waktuPembayaran
       const detailPengguna = JSON.stringify(dataCookie)
@@ -214,7 +227,7 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
         Cookies.set('batasPembayaran',waktuPembayaran,{expires:0.125}) 
         Cookies.set('detailPengguna',detailPengguna,{expires:0.125}) 
         setKonfirmasi({...konfirmasi,aman:true})
-        sendData();
+        // sendData();
       } else {
         setKonfirmasi({...konfirmasi,aman:false})
         setOpen(true);
