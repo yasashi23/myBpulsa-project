@@ -1,14 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Button, Snackbar,Alert } from '@mui/material'
 import axios from 'axios'
 import { Navigate } from 'react-router'
 import kelas from '../scssFile/buttonModal.module.scss'
 import Cookies from 'js-cookie'
+import {io} from 'socket.io-client'
 
 
  function LanjutBtn({txt,setSudah,cekNomor,open}) {
     const[disableBtn,setDisableBtn] = useState(true)
 
+   
 
       const handleKeyPress = (e) => {
         if(e.key == 'Enter'){
@@ -161,13 +163,20 @@ function KembaliInfo({txt,press,setSudah}) {
 }
 
 
-function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi,setWarningOtp,setJamTerakhir }) {
+function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,setKonfirmasi,setWarningOtp,link }) {
   const Link = process.env.REACT_APP_LINK + '/verify-otp/';
   const SendData = process.env.REACT_APP_LINK + '/dat/';
+  const toSocket = process.env.REACT_APP_LINK + '/coba'
 
+  const Linknya = process.env.REACT_APP_LINKK+'/'
+  // const socket = io(Linknya,{path:'/sockets'})
+
+  
+ 
   const [terVerifikasi, setTervirifikasi] = useState('');
   const [open, setOpen] = useState(false);
   const [sukses, setSukses] = useState('error');
+  const [linkCheckout,setLinkCheckout] = useState('')
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -191,18 +200,20 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
 
   const {jam,...dataCookie} = sendNewDat
 
-  const linkName = `/checkout/for-${dataSiap.nama}`
+  
+
+  // const linkName = `/checkout/for-${dataSiap.nama}`
 
   console.log("INIDIAHAHAHA",sendNewDat)
   
+  let linkname
 
   const konfirmasi = {
     data:{...sendNewDat},
     aman:true,
-    link:linkName,
+    link:"",
   }
 
-  console.log(konfirmasi)
 
   console.log("VerifyOTP", verifyOtp)
 
@@ -223,11 +234,15 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
         setTimeout(sebelumRedirect,1500)
         setWarningOtp('success')
         console.log("SEND NEW DAT", sendNewDat)
-        Cookies.set('linkPembayaran',linkName,{expires:0.125}) 
-        Cookies.set('batasPembayaran',waktuPembayaran,{expires:0.125}) 
-        Cookies.set('detailPengguna',detailPengguna,{expires:0.125}) 
+        // Cookies.set('linkPembayaran',linkName,{expires:0.125}) 
+        // Cookies.set('batasPembayaran',waktuPembayaran,{expires:0.125}) 
+        // Cookies.set('detailPengguna',detailPengguna,{expires:0.125}) 
+
+        setLinkCheckout(`/checkout/${response.data.ket}`)
         setKonfirmasi({...konfirmasi,aman:true})
         // sendData();
+        // emitnya()
+        link({link:`/checkout/${response.data.ket}`,token:response.data.token})
       } else {
         setKonfirmasi({...konfirmasi,aman:false})
         setOpen(true);
@@ -243,9 +258,13 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
     }
   };
 
+
   const sendData = async () => {
+    const kk = {
+      coba:"sikatt"
+    }
     try {
-      const response = await axios.post(SendData, sendNewDat);
+      const response = await axios.post(toSocket, kk);
       console.log('Server response:', response.data);
       alert('Data berhasil dikirim');
     } catch (error) {
@@ -259,7 +278,7 @@ function VerifyOtp({ txt, verifyOtp, panjangOtp, dataBerhasilVerify, nomorWa,set
     
     // setJamTerakhir(`${Jam}:${Menit}:${Detik}`)
 
-    return <Navigate to={linkName} />;
+    return <Navigate to={linkCheckout} />;
   }
         const sxStyle = {
         color:(panjangOtp? 'gray':'white'),

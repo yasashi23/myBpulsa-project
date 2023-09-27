@@ -1,0 +1,38 @@
+###
+GET http://192.168.100.7:8001/dataPulsa
+
+
+
+###
+POST http://192.168.100.7:8001/send-otp
+Content-Type: application/json
+
+{
+    "nomorWa":"62852 1245 4896"
+}
+
+
+
+###
+POST http://192.168.100.7:8001/verify-otp
+Content-Type: application/json
+
+{
+    "kartu": "telkomsel",
+    "nomor": "0852 1245 4896",
+    "pulsa": "20.000",
+    "harga": "Rp20.600",
+    "nama": "yashi",
+    "jam": "16:02:00",
+    "nomorWa": "62852 1245 4896",
+    "otp": "7228",
+    "status": "belum bayar"
+}
+
+###
+POST http://192.168.100.7:8001/checkout/bi521245489620
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1hIjoieWFzaGkiLCJub21vciI6IjA4NTIgMTI0NSA0ODk2Iiwibm9tb3JXYSI6IjYyODUyIDEyNDUgNDg5NiIsInB1bHNhIjoiMjAuMDAwIiwiZXhwIjoxNjk1NTcwNzMwfQ.w3RdkyrQuuzvANIDNuU_e6pVujgPuMX4bEbmvPU27lA"
+}

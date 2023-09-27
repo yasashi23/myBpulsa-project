@@ -12,7 +12,7 @@ import { useTimer } from 'use-timer';
 
 
 
-export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setOpen,setJamTerakhir}) {
+export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setOpen,setJamTerakhir, emitnya,link}) {
   const [mintaLagiOn, setMintaLagiOn] = useState(false)
 
   const [timeNone,setTimeNone] = useState(false)
@@ -203,6 +203,8 @@ export default function Modal ({data, setData, setKonfirmasi, cekNomor,open,setO
                     setKonfirmasi={setKonfirmasi}
                     setWarningOtp={setWarningOtp}
                     setJamTerakhir={setJamTerakhir}
+                    emitnya={emitnya}
+                    link={link}
                   />
                   <p 
                     onClick={mintaLagi}

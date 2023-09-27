@@ -5,42 +5,36 @@ import CarouselQuota from '../component/QuotaSelect/CarouselQuota';
 import Modal from '../component/Modal';
 import CaraPengisian from '../component/CaraPengisian';
 import kelas from '../scssFile/pilihPaket.module.scss'
-
+import {io} from 'socket.io-client'
 
 
     
-export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi,setJamTerakhir}) {
+export default function PilihPaket({cekApi, setApi, setKonfirmasiPage,konfirmasi,setJamTerakhir,emitnya,link}) {
+
 
 const [dataPulsa, setDataPulsa] = useState([])
 const [dataPrefix, setDataPrefix] = useState([])
 const [isLoading, setIsLoading] = useState(false);
 const [open, setOpen] = useState(true);
-
-
 const [kelar,setKelar] = useState(false)
 const [dataPulsaIndex,setDataPulsaIndex] = useState(-1)
-
 const [nomorAndKartu, setNomorAndKartu] = useState({kartu:"kosong",nomor:"kosong",pulsa:"kosong",harga:"kosong",
 modals:false})
+const[nomorBlmBenar, setNomorBlmBenar] = useState(true)
 
-
-  const[nomorBlmBenar, setNomorBlmBenar] = useState(true)
-
-
-
-
-
-  // function dataModel()
-  const Link = process.env.REACT_APP_LINK
+const Link = process.env.REACT_APP_LINK
   const linkPulsa = Link+'/dataPulsa/'
   const linkPrefix = Link+'/dataPrefix/'
 
   console.log(linkPrefix)
 
+
+
   useEffect(() => {
     fetchData()
 
   },[]);
+
 
     const fetchData = async () => {
     try {
@@ -62,10 +56,6 @@ modals:false})
     }
 
   };
-
-
-
-
 
 
   return (
@@ -113,7 +103,8 @@ modals:false})
             open={open}
             setOpen={setOpen}
             setJamTerakhir={setJamTerakhir}
-
+            emitnya={emitnya}
+            link={link}
             />
           </div>
 

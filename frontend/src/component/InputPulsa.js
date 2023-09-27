@@ -28,6 +28,8 @@ export default function InputPulsa({prefix,noKaSet,pulsa,dataPulsaIndex}) {
         if(foundCard == 'Universal') setCekNomor({bool:true,word:'nomor anda tidak di ketahui'})
         setIniKartunya(foundCard)
 
+        
+
         noKaSet({kartu:`${foundCard}`,nomor:`${cariNo}`,pulsa:"kosong",harga:"kosong",modals:false})
       }
       else if((cariNo.length - 2) < 4){

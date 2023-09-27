@@ -6,24 +6,51 @@ import React,{ useState,useEffect } from 'react'
 import ErrorWeb from './pages/ErrorWeb'
 import OperatorSquare from './component/OperatorSquare'
 import Cookies from 'js-cookie'
+import {io} from 'socket.io-client'
 
 
 
 
 export default function App() {
 
-    useEffect(() => {
+  useEffect(() => {
     const userAgent = window.navigator.userAgent;
   }, []);
 
+  const Linknya = process.env.REACT_APP_LINKK+'/'
+  const socket = io(Linknya,{path:'/sockets'})
+
+  const [terkoneksi,setTerkoneksi] = useState(socket.connected)
+  useEffect(()=>{
+    
+    socket.on("connect",()=>{
+      setTerkoneksi(socket.connected)
+    })
+    
+      socket.on("disconnect",()=>{
+        setTerkoneksi(socket.connected)
+      })
+  })
+
+  function emitnya(){
+    socket.emit("testing","cbaio du")
+    // alert(socket.connected)
+  }
+
+
+  const [dataPulsa, setDataPulsa] = useState([])
+  const [dataPrefix, setDataPrefix] = useState([])
   const [konfirmasiPage,setKonfirmasiPage] = useState({data:{},aman:false,link:''})
   const [theData, setTheData] = useState({})
-  const nilaiCookie = Cookies.get('linkPembayaran')
+  // const nilaiCookie = Cookies.get('linkPembayaran')
+  const [link,setLink] = useState({link:'', token:''})
 
 
   const [cekApi, setCekApi ] = useState(true)
+  // const [hitung,setHitung] = useState(0)
 
-  const [jamTerakhir,setJamTerakhir] = useState('')
+  // const [jamTerakhir,setJamTerakhir] = useState('')
+
 
   const ErrPage = (e) => {
     setCekApi(e)
@@ -45,15 +72,15 @@ export default function App() {
   return(
 
     <div  style={centerContainer}>
-      {console.log(nilaiCookie)}
+      {/* {console.log(nilaiCookie)} */}
 
     {/* <div style={{...centerSet}}> */}
  
       <Router>
         <Routes>
-          <Route path='' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage}/>}/>
+          <Route path='' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} emitnya={emitnya} link={setLink}/>}/>
 
-          <Route path={nilaiCookie === undefined? '/checkout' :nilaiCookie} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={nilaiCookie}/>}/>
+          <Route path={link.link === ""? '/checkout' : link.link} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={link}/>}/>
           
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
@@ -61,7 +88,9 @@ export default function App() {
 
         <Route path='/u' element={<OperatorSquare/>}/>
 
+
         </Routes>
+        <button onClick={emitnya}>COBA KLIK </button>
         {/* {cekApi ? (<Navigate to='/'/>):(<Navigate to='/error'/>)}   */}
       </Router>
     </div>
