@@ -28,11 +28,17 @@ export default function Checkout({sudahOrder, konfirmasiPage}) {
 
   return (
         sudahOrder.link === "" ?
-    (<div>Silahkan Order Terlebih Dahulu</div>)
+    (<div>Silahkan Order Terlebih Dahulu
+      {/* {alert("Belum ada linknya")} */}
+      {/* {console.log(sudahOrder)} */}
+    </div>)
     :
     (<div className={kelas.checkoutContainerPage}>
       <DanaPayment/>
-      <CheckoutComponent sudahOrder={sudahOrder} konfirmasiPage={konfirmasiPage}/>
+      {/* {alert("sudah ada linknya")} */}
+      {/* <CheckoutComponent sudahOrder={sudahOrder} konfirmasiPage={konfirmasiPage}/> */}
+      HELLO ANDA SUDAH MASUK
+      {console.log("SUDAH ORDER",sudahOrder)}
     </div>)
   )
 }

@@ -17,23 +17,10 @@ export default function App() {
     const userAgent = window.navigator.userAgent;
   }, []);
 
-  const Linknya = process.env.REACT_APP_LINKK+'/'
-  const socket = io(Linknya,{path:'/sockets'})
 
-  const [terkoneksi,setTerkoneksi] = useState(socket.connected)
-  useEffect(()=>{
-    
-    socket.on("connect",()=>{
-      setTerkoneksi(socket.connected)
-    })
-    
-      socket.on("disconnect",()=>{
-        setTerkoneksi(socket.connected)
-      })
-  })
 
   function emitnya(){
-    socket.emit("testing","cbaio du")
+    return "gg"
     // alert(socket.connected)
   }
 
@@ -80,7 +67,10 @@ export default function App() {
         <Routes>
           <Route path='' element={<PilihPaket koonfirmasi={konfirmasiPage} setKonfirmasiPage={setKonfirmasiPage} setData={setTheData} cekApi={cekApi} setApi={ErrPage} emitnya={emitnya} link={setLink}/>}/>
 
-          <Route path={link.link === ""? '/checkout' : link.link} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={link}/>}/>
+          {/* <Route path={link.link === ""? '/checkout' : `/checkout-${link.link}`} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={link}/>}/> */}
+          {/* `/checkout-${link.link}` */}
+
+          <Route path={`/checkout/${link.link}`} element={<Checkout konfirmasiPage = {konfirmasiPage} data={theData} sudahOrder={link}/>}/>
           
           <Route path='/*' element={<ErrorWeb cekApi={cekApi}/>}/>
 
