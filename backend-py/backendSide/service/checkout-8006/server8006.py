@@ -3,6 +3,8 @@ sys.path.append(os.path.abspath(os.path.join('..','..','apiGateway')))
 from models import VerifyOtpModels
 import uvicorn
 
+
+
 import socket
 
 from fastapi import FastAPI
@@ -20,15 +22,11 @@ app.add_middleware(
 
 
 @app.post('/')
-async def server3(data:VerifyOtpModels):
+async def server6(data:VerifyOtpModels):
     print(data)
-    return {"pesan":f"{data.nama} ini dari 8004"}
-
-@app.post('/otp')
-async def otp():
-    return "ok"
+    return {"pesan":f"{data.nama} ini dari server6"}
 
 
 if __name__ == "__main__":
-    uvicorn.run("server8004:app", host='0.0.0.0',port=8004, log_level="info",reload=True)
+    uvicorn.run("server8006:app", host='0.0.0.0',port=8006, log_level="info",reload=True)
 

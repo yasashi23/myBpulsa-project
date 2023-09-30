@@ -40,7 +40,7 @@ async def sendOtp(data:SendOtpModels):
 
 @app.post('/verify-otp')
 async def verifyOtp(data:VerifyOtpModels):
-    return requests.post(f"{link}:8004/",json=newDat).json()
+    return requests.post(f"{link}:8004/",).json()
 
 
 @app.post('/checkout/{link}')

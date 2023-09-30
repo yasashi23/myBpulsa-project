@@ -3,6 +3,8 @@ sys.path.append(os.path.abspath(os.path.join('..','..','apiGateway')))
 from models import SendOtpModels
 import uvicorn
 
+
+
 import socket
 
 from fastapi import FastAPI
